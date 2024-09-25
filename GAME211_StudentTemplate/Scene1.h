@@ -4,6 +4,9 @@
 #include <MMath.h>
 #include "Scene.h"
 
+
+#include "Build.h"
+
 using namespace MATH;
 class Scene1 : public Scene {
 private:
@@ -12,13 +15,21 @@ private:
 	SDL_Window* window;		// an SDL window with a SDL renderer
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
-    Matrix4     inverseProjection;	// set in OnCreate()
+    Matrix4 inverseProjection;	// set in OnCreate()
+
+
+	Build platform1;
+	Build platform2;
+	Build platform3;
+	Build wall1;
+	Build wall2;
 
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
 	// to see how this constructor is called.
 	Scene1(SDL_Window* sdlWindow, GameManager* game_);
+	
 	~Scene1();
 	bool OnCreate();
 	void OnDestroy();
