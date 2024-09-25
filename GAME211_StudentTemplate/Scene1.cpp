@@ -2,15 +2,26 @@
 #include <VMath.h>
 
 // See notes about this constructor in Scene1.h.
-Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_){
+Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
+	:
+	//init the build
+	platform1(100, 500, 300, 20),
+	platform2 (500, 500, 300 , 20),
+	platform3 (900, 500, 300, 20),
+	wall1(55, 100, 20, 400),
+	wall2(200, 50, 20, 300)
+{
+
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
 }
 
-Scene1::~Scene1(){
+Scene1::~Scene1() {
+	
 }
 
 bool Scene1::OnCreate() {
@@ -43,6 +54,14 @@ void Scene1::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+
+	//Update the build
+	platform1.Update();
+	platform2.Update();
+	platform3.Update();
+	wall1.Update();
+	wall2.Update();
+
 }
 
 void Scene1::Render() {
@@ -51,6 +70,13 @@ void Scene1::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render the platforms
+	platform1.Render(renderer);
+	platform2.Render(renderer);
+	platform3.Render(renderer);
+	wall1.Render(renderer);
+	wall2.Render(renderer);
 
 	SDL_RenderPresent(renderer);
 }
