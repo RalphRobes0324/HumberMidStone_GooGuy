@@ -78,6 +78,11 @@ void Scene1::Update(const float deltaTime) {
 		std::cout << " player stopped " << std::endl;
 		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 		game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z)) ;
+		game->getPlayer()->isGrounded = true;
+	}
+	else {
+
+		game->getPlayer()->isGrounded = false;
 	}
 }
 

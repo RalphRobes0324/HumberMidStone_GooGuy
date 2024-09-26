@@ -64,7 +64,8 @@ void PlayerBody::HandleEvents( const SDL_Event& event )
                 vel.x += 1.0f;
                 break;
             case(SDL_SCANCODE_SPACE):
-                vel.y += 2.0f;
+                if (isGrounded)
+                    vel.y += 12.0f;
                 break;
         }
     }
