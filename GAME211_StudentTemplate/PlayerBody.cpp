@@ -58,13 +58,13 @@ void PlayerBody::Render(float scale)
     SDL_RenderFillRect(renderer, &jumpMeterBackground);
 
     // change jump meter colour based on jump power
-    if(jumpPower < 25)
+    if(jumpPower < 20)
         // red bar
         meterColour = { 255, 0, 0 , 255 };
-    else if (jumpPower > 25 && jumpPower < 50)
+    else if (jumpPower > 20 && jumpPower < 50)
         // yellow bar
         meterColour = { 255, 255, 0 , 255 };
-    else if (jumpPower > 50 && jumpPower < 75)
+    else if (jumpPower > 50 && jumpPower < 90)
         // green bar
         meterColour = { 0, 255, 0 , 255 };
     else
