@@ -10,19 +10,24 @@ using namespace MATH;
 
 class Body {
 protected:
-	// inherited classes can access this
-	Vec3 pos;
-	Vec3 vel;
-	Vec3 accel;
-	float mass;
-    float orientation;		// facing this direction
-    float rotation;			// rotating at this speed (radians per second?)
+    // inherited classes can access this
+    Vec3 pos;
+    Vec3 vel;
+    Vec3 accel;
+    float mass;
+    float orientation;        // facing this direction
+    float rotation;            // rotating at this speed (radians per second?)
     float angular;          // angular acceleration
     float radius;           // for getting near walls
+    float jumpPower;
+    float maxJumpPower;
+    bool isJumping;
 
-	Vec3 imageSizeWorldCoords;
+    Vec3 imageSizeWorldCoords;
     SDL_Surface* image;
     SDL_Texture* texture;
+    SDL_Rect jumpMeter;
+    SDL_Color meterColour;
 
 public:
     Body();
