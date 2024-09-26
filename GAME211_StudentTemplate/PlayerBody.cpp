@@ -55,6 +55,19 @@ void PlayerBody::Render( float scale )
 
 void PlayerBody::HandleEvents( const SDL_Event& event )
 {
+    if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.scancode) {
+            case(SDL_SCANCODE_A):
+                vel.x += -1.0f;
+                break;
+            case(SDL_SCANCODE_D):
+                vel.x += 1.0f;
+                break;
+            case(SDL_SCANCODE_SPACE):
+                vel.y += 2.0f;
+                break;
+        }
+    }
 }
 
 void PlayerBody::Update( float deltaTime )
@@ -64,5 +77,19 @@ void PlayerBody::Update( float deltaTime )
 
     Body::Update( deltaTime );
 
+    Vec3 GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
+    Vec3 totalForce;
+
+    totalForce = GravForce;
+    ApplyForce(totalForce);
+
+
+
+}
+
+void PlayerBody::ApplyForce(Vec3 force)
+{
+    accel.y = force.y / mass;
+    accel.x = force.x / mass;
 }
 
