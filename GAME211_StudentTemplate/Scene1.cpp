@@ -62,15 +62,22 @@ void Scene1::Update(const float deltaTime) {
 	wall1.Update();
 	wall2.Update();
 	SDL_Rect testPlatform = platform2.getPlatform();
-	
+	Vec3 platformPosition = Vec3(testPlatform.x, testPlatform.y, 0.0f);
+	Vec3 screenCoords = game->getProjectionMatrix() * platformPosition;
+
+	testPlatform.x = 12.0f;
+	testPlatform.y = 2.0f;
 	
 	Vec3 playerPos = game->getPlayer()->getPos();
-	std::cout << "platform 2: " << platform3.getPlatform().x << " " << platform3.getPlatform().y;
+	std::cout << "platform 2: " << testPlatform.x << " " << testPlatform.y;
 	std::cout << "player position: " << playerPos.x << " " << playerPos.y << " " << playerPos.z << " " << std::endl;
 
-	if (game->getPlayer()->HasCollidedWith(testPlatform)|| game->getPlayer()->HasCollidedWith(platform1.getPlatform())|| game->getPlayer()->HasCollidedWith(platform3.getPlatform())) {
+	if (game->getPlayer()->HasCollidedWith(testPlatform)) {
 		Vec3 currentAccel = game->getPlayer()->getAccel();
-		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z)) ;
+		Vec3 currentVel = game->getPlayer()->getVel();
+		std::cout << " player stopped " << std::endl;
+		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
+		game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z)) ;
 	}
 }
 

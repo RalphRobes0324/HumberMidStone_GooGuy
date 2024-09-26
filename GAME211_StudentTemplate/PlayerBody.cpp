@@ -76,9 +76,11 @@ void PlayerBody::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
 
     Body::Update( deltaTime );
-
-    Vec3 GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
-    Vec3 totalForce;
+    
+    if (!isGrounded)
+        GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
+    else
+        GravForce = Vec3();
 
     totalForce = GravForce;
     ApplyForce(totalForce);

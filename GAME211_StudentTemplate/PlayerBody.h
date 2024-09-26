@@ -18,6 +18,8 @@ protected:
     class GameManager* game;
 
 public:
+    bool isGrounded = false;
+    Vec3 GravForce, totalForce;
     PlayerBody() : Body{}
     {
         game = nullptr;
