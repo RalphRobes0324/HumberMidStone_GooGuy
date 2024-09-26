@@ -93,3 +93,15 @@ void PlayerBody::ApplyForce(Vec3 force)
     accel.x = force.x / mass;
 }
 
+bool PlayerBody::HasCollidedWith(SDL_Rect rect)
+{
+    if (pos.x > (rect.x +rect.w) ||
+        ((pos.x + radius/2.0f) < rect.x) ||
+        (pos.y < (rect.y - rect.h)) ||
+        ((pos.y - radius/2.0f) > rect.y)) {
+        return false; // no collision has happened
+    }
+    std::cout << "collision" << std::endl;
+    return true;
+}
+

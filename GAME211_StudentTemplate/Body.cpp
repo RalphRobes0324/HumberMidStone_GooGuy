@@ -72,3 +72,8 @@ void Body::setPos( Vec3 pos_ )
 {
     pos = pos_;
 }
+
+void Body::setAccel(Vec3 accel_)
+{
+    accel = accel_;
+}

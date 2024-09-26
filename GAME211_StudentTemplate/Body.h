@@ -61,6 +61,7 @@ public:
 	// Added this as public to deal with my demo
 	// so that mouse position can be copied into a Body.
     virtual void setPos( Vec3 pos );
+    virtual void setAccel(Vec3 accel);
 };
 
 #endif /* BODY_H */

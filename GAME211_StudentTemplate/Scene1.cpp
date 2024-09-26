@@ -61,7 +61,17 @@ void Scene1::Update(const float deltaTime) {
 	platform3.Update();
 	wall1.Update();
 	wall2.Update();
+	SDL_Rect testPlatform = platform2.getPlatform();
+	
+	
+	Vec3 playerPos = game->getPlayer()->getPos();
+	std::cout << "platform 2: " << platform3.getPlatform().x << " " << platform3.getPlatform().y;
+	std::cout << "player position: " << playerPos.x << " " << playerPos.y << " " << playerPos.z << " " << std::endl;
 
+	if (game->getPlayer()->HasCollidedWith(testPlatform)|| game->getPlayer()->HasCollidedWith(platform1.getPlatform())|| game->getPlayer()->HasCollidedWith(platform3.getPlatform())) {
+		Vec3 currentAccel = game->getPlayer()->getAccel();
+		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z)) ;
+	}
 }
 
 void Scene1::Render() {

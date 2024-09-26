@@ -12,6 +12,8 @@ public:
 
 	void Update();
 
+	SDL_Rect getPlatform() { return SDL_Rect(rect); }
+
 private:
 	int x, y, width, height;
 	SDL_Rect rect;
