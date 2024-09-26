@@ -9,9 +9,9 @@
 
 bool PlayerBody::OnCreate()
 {
-    image = IMG_Load( "Pacman.png" );
-    SDL_Renderer *renderer = game->getRenderer();
-    texture = SDL_CreateTextureFromSurface( renderer, image );
+    image = IMG_Load("Pacman.png");
+    SDL_Renderer* renderer = game->getRenderer();
+    texture = SDL_CreateTextureFromSurface(renderer, image);
     if (image == nullptr) {
         std::cerr << "Can't open the image" << std::endl;
         return false;
@@ -19,10 +19,10 @@ bool PlayerBody::OnCreate()
     return true;
 }
 
-void PlayerBody::Render( float scale )
+void PlayerBody::Render(float scale)
 {
     // This is why we need game in the constructor, to get the renderer, etc.
-    SDL_Renderer *renderer = game->getRenderer();
+    SDL_Renderer* renderer = game->getRenderer();
     Matrix4 projectionMatrix = game->getProjectionMatrix();
 
     // square represents the position and dimensions for where to draw the image
@@ -47,32 +47,66 @@ void PlayerBody::Render( float scale )
     square.h = static_cast<int>(h);
 
     // Convert character orientation from radians to degrees.
-    float orientationDegrees = orientation * 180.0f / M_PI ;
+    float orientationDegrees = orientation * 180.0f / M_PI;
 
-    SDL_RenderCopyEx( renderer, texture, nullptr, &square,
-        orientationDegrees, nullptr, SDL_FLIP_NONE );
+    SDL_RenderCopyEx(renderer, texture, nullptr, &square,
+        orientationDegrees, nullptr, SDL_FLIP_NONE);
+
+    meterBackgroundColour = { 50, 50, 50, 255 };
+    jumpMeterBackground = { 10, 260, 28, -220 };
+    SDL_SetRenderDrawColor(renderer, meterBackgroundColour.r, meterBackgroundColour.g, meterBackgroundColour.b, meterBackgroundColour.a);
+    SDL_RenderFillRect(renderer, &jumpMeterBackground);
+
+    // change jump meter colour based on jump power
+    if (jumpPower < 20)
+        // red bar
+        meterColour = { 255, 0, 0 , 255 };
+    else if (jumpPower > 20 && jumpPower < 50)
+        // yellow bar
+        meterColour = { 255, 255, 0 , 255 };
+    else if (jumpPower > 50 && jumpPower < 75)
+        // green bar
+        meterColour = { 0, 255, 0 , 255 };
+    else
+        // blue bar
+        meterColour = { 0, 0, 225 , 255 };
+
+    jumpMeter = { 14, 250, 20, (int)-jumpPower * 2 };
+    SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
+    SDL_RenderFillRect(renderer, &jumpMeter);
 }
 
-void PlayerBody::HandleEvents( const SDL_Event& event )
+void PlayerBody::HandleEvents(const SDL_Event& event)
 {
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -8.0f velocity is achieved
-            case(SDL_SCANCODE_A):
-                if (vel.x > -8.0f)
-                    vel.x += -2.0f;
-                break;
+        case(SDL_SCANCODE_A):
+            if (vel.x > -8.0f)
+                vel.x += -2.0f;
+            break;
             //D add 2 from velocity x until 8.0f velocity is achieved
-            case(SDL_SCANCODE_D):
-                if (vel.x < 8.0f)
-                    vel.x += 2.0f;
-                break;
+        case(SDL_SCANCODE_D):
+            if (vel.x < 8.0f)
+                vel.x += 2.0f;
+            break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
-            case(SDL_SCANCODE_SPACE):
-                if (isGrounded)
-                    vel.y += 12.0f;
-                break;
+        case(SDL_SCANCODE_SPACE):
+            if (isGrounded)
+                // check if at full jump power
+                if (jumpPower == 100.0f)
+                    // start decreasing jump power
+                    jumpChange = -1.0f;
+            // check if no jump power
+                else if (jumpPower == 0.0f)
+                    // start increaseing jump power
+                    jumpChange = 1.0f;
+            // update jump power
+            jumpPower += jumpChange;
+            // print jump power to console
+            std::cout << jumpPower << std::endl;
+            break;
         }
     }
     //if key up A or D make velocity x 0, optimize this later
@@ -82,17 +116,24 @@ void PlayerBody::HandleEvents( const SDL_Event& event )
         case (SDL_SCANCODE_D):
             vel.x = 0;
             break;
+        case(SDL_SCANCODE_SPACE):
+            vel.y += 12.0f * (jumpPower * 0.01f);
+            // print power of jump to console
+            std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            // reset jump power to 0
+            jumpPower = 0.0f;
+            break;
         }
     }
 }
 
-void PlayerBody::Update( float deltaTime )
+void PlayerBody::Update(float deltaTime)
 {
     // Update position, call Update from base class
     // Note that would update velocity too, and rotation motion
 
-    Body::Update( deltaTime );
-    
+    Body::Update(deltaTime);
+
     //Maya Added
     //if the player isGrounded make the grav force 0 so you don't have any gravity,
     // if the character isn't grounded grav force is -9.8
@@ -122,12 +163,11 @@ void PlayerBody::ApplyForce(Vec3 force)
 bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 {
     //checks if the position of the player hasn't collided with the plaform
-    if (pos.x > (rect.x +rect.w) ||
-        ((pos.x + radius/2.0f) < rect.x) ||
+    if (pos.x > (rect.x + rect.w) ||
+        ((pos.x + radius / 2.0f) < rect.x) ||
         (pos.y < (rect.y - rect.h)) ||
-        ((pos.y - radius/2.0f) > rect.y)) {
+        ((pos.y - radius / 2.0f) > rect.y)) {
         return false; // no collision has happened
     }
     return true; //collision has occured
 }
-
