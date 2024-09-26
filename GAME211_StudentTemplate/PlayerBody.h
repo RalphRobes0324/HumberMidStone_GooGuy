@@ -18,6 +18,8 @@ protected:
     class GameManager* game;
 
 public:
+    bool isGrounded = false; // Added isGrounded check for Jump (Maya)
+    Vec3 GravForce, totalForce; // added force Vec3's for force checking (Maya)
     PlayerBody() : Body{}
     {
         game = nullptr;
@@ -54,6 +56,8 @@ public:
     void HandleEvents( const SDL_Event& event );
     void Update( float deltaTime );
     void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
+    void ApplyForce(Vec3 force); // added for calculating force on player (Maya)
+    bool HasCollidedWith(SDL_Rect rect); // added for calculating collision (Maya)
     
 };
 

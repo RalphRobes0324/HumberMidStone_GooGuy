@@ -55,6 +55,35 @@ void PlayerBody::Render( float scale )
 
 void PlayerBody::HandleEvents( const SDL_Event& event )
 {
+    //Maya Added when Keydown
+    if (event.type == SDL_KEYDOWN) {
+        switch (event.key.keysym.scancode) {
+            //A subtract 2 from velocity x until -8.0f velocity is achieved
+            case(SDL_SCANCODE_A):
+                if (vel.x > -8.0f)
+                    vel.x += -2.0f;
+                break;
+            //D add 2 from velocity x until 8.0f velocity is achieved
+            case(SDL_SCANCODE_D):
+                if (vel.x < 8.0f)
+                    vel.x += 2.0f;
+                break;
+            //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
+            case(SDL_SCANCODE_SPACE):
+                if (isGrounded)
+                    vel.y += 12.0f;
+                break;
+        }
+    }
+    //if key up A or D make velocity x 0, optimize this later
+    if (event.type == SDL_KEYUP) {
+        switch (event.key.keysym.scancode) {
+        case (SDL_SCANCODE_A):
+        case (SDL_SCANCODE_D):
+            vel.x = 0;
+            break;
+        }
+    }
 }
 
 void PlayerBody::Update( float deltaTime )
@@ -63,6 +92,42 @@ void PlayerBody::Update( float deltaTime )
     // Note that would update velocity too, and rotation motion
 
     Body::Update( deltaTime );
+    
+    //Maya Added
+    //if the player isGrounded make the grav force 0 so you don't have any gravity,
+    // if the character isn't grounded grav force is -9.8
+    if (!isGrounded)
+        GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
+    else
+        GravForce = Vec3();
 
+    totalForce = GravForce; //apply total force, right now total force is just gravity
+    ApplyForce(totalForce);
+    //Maya Added
+
+
+}
+// apply force function from physics 1 added by Maya
+void PlayerBody::ApplyForce(Vec3 force)
+{
+    accel.y = force.y / mass; //apply force divided by mass to acceleration
+    accel.x = force.x / mass;
+}
+/// <summary>
+/// Maya added Has Collided With function
+/// Function to check if the player has collided with one of the platforms
+/// </summary>
+/// <param name="rect"></param>
+/// <returns></returns>
+bool PlayerBody::HasCollidedWith(SDL_Rect rect)
+{
+    //checks if the position of the player hasn't collided with the plaform
+    if (pos.x > (rect.x +rect.w) ||
+        ((pos.x + radius/2.0f) < rect.x) ||
+        (pos.y < (rect.y - rect.h)) ||
+        ((pos.y - radius/2.0f) > rect.y)) {
+        return false; // no collision has happened
+    }
+    return true; //collision has occured
 }
 
