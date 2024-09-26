@@ -20,9 +20,17 @@ protected:
     float angular;          // angular acceleration
     float radius;           // for getting near walls
 
+    float jumpPower;
+    float jumpChange;
+
 	Vec3 imageSizeWorldCoords;
     SDL_Surface* image;
     SDL_Texture* texture;
+
+    SDL_Rect jumpMeter;
+    SDL_Color meterColour;
+    SDL_Rect jumpMeterBackground;
+    SDL_Color meterBackgroundColour;
 
 public:
     Body();
