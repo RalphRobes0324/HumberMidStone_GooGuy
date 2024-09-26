@@ -12,7 +12,7 @@ public:
 
 	void Update();
 
-	SDL_Rect getPlatform() { return SDL_Rect(rect); }
+	SDL_Rect getPlatform() { return SDL_Rect(rect); } //added getter to get the platform so it can be used for checks of collision (Maya)
 
 private:
 	int x, y, width, height;

@@ -61,29 +61,32 @@ void Scene1::Update(const float deltaTime) {
 	platform3.Update();
 	wall1.Update();
 	wall2.Update();
-	SDL_Rect testPlatform = platform2.getPlatform();
-	Vec3 platformPosition = Vec3(testPlatform.x, testPlatform.y, 0.0f);
-	Vec3 screenCoords = game->getProjectionMatrix() * platformPosition;
 
-	testPlatform.x = 12.0f;
+	//Testing collision code
+	SDL_Rect testPlatform = platform2.getPlatform();
+
+	testPlatform.x = 12.0f; //hard coded x and y for the platform to check the collision code is working
 	testPlatform.y = 2.0f;
 	
-	Vec3 playerPos = game->getPlayer()->getPos();
-	std::cout << "platform 2: " << testPlatform.x << " " << testPlatform.y;
+	Vec3 playerPos = game->getPlayer()->getPos(); //get player position for printing to console
+	//print to console the location of the test platform and the player
+	std::cout << "test platform: " << testPlatform.x << " " << testPlatform.y;
 	std::cout << "player position: " << playerPos.x << " " << playerPos.y << " " << playerPos.z << " " << std::endl;
 
+	//if the player is colliding with the test platform
 	if (game->getPlayer()->HasCollidedWith(testPlatform)) {
-		Vec3 currentAccel = game->getPlayer()->getAccel();
+		//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
+		Vec3 currentAccel = game->getPlayer()->getAccel(); 
 		Vec3 currentVel = game->getPlayer()->getVel();
-		std::cout << " player stopped " << std::endl;
 		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 		game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z)) ;
-		game->getPlayer()->isGrounded = true;
+		game->getPlayer()->isGrounded = true; //set isGrounded to true
 	}
 	else {
 
-		game->getPlayer()->isGrounded = false;
+		game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
 	}
+	
 }
 
 void Scene1::Render() {
