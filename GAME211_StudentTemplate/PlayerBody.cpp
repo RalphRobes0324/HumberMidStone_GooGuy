@@ -17,10 +17,6 @@ bool PlayerBody::OnCreate()
         return false;
     }
     return true;
-
-    // jump meter
-    jumpMeter = { 10, 10, (int)jumpPower, 10 };
-    meterColour = { 0, 255, 0 , 255 };
 }
 
 void PlayerBody::Render(float scale)
@@ -56,9 +52,24 @@ void PlayerBody::Render(float scale)
     SDL_RenderCopyEx(renderer, texture, nullptr, &square,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
 
+    // change jump meter colour based on jump power
+    if(jumpPower < 25)
+        // red bar
+        meterColour = { 255, 0, 0 , 255 };
+    else if (jumpPower > 25 && jumpPower < 50)
+        // yellow bar
+        meterColour = { 255, 255, 0 , 255 };
+    else if (jumpPower > 50 && jumpPower < 75)
+        // green bar
+        meterColour = { 0, 255, 0 , 255 };
+    else
+        // blue bar
+        meterColour = { 0, 0, 225 , 255 };
+
+    // render jump meter
     SDL_RenderFillRect(renderer, &jumpMeter);
-    SDL_Rect filledMeter = { 10, 10, 10, jumpPower };
-    SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+    SDL_Rect filledMeter = { 10, 250, 20, -jumpPower * 2};
+    SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
     SDL_RenderFillRect(renderer, &filledMeter);
 }
 
@@ -66,20 +77,31 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 {
     if (event.type == SDL_KEYDOWN)
     {
+        // check that playing is pressing space
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
-            if (jumpPower >= 100.0f)
-                jumpPower = 100.0f;
-            else
-                jumpPower += 5.0f;
+            // check if at full jump power
+            if (jumpPower == 100.0f)
+                // start decreasing jump power
+                jumpChange = -1.0f;
+            // check if no jump power
+            else if (jumpPower == 0.0f)
+                // start increaseing jump power
+                jumpChange = 1.0f;
+            // update jump power
+            jumpPower += jumpChange;
+            // print jump power to console
             std::cout << jumpPower << std::endl;
         }
     }
     else if (event.type == SDL_KEYUP)
     {
+        // check that user released space
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
+            // print power of jump to console
             std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            // reset jump power to 0
             jumpPower = 0.0f;
         }
     }

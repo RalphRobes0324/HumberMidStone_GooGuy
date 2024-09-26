@@ -20,8 +20,7 @@ protected:
     float angular;          // angular acceleration
     float radius;           // for getting near walls
     float jumpPower;
-    float maxJumpPower;
-    bool isJumping;
+    float jumpChange;
 
     Vec3 imageSizeWorldCoords;
     SDL_Surface* image;

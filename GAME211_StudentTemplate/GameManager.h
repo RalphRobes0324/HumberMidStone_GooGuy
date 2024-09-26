@@ -23,7 +23,6 @@ private:
 	class Timer *timer;
 	bool isRunning;
 	class Scene *currentScene;
-	float jumpPower;
 
 	// This might be unfamiliar
     class PlayerBody *player;
