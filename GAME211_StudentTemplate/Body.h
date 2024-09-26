@@ -27,6 +27,8 @@ protected:
     SDL_Texture* texture;
     SDL_Rect jumpMeter;
     SDL_Color meterColour;
+    SDL_Rect jumpMeterBackground;
+    SDL_Color meterBackgroundColour;
 
 public:
     Body();

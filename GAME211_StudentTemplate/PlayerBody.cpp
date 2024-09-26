@@ -52,6 +52,11 @@ void PlayerBody::Render(float scale)
     SDL_RenderCopyEx(renderer, texture, nullptr, &square,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
 
+    meterBackgroundColour = { 50, 50, 50, 255 };
+    jumpMeterBackground = { 10, 260, 28, -220 };
+    SDL_SetRenderDrawColor(renderer, meterBackgroundColour.r, meterBackgroundColour.g, meterBackgroundColour.b, meterBackgroundColour.a);
+    SDL_RenderFillRect(renderer, &jumpMeterBackground);
+
     // change jump meter colour based on jump power
     if(jumpPower < 25)
         // red bar
@@ -67,7 +72,7 @@ void PlayerBody::Render(float scale)
         meterColour = { 0, 0, 225 , 255 };
 
     // render jump meter
-    jumpMeter = { 10, 250, 20, -jumpPower * 2};
+    jumpMeter = { 14, 250, 20, -jumpPower * 2};
     SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
     SDL_RenderFillRect(renderer, &jumpMeter);
 }
