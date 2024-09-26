@@ -19,7 +19,7 @@ protected:
     float rotation;            // rotating at this speed (radians per second?)
     float angular;          // angular acceleration
     float radius;           // for getting near walls
-    float jumpPower;
+    int jumpPower;
     float jumpChange;
 
     Vec3 imageSizeWorldCoords;

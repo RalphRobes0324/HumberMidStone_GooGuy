@@ -67,10 +67,9 @@ void PlayerBody::Render(float scale)
         meterColour = { 0, 0, 225 , 255 };
 
     // render jump meter
-    SDL_RenderFillRect(renderer, &jumpMeter);
-    SDL_Rect filledMeter = { 10, 250, 20, -jumpPower * 2};
+    jumpMeter = { 10, 250, 20, -jumpPower * 2};
     SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
-    SDL_RenderFillRect(renderer, &filledMeter);
+    SDL_RenderFillRect(renderer, &jumpMeter);
 }
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
@@ -81,13 +80,13 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
         {
             // check if at full jump power
-            if (jumpPower == 100.0f)
+            if (jumpPower == 100)
                 // start decreasing jump power
-                jumpChange = -1.0f;
+                jumpChange = -1;
             // check if no jump power
-            else if (jumpPower == 0.0f)
+            else if (jumpPower == 0)
                 // start increaseing jump power
-                jumpChange = 1.0f;
+                jumpChange = 1;
             // update jump power
             jumpPower += jumpChange;
             // print jump power to console
@@ -102,7 +101,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             // print power of jump to console
             std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
             // reset jump power to 0
-            jumpPower = 0.0f;
+            jumpPower = 0;
         }
     }
 }
