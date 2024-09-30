@@ -62,30 +62,27 @@ void Scene1::Update(const float deltaTime) {
 	wall1.Update();
 	wall2.Update();
 
-	//Testing collision code
-	SDL_Rect testPlatform = platform2.getPlatform();
+	std::vector<SDL_Rect> platforms = { platform1.getPlatformInPhysicsSpace(game), platform2.getPlatformInPhysicsSpace(game), platform3.getPlatformInPhysicsSpace(game) };
 
-	testPlatform.x = 12.0f; //hard coded x and y for the platform to check the collision code is working
-	testPlatform.y = 2.0f;
-	
-	Vec3 playerPos = game->getPlayer()->getPos(); //get player position for printing to console
-	//print to console the location of the test platform and the player
-	std::cout << "test platform: " << testPlatform.x << " " << testPlatform.y;
-	std::cout << "player position: " << playerPos.x << " " << playerPos.y << " " << playerPos.z << " " << std::endl;
 
+	for (const SDL_Rect& platform : platforms) {
+		if (game->getPlayer()->HasCollidedWith(platform)) {
+			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
+			Vec3 currentAccel = game->getPlayer()->getAccel();
+			Vec3 currentVel = game->getPlayer()->getVel();
+			game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
+			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
+			game->getPlayer()->isGrounded = true; //set isGrounded to true
+			break;
+		}
+		else {
+
+			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
+			break;
+		}
+	}
 	//if the player is colliding with the test platform
-	if (game->getPlayer()->HasCollidedWith(testPlatform)) {
-		//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
-		Vec3 currentAccel = game->getPlayer()->getAccel(); 
-		Vec3 currentVel = game->getPlayer()->getVel();
-		game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
-		game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z)) ;
-		game->getPlayer()->isGrounded = true; //set isGrounded to true
-	}
-	else {
-
-		game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
-	}
+	
 	
 }
 

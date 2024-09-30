@@ -138,9 +138,14 @@ void PlayerBody::Update(float deltaTime)
     //if the player isGrounded make the grav force 0 so you don't have any gravity,
     // if the character isn't grounded grav force is -9.8
     if (!isGrounded)
+    {
         GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
-    else
+    }
+    else 
+    {
         GravForce = Vec3();
+    }
+        
 
     totalForce = GravForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
@@ -169,5 +174,6 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
         ((pos.y - radius / 2.0f) > rect.y)) {
         return false; // no collision has happened
     }
+
     return true; //collision has occured
 }
