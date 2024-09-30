@@ -27,7 +27,7 @@ void Build::Update() {
 
 
 /// <summary>
-/// Converts
+/// Converts Screen space to physics space
 /// </summary>
 /// <param name="game"></param>
 /// <returns></returns>

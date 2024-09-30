@@ -90,15 +90,17 @@ void Scene1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	// render the player
-	game->RenderPlayer(0.10f);
-
 	// Render the platforms
 	platform1.Render(renderer);
 	platform2.Render(renderer);
 	platform3.Render(renderer);
 	wall1.Render(renderer);
 	wall2.Render(renderer);
+
+	// render the player
+	game->RenderPlayer(0.10f);
+
+
 
 	SDL_RenderPresent(renderer);
 }
