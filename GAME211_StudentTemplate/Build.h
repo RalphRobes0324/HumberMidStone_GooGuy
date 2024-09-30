@@ -16,7 +16,7 @@ public:
 
 	SDL_Rect getPlatform() { return rect; } //added getter to get the platform so it can be used for checks of collision (Maya)
 
-	SDL_Rect getPlatformInPhysicsSpace(GameManager* game);
+	SDL_Rect getPlatformInSDLspace(GameManager* game);
 	
 private:
 	int x, y, width, height;

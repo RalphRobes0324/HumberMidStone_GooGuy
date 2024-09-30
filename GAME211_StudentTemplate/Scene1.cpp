@@ -62,7 +62,7 @@ void Scene1::Update(const float deltaTime) {
 	wall1.Update();
 	wall2.Update();
 
-	std::vector<SDL_Rect> platforms = { platform1.getPlatformInPhysicsSpace(game), platform2.getPlatformInPhysicsSpace(game), platform3.getPlatformInPhysicsSpace(game) };
+	std::vector<SDL_Rect> platforms = { platform1.getPlatformInSDLspace(game), platform2.getPlatformInSDLspace(game), platform3.getPlatformInSDLspace(game) };
 
 	//loop through platforms
 	for (const SDL_Rect& platform : platforms) {

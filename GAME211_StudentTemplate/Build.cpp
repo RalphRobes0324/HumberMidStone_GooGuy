@@ -31,7 +31,7 @@ void Build::Update() {
 /// </summary>
 /// <param name="game"></param>
 /// <returns></returns>
-SDL_Rect Build::getPlatformInPhysicsSpace(GameManager* game)
+SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
 {
 	//found windows w and h 1000x600
 
