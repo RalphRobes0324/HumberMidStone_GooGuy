@@ -64,7 +64,7 @@ void Scene1::Update(const float deltaTime) {
 
 	std::vector<SDL_Rect> platforms = { platform1.getPlatformInPhysicsSpace(game), platform2.getPlatformInPhysicsSpace(game), platform3.getPlatformInPhysicsSpace(game) };
 
-
+	//loop through platforms
 	for (const SDL_Rect& platform : platforms) {
 		if (game->getPlayer()->HasCollidedWith(platform)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
@@ -78,7 +78,6 @@ void Scene1::Update(const float deltaTime) {
 		else {
 
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
-			break;
 		}
 	}
 	//if the player is colliding with the test platform
