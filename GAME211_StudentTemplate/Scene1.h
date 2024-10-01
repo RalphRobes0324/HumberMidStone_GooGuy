@@ -2,6 +2,7 @@
 #define SCENE1_H
 
 #include <MMath.h>
+#include <vector>
 #include "Scene.h"
 
 
