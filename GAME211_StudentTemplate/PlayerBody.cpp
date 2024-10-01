@@ -57,20 +57,6 @@ void PlayerBody::Render(float scale)
     SDL_SetRenderDrawColor(renderer, meterBackgroundColour.r, meterBackgroundColour.g, meterBackgroundColour.b, meterBackgroundColour.a);
     SDL_RenderFillRect(renderer, &jumpMeterBackground);
 
-    // change jump meter colour based on jump power
-    if (jumpPower < 20)
-        // red bar
-        meterColour = { 255, 0, 0 , 255 };
-    else if (jumpPower > 20 && jumpPower < 50)
-        // yellow bar
-        meterColour = { 255, 255, 0 , 255 };
-    else if (jumpPower > 50 && jumpPower < 75)
-        // green bar
-        meterColour = { 0, 255, 0 , 255 };
-    else
-        // blue bar
-        meterColour = { 0, 0, 225 , 255 };
-
     jumpMeter = { 14, 250, 20, (int)-jumpPower * 2 };
     SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
     SDL_RenderFillRect(renderer, &jumpMeter);
@@ -92,6 +78,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
                 vel.x += 2.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
+        // Elijah added Jump Power/Change Updater
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
                 // check if at full jump power
@@ -151,7 +138,20 @@ void PlayerBody::Update(float deltaTime)
     ApplyForce(totalForce);
     //Maya Added
 
-
+    // Elijah Added
+    // change jump meter colour based on jump power
+    if (jumpPower < 20)
+        // red bar
+        meterColour = { 255, 0, 0 , 255 };
+    else if (jumpPower > 20 && jumpPower < 50)
+        // yellow bar
+        meterColour = { 255, 255, 0 , 255 };
+    else if (jumpPower > 50 && jumpPower < 75)
+        // green bar
+        meterColour = { 0, 255, 0 , 255 };
+    else
+        // blue bar
+        meterColour = { 0, 0, 225 , 255 };
 }
 // apply force function from physics 1 added by Maya
 void PlayerBody::ApplyForce(Vec3 force)
