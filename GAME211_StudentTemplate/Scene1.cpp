@@ -62,6 +62,12 @@ void Scene1::Update(const float deltaTime) {
 	wall1.Update();
 	wall2.Update();
 
+
+	SDL_Rect test = platform2.getPlatform();
+
+	test.x = 12.0f; //hard coded x and y for the platform to check the collision code is working
+	test.y = 2.0f;
+
 	std::vector<SDL_Rect> platforms = { platform1.getPlatformInSDLspace(game), platform2.getPlatformInSDLspace(game), platform3.getPlatformInSDLspace(game) };
 
 	//loop through platforms
