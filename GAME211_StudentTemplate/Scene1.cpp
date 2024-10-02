@@ -18,6 +18,14 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
+	// set quests
+	quests = {
+		"Quest 1: Escape the Test Tube",
+		"Quest 2: Find a Way Out of the Experimentation Room",
+		"Quest 3: Run from the Amalgamation",
+		"Quest 4: Locate the Exit",
+		"Quest 5: Leave the Lab"
+	};
 }
 
 Scene1::~Scene1() {
@@ -112,6 +120,27 @@ void Scene1::Render() {
 
 void Scene1::HandleEvents(const SDL_Event& event)
 {
+	if (event.type == SDL_KEYDOWN) {
+		switch (event.key.keysym.scancode) {
+		case(SDL_SCANCODE_LEFT):
+			if (currentQuestIndex > 0) {
+				// update to previous quest
+				currentQuestIndex--;
+			}
+			// print quest
+			std::cout << quests[currentQuestIndex] << std::endl;
+			break;
+		case(SDL_SCANCODE_RIGHT):
+			if (currentQuestIndex < quests.size() - 1) {
+				// update to  next quest
+				currentQuestIndex++;
+			}
+			// print quest
+			std::cout << quests[currentQuestIndex] << std::endl;
+			break;
+		}
+	}
+
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 }
