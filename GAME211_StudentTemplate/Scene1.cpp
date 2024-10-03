@@ -9,7 +9,9 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform2 (500, 500, 300 , 20),
 	platform3 (900, 500, 300, 20),
 	wall1(55, 100, 20, 400),
-	wall2(200, 50, 20, 300)
+	wall2(200, 50, 20, 300),
+	questFont(nullptr),
+	questTexture(nullptr)
 {
 
 	window = sdlWindow_;
@@ -26,6 +28,8 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 		"Quest 4: Locate the Exit",
 		"Quest 5: Leave the Lab"
 	};
+
+	currentQuestIndex = 0;
 }
 
 Scene1::~Scene1() {
@@ -53,6 +57,19 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	// SDL_ttf initilization
+	if (TTF_Init() == -1) {
+		std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
+		return false;
+	}
+
+	// Load font
+	questFont = TTF_OpenFont("Atop-R99O3.ttf", 24);
+	if (questFont == nullptr) {
+		std::cerr << "Failed to load quest font: " << TTF_GetError() << std::endl;
+		return false;
+	}
+
 	return true;
 }
 
@@ -76,7 +93,11 @@ void Scene1::Update(const float deltaTime) {
 	test.x = 12.0f; //hard coded x and y for the platform to check the collision code is working
 	test.y = 2.0f;
 
-	std::vector<SDL_Rect> platforms = { platform1.getPlatformInSDLspace(game), platform2.getPlatformInSDLspace(game), platform3.getPlatformInSDLspace(game) };
+	std::vector<SDL_Rect> platforms = {
+		platform1.getPlatformInSDLspace(game),
+		platform2.getPlatformInSDLspace(game),
+		platform3.getPlatformInSDLspace(game)
+	};
 
 	//loop through platforms
 	for (const SDL_Rect& platform : platforms) {
@@ -113,7 +134,18 @@ void Scene1::Render() {
 	// render the player
 	game->RenderPlayer(0.10f);
 
+	// Render Quest
+	SDL_Color questColor = { 255, 255, 255, 255 };
+	SDL_Surface* questSurface = TTF_RenderText_Solid(questFont, quests[currentQuestIndex].c_str(), questColor);
+	if (questSurface) {
+		questTexture = SDL_CreateTextureFromSurface(renderer, questSurface);
+		questRect = { 10, 10, questSurface->w, questSurface->h };
+		SDL_FreeSurface(questSurface);
+	}
 
+	if (questTexture) {
+		SDL_RenderCopy(renderer, questTexture, nullptr, &questRect);
+	}
 
 	SDL_RenderPresent(renderer);
 }
@@ -127,16 +159,12 @@ void Scene1::HandleEvents(const SDL_Event& event)
 				// update to previous quest
 				currentQuestIndex--;
 			}
-			// print quest
-			std::cout << quests[currentQuestIndex] << std::endl;
 			break;
 		case(SDL_SCANCODE_RIGHT):
 			if (currentQuestIndex < quests.size() - 1) {
 				// update to  next quest
 				currentQuestIndex++;
 			}
-			// print quest
-			std::cout << quests[currentQuestIndex] << std::endl;
 			break;
 		}
 	}

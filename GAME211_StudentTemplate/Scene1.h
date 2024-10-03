@@ -28,6 +28,11 @@ private:
 	int currentQuestIndex; // sets the current quest index
 	std::vector<std::string> quests; // vector of strings to hold the quests
 
+	// SDL_ttf Rendering
+	TTF_Font* questFont;
+	SDL_Texture* questTexture;
+	SDL_Rect questRect;
+
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
