@@ -168,8 +168,8 @@ void PlayerBody::ApplyForce(Vec3 force)
 bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 {
     //checks if the position of the player hasn't collided with the plaform
-    if (pos.x > (rect.x + rect.w) ||
-        ((pos.x +(radius*2)) < rect.x) ||
+    if ((pos.x+(radius*2)) > (rect.x + rect.w) ||
+        (pos.x < rect.x) ||
         (pos.y < (rect.y - rect.h)) ||
         ((pos.y - (radius*2)) > rect.y)) {
         return false; // no collision has happened
