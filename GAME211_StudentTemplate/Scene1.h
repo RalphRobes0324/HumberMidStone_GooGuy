@@ -4,6 +4,7 @@
 #include <MMath.h>
 #include <vector>
 #include "Scene.h"
+#include "Quest.h"
 
 
 #include "Build.h"
@@ -18,20 +19,13 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-
 	Build platform1;
 	Build platform2;
 	Build platform3;
 	Build wall1;
 	Build wall2;
 
-	int currentQuestIndex; // sets the current quest index
-	std::vector<std::string> quests; // vector of strings to hold the quests
-
-	// SDL_ttf Rendering
-	TTF_Font* questFont;
-	SDL_Texture* questTexture;
-	SDL_Rect questRect;
+	Quest quest;
 
 public:
 	// This constructor may be different from what you've seen before

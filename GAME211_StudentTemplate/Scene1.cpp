@@ -10,26 +10,24 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform3 (900, 500, 300, 20),
 	wall1(55, 100, 20, 400),
 	wall2(200, 50, 20, 300),
-	questFont(nullptr),
-	questTexture(nullptr)
+	quest(SDL_GetRenderer(sdlWindow_))
 {
-
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
-	// set quests
-	quests = {
-		"Quest 1: Escape the Test Tube",
-		"Quest 2: Find a Way Out of the Experimentation Room",
-		"Quest 3: Run from the Amalgamation",
-		"Quest 4: Locate the Exit",
-		"Quest 5: Leave the Lab"
-	};
+	if (!quest.LoadFont("Atop-R99O3.ttf", 24)) {
+		std::cerr << "Failed to load quest font" << std::endl;
+	}
 
-	currentQuestIndex = 0;
+	// Set Quests
+	quest.AddQuest("Quest 1: Escape the Test Tube");
+	quest.AddQuest("Quest 2: Find a Way Out of the Experimentation Room");
+	quest.AddQuest("Quest 3: Run from the Amalgamation");
+	quest.AddQuest("Quest 4: Locate the Exit");
+	quest.AddQuest("Quest 5: Leave the Lab");
 }
 
 Scene1::~Scene1() {
@@ -44,11 +42,10 @@ bool Scene1::OnCreate() {
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
 	projectionMatrix = ndc * ortho;
 
-	/// Turn on the SDL imaging subsystem
+	// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
 	// Set player image to PacMan
-
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
@@ -56,19 +53,6 @@ bool Scene1::OnCreate() {
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
-
-	// SDL_ttf initilization
-	if (TTF_Init() == -1) {
-		std::cerr << "Failed to initialize SDL_ttf: " << TTF_GetError() << std::endl;
-		return false;
-	}
-
-	// Load font
-	questFont = TTF_OpenFont("Atop-R99O3.ttf", 24);
-	if (questFont == nullptr) {
-		std::cerr << "Failed to load quest font: " << TTF_GetError() << std::endl;
-		return false;
-	}
 
 	return true;
 }
@@ -115,9 +99,7 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
 		}
 	}
-	//if the player is colliding with the test platform
-	
-	
+	//if the player is colliding with the test platform	
 }
 
 void Scene1::Render() {
@@ -135,17 +117,7 @@ void Scene1::Render() {
 	game->RenderPlayer(0.10f);
 
 	// Render Quest
-	SDL_Color questColor = { 255, 255, 255, 255 };
-	SDL_Surface* questSurface = TTF_RenderText_Solid(questFont, quests[currentQuestIndex].c_str(), questColor);
-	if (questSurface) {
-		questTexture = SDL_CreateTextureFromSurface(renderer, questSurface);
-		questRect = { 10, 10, questSurface->w, questSurface->h };
-		SDL_FreeSurface(questSurface);
-	}
-
-	if (questTexture) {
-		SDL_RenderCopy(renderer, questTexture, nullptr, &questRect);
-	}
+	quest.RenderCurrentQuest();
 
 	SDL_RenderPresent(renderer);
 }
@@ -155,16 +127,10 @@ void Scene1::HandleEvents(const SDL_Event& event)
 	if (event.type == SDL_KEYDOWN) {
 		switch (event.key.keysym.scancode) {
 		case(SDL_SCANCODE_LEFT):
-			if (currentQuestIndex > 0) {
-				// update to previous quest
-				currentQuestIndex--;
-			}
+			quest.PreviousQuest();
 			break;
 		case(SDL_SCANCODE_RIGHT):
-			if (currentQuestIndex < quests.size() - 1) {
-				// update to  next quest
-				currentQuestIndex++;
-			}
+			quest.NextQuest();
 			break;
 		}
 	}
