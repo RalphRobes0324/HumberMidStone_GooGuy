@@ -20,7 +20,6 @@ protected:
 public:
     bool isGrounded = false; // Added isGrounded check for Jump (Maya)
     Vec3 GravForce, totalForce; // added force Vec3's for force checking (Maya)
-    float w, h; //added width and height variables for collision checking (Maya)
     PlayerBody() : Body{}
     {
         game = nullptr;

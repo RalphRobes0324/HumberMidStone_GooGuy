@@ -28,6 +28,7 @@ void PlayerBody::Render(float scale)
     // square represents the position and dimensions for where to draw the image
     SDL_Rect square;
     Vec3 screenCoords;
+    float w, h;
 
     // convert the position from game coords to screen coords.
     screenCoords = projectionMatrix * pos;
