@@ -69,12 +69,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -8.0f velocity is achieved
         case(SDL_SCANCODE_A):
-            if (vel.x > -6.0f)
+            if (vel.x > -8.0f)
                 vel.x -= 1.0f;
             break;
             //D add 2 from velocity x until 8.0f velocity is achieved
         case(SDL_SCANCODE_D):
-            if (vel.x < 6.0f)
+            if (vel.x < 8.0f)
                 vel.x += 1.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
@@ -168,9 +168,10 @@ void PlayerBody::ApplyForce(Vec3 force)
 bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 {
     //checks if the position of the player hasn't collided with the plaform
-    if ((pos.x - (radius * 2.0f)) > (rect.x + rect.w) ||
-        ((pos.x - (radius)) < rect.x)||((pos.y - radius)< (rect.y - rect.h)) ||
-        ((pos.y - (radius*2.5f)) > rect.y)) {
+    if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
+        ||
+        ((pos.y + radius)< (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) // y position
+    {
         return false; // no collision has happened
     }
 
