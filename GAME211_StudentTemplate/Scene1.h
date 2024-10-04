@@ -21,6 +21,7 @@ private:
 
 	Build platform1;
 	Build platform2;
+	Build platform3;
 
 	Quest quest;
 

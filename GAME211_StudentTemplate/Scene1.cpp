@@ -5,8 +5,9 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(12, 2, 3, 2),
-	platform2(15, 3, 3, 2),
+	platform1(2, 2, 6, 2),
+	platform2(12, 2, 6, 2),
+	platform3(22, 2, 6, 2),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -51,6 +52,9 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//set Player position when spawned into world
+	game->getPlayer()->setPos(Vec3(5, 5, 0));
+
 	return true;
 }
 
@@ -69,24 +73,7 @@ void Scene1::Update(const float deltaTime) {
 		platform1.getPlatform(),
 		platform2.getPlatform()
 	};
-	std::vector<SDL_Rect> walls = {
-	};
-	for (const SDL_Rect& wall : walls) {
-		if (game->getPlayer()->HasCollidedWith(wall)) {
-			//get the accel and vel of player and set the accel and vel to the current accel and vel other than x make it 0 to stop x motion when colliding
-			Vec3 currentAccel = game->getPlayer()->getAccel();
-			Vec3 currentVel = game->getPlayer()->getVel();
-			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y/2.0f, currentAccel.z));
-			game->getPlayer()->setVel(Vec3(0.0f, currentAccel.y /2.0f, currentVel.z));
-			game->getPlayer()->wallTouch = true; //set wallTouch to true
-			break;
-		}
-		else
-		{
 
-			game->getPlayer()->wallTouch = false; //set wallTouch to true
-		}
-	}
 	//loop through platforms
 	for (const SDL_Rect& platform : platforms) {
 		if (game->getPlayer()->HasCollidedWith(platform)) {
@@ -115,6 +102,7 @@ void Scene1::Render() {
 	// Render the platforms
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
 
 
 	// render the player
