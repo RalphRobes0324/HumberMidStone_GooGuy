@@ -5,7 +5,7 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(12, 2, 5, 1.5),
+	platform1(12, 2, 100, 50),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;

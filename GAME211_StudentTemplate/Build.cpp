@@ -57,8 +57,8 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	SDL_Rect sdlPlatform;
 	sdlPlatform.x = (1000 * rect.x) / game->getSceneWidth(); //converting physical coordinates to sdl coordinates on x-axis
 	sdlPlatform.y = (600 * (game->getSceneHeight() - rect.y)) / game->getSceneHeight();//converting physical coordinates to sdl coordinates on y-axis
-	sdlPlatform.w = (1000 * rect.w) / game->getSceneWidth();
-	sdlPlatform.h = (600 * (game->getSceneHeight() - rect.h)) / game->getSceneHeight();
+	sdlPlatform.w = width;
+	sdlPlatform.h = height;
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	SDL_RenderFillRect(renderer, &sdlPlatform);
