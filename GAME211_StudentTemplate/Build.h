@@ -10,7 +10,7 @@ class Build {
 public:
 	Build(int _x, int _y, int _w, int _h);
 
-	void Render(SDL_Renderer* renderer);
+	void Render(SDL_Renderer* renderer, GameManager* game);
 
 	void Update();
 

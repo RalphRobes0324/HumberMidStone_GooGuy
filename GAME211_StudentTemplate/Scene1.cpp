@@ -5,11 +5,7 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(100, 500, 300, 20),
-	platform2 (500, 500, 300 , 20),
-	platform3 (900, 500, 300, 20),
-	wall1(55, 100, 20, 400),
-	wall2(200, 50, 20, 300),
+	platform1(12, 2, 5, 1.5),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -66,25 +62,12 @@ void Scene1::Update(const float deltaTime) {
 
 	//Update the build
 	platform1.Update();
-	platform2.Update();
-	platform3.Update();
-	wall1.Update();
-	wall2.Update();
 
-
-	SDL_Rect test = platform2.getPlatform();
-
-	test.x = 12.0f; //hard coded x and y for the platform to check the collision code is working
-	test.y = 2.0f;
 
 	std::vector<SDL_Rect> platforms = {
-		platform1.getPlatformInSDLspace(game),
-		platform2.getPlatformInSDLspace(game),
-		platform3.getPlatformInSDLspace(game)
+		platform1.getPlatform(),
 	};
 	std::vector<SDL_Rect> walls = {
-		wall1.getPlatformInSDLspace(game),
-		wall2.getPlatformInSDLspace(game)
 	};
 	for (const SDL_Rect& wall : walls) {
 		if (game->getPlayer()->HasCollidedWith(wall)) {
@@ -122,15 +105,14 @@ void Scene1::Update(const float deltaTime) {
 }
 
 void Scene1::Render() {
+
+	
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
 	// Render the platforms
-	platform1.Render(renderer);
-	platform2.Render(renderer);
-	platform3.Render(renderer);
-	wall1.Render(renderer);
-	wall2.Render(renderer);
+	platform1.Render(renderer, game);
+
 
 	// render the player
 	game->RenderPlayer(0.10f);
