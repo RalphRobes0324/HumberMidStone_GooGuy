@@ -69,13 +69,13 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -8.0f velocity is achieved
         case(SDL_SCANCODE_A):
-            if (vel.x > -8.0f)
-                vel.x -= 2.0f;
+            if (vel.x > -6.0f)
+                vel.x -= 1.0f;
             break;
             //D add 2 from velocity x until 8.0f velocity is achieved
         case(SDL_SCANCODE_D):
-            if (vel.x < 8.0f)
-                vel.x += 2.0f;
+            if (vel.x < 6.0f)
+                vel.x += 1.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
         // Elijah added Jump Power/Change Updater
