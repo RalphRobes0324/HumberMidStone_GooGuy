@@ -61,8 +61,6 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	sdlPlatform.w = (1000 * rect.w) / game->getSceneWidth();
 	sdlPlatform.h = (600 * rect.h) / game->getSceneHeight();
 
-	std::cout << sdlPlatform.w << " " << sdlPlatform.h << std::endl;
-
 	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
 	SDL_RenderFillRect(renderer, &sdlPlatform);

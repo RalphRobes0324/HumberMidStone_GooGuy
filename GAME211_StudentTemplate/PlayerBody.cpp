@@ -132,7 +132,6 @@ void PlayerBody::Update(float deltaTime)
     {
         GravForce = Vec3();
     }
-        
 
     totalForce = GravForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
@@ -177,3 +176,4 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 
     return true; //collision has occured
 }
+
