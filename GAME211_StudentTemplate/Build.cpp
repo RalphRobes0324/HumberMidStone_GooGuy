@@ -43,7 +43,7 @@ SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
 	physicsRect.x = x * screenWidth / 1000;
 	physicsRect.y = (600 - y) * screenHeight / 600;
 	physicsRect.w = width * screenWidth / 1000;
-	physicsRect.h = height * screenHeight / 600;
+	physicsRect.h = (600 - height) * screenHeight / 600;
 
 	return physicsRect;
 }
