@@ -82,7 +82,26 @@ void Scene1::Update(const float deltaTime) {
 		platform2.getPlatformInSDLspace(game),
 		platform3.getPlatformInSDLspace(game)
 	};
+	std::vector<SDL_Rect> walls = {
+		wall1.getPlatformInSDLspace(game),
+		wall2.getPlatformInSDLspace(game)
+	};
+	for (const SDL_Rect& wall : walls) {
+		if (game->getPlayer()->HasCollidedWith(wall)) {
+			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
+			Vec3 currentAccel = game->getPlayer()->getAccel();
+			Vec3 currentVel = game->getPlayer()->getVel();
+			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y/2.0f, currentAccel.z));
+			game->getPlayer()->setVel(Vec3(0.0f, currentAccel.y /2.0f, currentVel.z));
+			game->getPlayer()->wallTouch = true; //set isGrounded to true
+			break;
+		}
+		else
+		{
 
+			game->getPlayer()->wallTouch = false; //set isGrounded to true
+		}
+	}
 	//loop through platforms
 	for (const SDL_Rect& platform : platforms) {
 		if (game->getPlayer()->HasCollidedWith(platform)) {
