@@ -5,7 +5,8 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(12, 2, 100, 50),
+	platform1(12, 2, 3, 2),
+	platform2(15, 3, 3, 2),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -66,6 +67,7 @@ void Scene1::Update(const float deltaTime) {
 
 	std::vector<SDL_Rect> platforms = {
 		platform1.getPlatform(),
+		platform2.getPlatform()
 	};
 	std::vector<SDL_Rect> walls = {
 	};
@@ -112,6 +114,7 @@ void Scene1::Render() {
 
 	// Render the platforms
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
 
 
 	// render the player
