@@ -92,8 +92,9 @@ void Scene1::Update(const float deltaTime) {
 		}
 
 		else {
-
+			
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
+
 		}
 	}
 }
