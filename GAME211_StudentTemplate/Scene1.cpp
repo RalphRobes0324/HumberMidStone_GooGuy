@@ -8,6 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
+	wall1(7, 6, 2, 6),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -69,14 +70,15 @@ void Scene1::Update(const float deltaTime) {
 	platform1.Update();
 
 
-	std::vector<SDL_Rect> platforms = {
+	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
-		platform2.getPlatform()
+		platform2.getPlatform(),
+		wall1.getPlatform()
 	};
 
 	//loop through platforms
-	for (const SDL_Rect& platform : platforms) {
-		if (game->getPlayer()->HasCollidedWith(platform)) {
+	for (const SDL_Rect& build : builds) {
+		if (game->getPlayer()->HasCollidedWith(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
 			Vec3 currentVel = game->getPlayer()->getVel();
@@ -85,6 +87,12 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 			break;
 		}
+
+		if (game->getPlayer()->HasCollidedSide(build)) {
+			std::cout << "hitting side" << std::endl;
+			break;
+		}
+
 		else {
 
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
@@ -103,6 +111,7 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	wall1.Render(renderer, game);
 
 
 	// render the player
