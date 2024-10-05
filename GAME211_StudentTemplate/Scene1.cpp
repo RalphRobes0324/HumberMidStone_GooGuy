@@ -8,7 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(7, 6, 2, 6),
+	wall1(4, 4, 2, 3),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -54,7 +54,7 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//set Player position when spawned into world
-	game->getPlayer()->setPos(Vec3(5, 5, 0));
+	game->getPlayer()->setPos(Vec3(3, 5, 0));
 
 	return true;
 }
@@ -79,6 +79,7 @@ void Scene1::Update(const float deltaTime) {
 
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
+		//Check Collision
 		if (game->getPlayer()->HasCollidedWith(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
@@ -86,15 +87,16 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
+
 			break;
 		}
 
 		else {
-
+			
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
+
 		}
 	}
-	//if the player is colliding with the test platform	
 }
 
 void Scene1::Render() {
