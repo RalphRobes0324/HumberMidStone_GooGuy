@@ -90,17 +90,27 @@ void Scene1::Update(const float deltaTime) {
 
 			break;
 		}
-		else if (game->getPlayer()->HasCollidedSide(build)){
-			std::cout << "Side Collision\n";
-			break;
-		}
 
 		else {
 
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
 		}
 	}
-	//if the player is colliding with the test platform	
+
+	for (const SDL_Rect& build : builds) {
+		//Check side Collisions
+		if (game->getPlayer()->HasCollidedSide(build)) {
+
+
+			break;
+		}
+
+		else {
+			game->getPlayer()->wallTouch = false;
+		}
+	}
+
+
 }
 
 void Scene1::Render() {
