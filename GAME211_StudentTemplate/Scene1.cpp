@@ -8,7 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(6, 6, 2, 3),
+	wall1(4, 4, 2, 3),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -54,7 +54,7 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//set Player position when spawned into world
-	game->getPlayer()->setPos(Vec3(5, 5, 0));
+	game->getPlayer()->setPos(Vec3(3, 5, 0));
 
 	return true;
 }
