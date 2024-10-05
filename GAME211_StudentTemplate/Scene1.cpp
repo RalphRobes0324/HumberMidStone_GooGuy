@@ -8,7 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(6, 4, 2, 3),
+	wall1(6, 6, 2, 3),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -92,6 +92,7 @@ void Scene1::Update(const float deltaTime) {
 		}
 		else if (game->getPlayer()->HasCollidedSide(build)){
 			std::cout << "Side Collision\n";
+			break;
 		}
 
 		else {

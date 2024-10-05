@@ -188,8 +188,22 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// <returns></returns>
 bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 {
+    // Calculate overlaps on all sides
+    int overlapLeft = (rect.x + rect.w) - (pos.x - radius);  // Overlap on left side
+    int overlapRight = (pos.x + radius) - rect.x;  // Overlap on right side
 
+    //Left side
+    if (overlapLeft < overlapRight) {
 
+        return true;  // Side collision occurred
+    }
+
+    //Right Side
+    else if(overlapLeft > overlapRight) {
+
+        return true;  // Side collision occurred
+    }
+    
     return false;
 }
 
