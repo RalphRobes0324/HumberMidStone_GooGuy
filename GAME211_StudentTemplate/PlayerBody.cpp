@@ -46,6 +46,10 @@ void PlayerBody::Render(float scale)
     square.w = static_cast<int>(w);
     square.h = static_cast<int>(h);
 
+    //Convert player WxH to phyics space
+    playerW = static_cast<int>(w) * game->getSceneWidth() / 1000;
+    playerH = (600 - static_cast<int>(h))* game->getSceneHeight() / 600;
+
     // Convert character orientation from radians to degrees.
     float orientationDegrees = orientation * 180.0f / M_PI;
 
@@ -101,7 +105,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
         case (SDL_SCANCODE_A):
         case (SDL_SCANCODE_D):
-                vel.x = 0.0f;
+            vel.x = 0.0f;
             break;
         case(SDL_SCANCODE_SPACE):
             vel.y += 12.0f * (jumpPower * 0.01f);
@@ -128,11 +132,10 @@ void PlayerBody::Update(float deltaTime)
     {
         GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
     }
-    else 
+    else
     {
         GravForce = Vec3();
     }
-        
 
     totalForce = GravForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
@@ -167,13 +170,26 @@ void PlayerBody::ApplyForce(Vec3 force)
 /// <returns></returns>
 bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 {
-    //checks if the position of the player hasn't collided with the plaform
     if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
         ||
-        ((pos.y + radius)< (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) // y position
+        ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) 
     {
-        return false; // no collision has happened
+        return false;
     }
-
+    
     return true; //collision has occured
 }
+
+
+/// <summary>
+/// Checks the collision side of the build 
+/// </summary>
+/// <param name="rect"></param>
+/// <returns></returns>
+bool PlayerBody::HasCollidedSide(SDL_Rect rect)
+{
+
+
+    return true;
+}
+

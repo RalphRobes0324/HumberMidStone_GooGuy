@@ -17,6 +17,9 @@ class PlayerBody : public Body
 protected:
     class GameManager* game;
 
+private:
+    float playerW, playerH;
+
 public:
     bool isGrounded = false; // Added isGrounded check for Jump (Maya)
     bool wallTouch = false;
@@ -59,6 +62,7 @@ public:
     void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
     void ApplyForce(Vec3 force); // added for calculating force on player (Maya)
     bool HasCollidedWith(SDL_Rect rect); // added for calculating collision (Maya)
+    bool HasCollidedSide(SDL_Rect rect);
     
 };
 
