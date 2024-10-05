@@ -87,11 +87,11 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
+
 			break;
 		}
-		//Check Sides Collision
-		if (game->getPlayer()->HasCollidedSide(build)) {
-			std::cout << "Hitting the side" << std::endl;
+		else if (game->getPlayer()->HasCollidedSide(build)){
+			std::cout << "Side Collision\n";
 		}
 
 		else {

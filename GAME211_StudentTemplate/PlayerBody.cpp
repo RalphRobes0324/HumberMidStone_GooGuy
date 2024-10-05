@@ -188,22 +188,6 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// <returns></returns>
 bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 {
-    // First, check if there's any collision at all
-    if (pos.x + playerW <= rect.x ||    // Player is to the left of rectB
-        pos.x >= rect.x + rect.w ||     // Player is to the right of rectB
-        pos.y + playerH <= rect.y ||    // Player is above rectB
-        pos.y >= rect.y + rect.h) {     // Player is below rectB
-        return false;  // No collision
-    }
-
-
-    // Check if the collision is happening on the left or right sides
-    if ((pos.x + playerW > rect.x && pos.x < rect.x) ||  // Hitting rectB's left side
-        (pos.x < rect.x + rect.w && pos.x + playerW > rect.x + rect.w)) {  // Hitting rectB's right side
-        return true;
-    }
-
-
 
 
     return false;
