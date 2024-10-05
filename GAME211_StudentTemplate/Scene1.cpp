@@ -8,7 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(7, 6, 2, 6),
+	wall1(6, 4, 2, 3),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -79,6 +79,7 @@ void Scene1::Update(const float deltaTime) {
 
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
+		//Check top Collision
 		if (game->getPlayer()->HasCollidedWith(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
@@ -87,6 +88,10 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 			break;
+		}
+		//Check Sides Collision
+		if (game->getPlayer()->HasCollidedSide(build)) {
+			std::cout << "Hitting the side" << std::endl;
 		}
 
 		else {
