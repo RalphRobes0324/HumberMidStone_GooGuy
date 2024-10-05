@@ -73,6 +73,7 @@ void Scene1::Update(const float deltaTime) {
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
 		platform2.getPlatform(),
+		platform3.getPlatform(),
 		wall1.getPlatform()
 	};
 
