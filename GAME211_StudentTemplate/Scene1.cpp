@@ -88,11 +88,6 @@ void Scene1::Update(const float deltaTime) {
 			break;
 		}
 
-		if (game->getPlayer()->HasCollidedSide(build)) {
-			std::cout << "hitting side" << std::endl;
-			break;
-		}
-
 		else {
 
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
