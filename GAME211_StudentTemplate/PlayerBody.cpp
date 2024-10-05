@@ -174,6 +174,9 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
         ||
         ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) 
     {
+        if (HasCollidedSide(rect)) {
+
+        }
         return false;
     }
     
@@ -214,13 +217,13 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
         if (minHorizontalOverlap < minVerticalOverlap) {
             if (overlapLeft < overlapRight) {
                 std::cout << "Right side\n";
-                pos.x = rect.x + rect.w + radius;  // Move player to the right of the wall
+                
                 
             }
             else {
                 
                 std::cout << "Left Side\n";
-                pos.x = rect.x - radius;  // Move player to the left of the wall
+                
                 
             }
             return true;  // Side collision occurred

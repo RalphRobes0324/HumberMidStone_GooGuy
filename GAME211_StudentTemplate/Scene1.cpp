@@ -79,7 +79,7 @@ void Scene1::Update(const float deltaTime) {
 
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
-		//Check top Collision
+		//Check Collision
 		if (game->getPlayer()->HasCollidedWith(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
@@ -96,21 +96,6 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->isGrounded = false; //if you aren't colliding set is grounded to false
 		}
 	}
-
-	for (const SDL_Rect& build : builds) {
-		//Check side Collisions
-		if (game->getPlayer()->HasCollidedSide(build)) {
-
-
-			break;
-		}
-
-		else {
-			game->getPlayer()->wallTouch = false;
-		}
-	}
-
-
 }
 
 void Scene1::Render() {
