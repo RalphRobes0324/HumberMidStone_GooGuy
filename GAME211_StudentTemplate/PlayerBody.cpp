@@ -236,23 +236,23 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
     float overlapTop = (rect.y + rect.h) - (pos.y - radius);  // Overlap on top side
     float overlapBottom = (pos.y + radius) - rect.y;  // Overlap on bottom side
 
-    //std::cout << "overLapRight: " << overlapRight << " overLapLeft: " << overlapLeft << " overLapTop: " << overlapTop << " overLapBottom: " << overlapBottom << std::endl;
+    std::cout << "overLapRight: " << overlapRight << " overLapLeft: " << overlapLeft << " overLapTop: " << overlapTop << " overLapBottom: " << overlapBottom << std::endl;
 
     // Determine the smallest overlap (side or top/bottom)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
+
     // If horizontal overlap is smaller, it's a side collision
     std::cout << "minHorizontalOverlap: " << minHorizontalOverlap << " minVerticalOverlap: " << minVerticalOverlap << std::endl;
-    if (minHorizontalOverlap < minVerticalOverlap) {
+    if (minHorizontalOverlap < 0.5f && minVerticalOverlap < 0.90f) {
         if (overlapLeft < overlapRight) {
             std::cout << "Right side\n";
-
-
+            wallTouchRight = true;
         }
         else {
 
             std::cout << "Left Side\n";
-
+            wallTouchLeft = true;
 
         }
         return true;  // Side collision occurred
