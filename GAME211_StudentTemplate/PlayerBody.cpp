@@ -74,12 +74,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             //A subtract 2 from velocity x until -8.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (vel.x > -8.0f)
-                vel.x -= 1.0f;
+                vel.x = -8.0f;
             break;
             //D add 2 from velocity x until 8.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (vel.x < 8.0f)
-                vel.x += 1.0f;
+                vel.x = 8.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
         // Elijah added Jump Power/Change Updater
@@ -223,15 +223,16 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
     const int tolerance = 1; 
 
     // First, check if there is a general collision
-    if ((pos.x - radius) > (rect.x + rect.w + tolerance) || ((pos.x + radius) < (rect.x - tolerance)) ||  // x positions with tolerance
-        ((pos.y + radius) < (rect.y - rect.h - tolerance)) || ((pos.y - radius) > (rect.y + tolerance)))  // y positions with tolerance
+    if ((pos.x - radius) > (rect.x + rect.w ) || ((pos.x + radius) < (rect.x )) ||  // x positions with tolerance
+        ((pos.y + radius) < (rect.y - rect.h )) || ((pos.y - radius) > (rect.y )))  // y positions with tolerance
     {
+       //std::cout << " no collision " << std::endl;
         return false;  // No collision
     }
 
     // Calculate overlaps on all sides
-    int overlapLeft = (rect.x + rect.w) - (pos.x - radius);  // Overlap on left side
-    int overlapRight = (pos.x + radius) - rect.x;  // Overlap on right side
+    int overlapRight = (rect.x + rect.w) - (pos.x - radius);  // Overlap on left side
+    int overlapLeft = (pos.x + radius) - rect.x;  // Overlap on right side
     int overlapTop = (rect.y + rect.h) - (pos.y - radius);  // Overlap on top side
     int overlapBottom = (pos.y + radius) - rect.y;  // Overlap on bottom side
 
@@ -255,9 +256,5 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
         return true;  // Side collision occurred
     }
   
-
-    
-    
-    return false;
 }
 
