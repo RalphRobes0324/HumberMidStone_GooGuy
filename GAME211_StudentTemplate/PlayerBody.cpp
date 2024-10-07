@@ -73,12 +73,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -8.0f velocity is achieved
         case(SDL_SCANCODE_A):
-            if (vel.x > -8.0f)
+            if (vel.x > -8.0f && !wallTouchLeft)
                 vel.x = -8.0f;
             break;
             //D add 2 from velocity x until 8.0f velocity is achieved
         case(SDL_SCANCODE_D):
-            if (vel.x < 8.0f)
+            if (vel.x < 8.0f && !wallTouchRight)
                 vel.x = 8.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
@@ -218,6 +218,8 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// <returns></returns>
 bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 {
+    wallTouchLeft = false;
+    wallTouchRight = false;
 
     // Small tolerance for collision accuracy
     const int tolerance = 1; 
