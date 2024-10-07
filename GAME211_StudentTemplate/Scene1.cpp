@@ -80,7 +80,7 @@ void Scene1::Update(const float deltaTime) {
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
 		if (game->getPlayer()->HasCollidedSide(build)) {
-			//std::cout << "Side collision " << std::endl;
+			std::cout << "Side collision " << std::endl;
 		}
 		//Check Collision
 		if (game->getPlayer()->HasCollidedWith(build)) {
