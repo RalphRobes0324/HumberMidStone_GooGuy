@@ -84,15 +84,15 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
         // Elijah added Jump Power/Change Updater
         case(SDL_SCANCODE_SPACE):
-            if (isGrounded)
+            if (isGrounded || (!isGrounded && wallTouchLeft) || (!isGrounded && wallTouchRight))
                 // check if at full jump power
                 if (jumpPower == 100.0f)
                     // start decreasing jump power
-                    jumpChange = -1.0f;
+                    jumpChange = -2.5f;
             // check if no jump power
                 else if (jumpPower == 0.0f)
                     // start increaseing jump power
-                    jumpChange = 1.0f;
+                    jumpChange = 2.5f;
             // update jump power
             jumpPower += jumpChange;
             // print jump power to console
@@ -107,10 +107,39 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case (SDL_SCANCODE_D):
             vel.x = 0.0f;
             break;
+        case (SDL_SCANCODE_LEFT):
+            wallTouchLeft = true;
+            wallTouchRight = false;
+            break;
+        case (SDL_SCANCODE_RIGHT):
+            wallTouchRight = true;
+            wallTouchLeft = false;
+            break;
+        case (SDL_SCANCODE_R):
+            wallTouchLeft = false;
+            wallTouchRight = false;
+            break;
         case(SDL_SCANCODE_SPACE):
-            vel.y += 12.0f * (jumpPower * 0.01f);
-            // print power of jump to console
-            std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            if (isGrounded) 
+            {
+                vel.y += 12.0f * (jumpPower * 0.01f);
+                // print power of jump to console
+                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            }
+            else if (!isGrounded && wallTouchLeft) 
+            {
+                vel.y += 12.0f * (jumpPower * 0.01f);
+                vel.x += 6.0f;
+                // print power of jump to console
+                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            }
+            else if (!isGrounded && wallTouchRight)
+            {
+                vel.y += 12.0f * (jumpPower * 0.01f);
+                vel.x -= 6.0f;
+                // print power of jump to console
+                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
+            }
             // reset jump power to 0
             jumpPower = 0.0f;
             break;
