@@ -55,15 +55,6 @@ void PlayerBody::Render(float scale)
 
     SDL_RenderCopyEx(renderer, texture, nullptr, &square,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
-
-    meterBackgroundColour = { 50, 50, 50, 255 };
-    jumpMeterBackground = { 10, 260, 28, -220 };
-    SDL_SetRenderDrawColor(renderer, meterBackgroundColour.r, meterBackgroundColour.g, meterBackgroundColour.b, meterBackgroundColour.a);
-    SDL_RenderFillRect(renderer, &jumpMeterBackground);
-
-    jumpMeter = { 14, 250, 20, (int)-jumpPower * 2 };
-    SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
-    SDL_RenderFillRect(renderer, &jumpMeter);
 }
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
@@ -71,32 +62,35 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.scancode) {
-            //A subtract 2 from velocity x until -8.0f velocity is achieved
+            //A subtract 2 from velocity x until -4.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (vel.x > -4.0f && !wallTouchLeft)
                 vel.x -= 1.0f;
             break;
-            //D add 2 from velocity x until 8.0f velocity is achieved
+            //D add 2 from velocity x until 4.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (vel.x < 4.0f && !wallTouchRight)
                 vel.x += 1.0f;
             break;
-            //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
-        // Elijah added Jump Power/Change Updater
+            //When spacebar is pressed, add 6 to velocity y to simulate a jump is player is grounded
+        // Elijah added wall jump
         case(SDL_SCANCODE_SPACE):
-            if (isGrounded || (!isGrounded && wallTouchLeft) || (!isGrounded && wallTouchRight))
-                // check if at full jump power
-                if (jumpPower == 100.0f)
-                    // start decreasing jump power
-                    jumpChange = -2.5f;
-            // check if no jump power
-                else if (jumpPower == 0.0f)
-                    // start increaseing jump power
-                    jumpChange = 2.5f;
-            // update jump power
-            jumpPower += jumpChange;
-            // print jump power to console
-            std::cout << jumpPower << std::endl;
+            if (isGrounded)
+            {
+                vel.y += 6.0f;
+            }
+            else if (!isGrounded && wallTouchLeft)
+            {
+                vel.y += 6.0f;
+                vel.x += 6.0f;
+                wallTouchLeft = false;
+            }
+            else if (!isGrounded && wallTouchRight)
+            {
+                vel.y += 6.0f;
+                vel.x -= 6.0f;
+                wallTouchRight = false;
+            }
             break;
         }
     }
@@ -106,42 +100,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case (SDL_SCANCODE_A):
         case (SDL_SCANCODE_D):
             //vel.x = 0.0f;
-            break;
-        case (SDL_SCANCODE_LEFT):
-            wallTouchLeft = true;
-            wallTouchRight = false;
-            break;
-        case (SDL_SCANCODE_RIGHT):
-            wallTouchRight = true;
-            wallTouchLeft = false;
-            break;
-        case (SDL_SCANCODE_R):
-            wallTouchLeft = false;
-            wallTouchRight = false;
-            break;
-        case(SDL_SCANCODE_SPACE):
-            if (isGrounded) 
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            else if (!isGrounded && wallTouchLeft) 
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                vel.x += 6.0f;
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            else if (!isGrounded && wallTouchRight)
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                vel.x -= 6.0f;
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            // reset jump power to 0
-            jumpPower = 0.0f;
             break;
         }
     }
@@ -168,21 +126,6 @@ void PlayerBody::Update(float deltaTime)
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
     //Maya Added
-
-    // Elijah Added
-    // change jump meter colour based on jump power
-    if (jumpPower < 20)
-        // red bar
-        meterColour = { 255, 0, 0 , 255 };
-    else if (jumpPower > 20 && jumpPower < 50)
-        // yellow bar
-        meterColour = { 255, 255, 0 , 255 };
-    else if (jumpPower > 50 && jumpPower < 75)
-        // green bar
-        meterColour = { 0, 255, 0 , 255 };
-    else
-        // blue bar
-        meterColour = { 0, 0, 225 , 255 };
 }
 /// <summary>
 /// Maya added Has Collided With function
@@ -211,9 +154,6 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// <returns></returns>
 bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 {
-    wallTouchLeft = false;
-    wallTouchRight = false;
-
     // First, check if there is a general collision
     if (!HasCollidedWith(rect)) {
         return false;
