@@ -5,10 +5,11 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(2, 2, 6, 2),
+	platform1(0, 2, 8, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(4, 10, 2, 9),
+	wall1(6, 10, 2, 9),
+	wall2(0, 10, 2, 9),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -74,7 +75,8 @@ void Scene1::Update(const float deltaTime) {
 		platform1.getPlatform(),
 		platform2.getPlatform(),
 		platform3.getPlatform(),
-		wall1.getPlatform()
+		wall1.getPlatform(),
+		wall2.getPlatform()
 	};
 
 	//loop through platforms
@@ -121,6 +123,7 @@ void Scene1::Render() {
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	wall1.Render(renderer, game);
+	wall2.Render(renderer, game);
 
 
 	// render the player

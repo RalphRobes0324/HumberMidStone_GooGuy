@@ -72,22 +72,24 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             if (vel.x < 4.0f && !wallTouchRight)
                 vel.x += 1.0f;
             break;
-            //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
+            //When spacebar is pressed, add 6 to velocity y to simulate a jump is player is grounded
         // Elijah added wall jump
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                vel.y += 12.0f;
+                vel.y += 6.0f;
             }
             else if (!isGrounded && wallTouchLeft)
             {
-                vel.y += 15.0f;
+                vel.y += 6.0f;
                 vel.x += 6.0f;
+                wallTouchLeft = false;
             }
             else if (!isGrounded && wallTouchRight)
             {
-                vel.y += 15.0f;
+                vel.y += 6.0f;
                 vel.x -= 6.0f;
+                wallTouchRight = false;
             }
             break;
         }
@@ -98,18 +100,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case (SDL_SCANCODE_A):
         case (SDL_SCANCODE_D):
             //vel.x = 0.0f;
-            break;
-        case (SDL_SCANCODE_LEFT):
-            wallTouchLeft = true;
-            wallTouchRight = false;
-            break;
-        case (SDL_SCANCODE_RIGHT):
-            wallTouchRight = true;
-            wallTouchLeft = false;
-            break;
-        case (SDL_SCANCODE_R):
-            wallTouchLeft = false;
-            wallTouchRight = false;
             break;
         }
     }
@@ -164,9 +154,6 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// <returns></returns>
 bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 {
-    wallTouchLeft = false;
-    wallTouchRight = false;
-
     // First, check if there is a general collision
     if (!HasCollidedWith(rect)) {
         return false;
