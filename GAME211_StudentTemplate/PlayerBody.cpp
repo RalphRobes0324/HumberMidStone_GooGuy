@@ -62,12 +62,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.scancode) {
-            //A subtract 2 from velocity x until -8.0f velocity is achieved
+            //A subtract 2 from velocity x until -4.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (vel.x > -4.0f && !wallTouchLeft)
                 vel.x -= 1.0f;
             break;
-            //D add 2 from velocity x until 8.0f velocity is achieved
+            //D add 2 from velocity x until 4.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (vel.x < 4.0f && !wallTouchRight)
                 vel.x += 1.0f;
