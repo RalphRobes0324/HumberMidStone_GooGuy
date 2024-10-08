@@ -74,12 +74,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             //A subtract 2 from velocity x until -8.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (vel.x > -8.0f && !wallTouchLeft)
-                vel.x = -8.0f;
+                vel.x = -2.0f;
             break;
             //D add 2 from velocity x until 8.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (vel.x < 8.0f && !wallTouchRight)
-                vel.x = 8.0f;
+                vel.x = 2.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
         // Elijah added Jump Power/Change Updater
@@ -105,7 +105,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
         case (SDL_SCANCODE_A):
         case (SDL_SCANCODE_D):
-            vel.x = 0.0f;
+            //vel.x = 0.0f;
             break;
         case (SDL_SCANCODE_LEFT):
             wallTouchLeft = true;
@@ -157,16 +157,20 @@ void PlayerBody::Update(float deltaTime)
     //Maya Added
     //if the player isGrounded make the grav force 0 so you don't have any gravity,
     // if the character isn't grounded grav force is -9.8
+    GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
     if (!isGrounded)
     {
-        GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
+        
+        if (vel.x != 0 || accel.x != 0 )
+            frictionForce = Vec3(2.0f, 0, 0.0f);
     }
     else
     {
         GravForce = Vec3();
+        frictionForce = Vec3();
     }
 
-    totalForce = GravForce; //apply total force, right now total force is just gravity
+    totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
     //Maya Added
 
@@ -184,12 +188,6 @@ void PlayerBody::Update(float deltaTime)
     else
         // blue bar
         meterColour = { 0, 0, 225 , 255 };
-}
-// apply force function from physics 1 added by Maya
-void PlayerBody::ApplyForce(Vec3 force)
-{
-    accel.y = force.y / mass; //apply force divided by mass to acceleration
-    accel.x = force.x / mass;
 }
 /// <summary>
 /// Maya added Has Collided With function
