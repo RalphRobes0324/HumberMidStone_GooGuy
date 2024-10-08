@@ -275,7 +275,7 @@ bool PlayerBody::HasCollidedTop(SDL_Rect rect)
 
     // If horizontal overlap is smaller, it's a side collision
     std::cout << "minHorizontalOverlap: " << minHorizontalOverlap << " minVerticalOverlap: " << minVerticalOverlap << std::endl;
-    if (minVerticalOverlap > 0.9) {
+    if (minVerticalOverlap > 0.8) {
         
         return true;  // Side collision occurred
     }
