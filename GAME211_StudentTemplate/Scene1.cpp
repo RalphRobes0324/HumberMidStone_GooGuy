@@ -8,7 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(2, 2, 6, 2),
 	platform2(12, 2, 6, 2),
 	platform3(22, 2, 6, 2),
-	wall1(4, 4, 2, 3),
+	wall1(4, 10, 2, 9),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;

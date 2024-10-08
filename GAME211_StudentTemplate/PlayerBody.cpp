@@ -55,15 +55,6 @@ void PlayerBody::Render(float scale)
 
     SDL_RenderCopyEx(renderer, texture, nullptr, &square,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
-
-    meterBackgroundColour = { 50, 50, 50, 255 };
-    jumpMeterBackground = { 10, 260, 28, -220 };
-    SDL_SetRenderDrawColor(renderer, meterBackgroundColour.r, meterBackgroundColour.g, meterBackgroundColour.b, meterBackgroundColour.a);
-    SDL_RenderFillRect(renderer, &jumpMeterBackground);
-
-    jumpMeter = { 14, 250, 20, (int)-jumpPower * 2 };
-    SDL_SetRenderDrawColor(renderer, meterColour.r, meterColour.g, meterColour.b, meterColour.a);
-    SDL_RenderFillRect(renderer, &jumpMeter);
 }
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
@@ -82,21 +73,22 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
                 vel.x += 1.0f;
             break;
             //When spacebar is pressed, add 12 to velocity y to simulate a jump is player is grounded
-        // Elijah added Jump Power/Change Updater
+        // Elijah added wall jump
         case(SDL_SCANCODE_SPACE):
-            if (isGrounded || (!isGrounded && wallTouchLeft) || (!isGrounded && wallTouchRight))
-                // check if at full jump power
-                if (jumpPower == 100.0f)
-                    // start decreasing jump power
-                    jumpChange = -2.5f;
-            // check if no jump power
-                else if (jumpPower == 0.0f)
-                    // start increaseing jump power
-                    jumpChange = 2.5f;
-            // update jump power
-            jumpPower += jumpChange;
-            // print jump power to console
-            std::cout << jumpPower << std::endl;
+            if (isGrounded)
+            {
+                vel.y += 12.0f;
+            }
+            else if (!isGrounded && wallTouchLeft)
+            {
+                vel.y += 15.0f;
+                vel.x += 6.0f;
+            }
+            else if (!isGrounded && wallTouchRight)
+            {
+                vel.y += 15.0f;
+                vel.x -= 6.0f;
+            }
             break;
         }
     }
@@ -118,30 +110,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case (SDL_SCANCODE_R):
             wallTouchLeft = false;
             wallTouchRight = false;
-            break;
-        case(SDL_SCANCODE_SPACE):
-            if (isGrounded) 
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            else if (!isGrounded && wallTouchLeft) 
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                vel.x += 6.0f;
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            else if (!isGrounded && wallTouchRight)
-            {
-                vel.y += 12.0f * (jumpPower * 0.01f);
-                vel.x -= 6.0f;
-                // print power of jump to console
-                std::cout << "Goo-Guy jumped with " << jumpPower << "% power" << std::endl;
-            }
-            // reset jump power to 0
-            jumpPower = 0.0f;
             break;
         }
     }
@@ -168,21 +136,6 @@ void PlayerBody::Update(float deltaTime)
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
     //Maya Added
-
-    // Elijah Added
-    // change jump meter colour based on jump power
-    if (jumpPower < 20)
-        // red bar
-        meterColour = { 255, 0, 0 , 255 };
-    else if (jumpPower > 20 && jumpPower < 50)
-        // yellow bar
-        meterColour = { 255, 255, 0 , 255 };
-    else if (jumpPower > 50 && jumpPower < 75)
-        // green bar
-        meterColour = { 0, 255, 0 , 255 };
-    else
-        // blue bar
-        meterColour = { 0, 0, 225 , 255 };
 }
 /// <summary>
 /// Maya added Has Collided With function
