@@ -46,6 +46,7 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+	bool RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2);
 };
 
 #endif

@@ -6,7 +6,8 @@ Quest::Quest(SDL_Renderer* renderer_)
     renderer(renderer_),
     questFont(nullptr),
     questTexture(nullptr),
-    currentQuestIndex(0)
+    currentQuestIndex(0),
+    highestQuestIndex(0)
 {}
 
 Quest::~Quest() {
@@ -51,15 +52,12 @@ void Quest::RenderCurrentQuest() {
     }
 }
 
-void Quest::PreviousQuest() {
-    if (currentQuestIndex > 0) {
-        currentQuestIndex--;
-    }
-}
+void Quest::UpdateQuest(int platformNumber) {
+    if (platformNumber < 1 || platformNumber > quests.size()) return;
 
-void Quest::NextQuest() {
-    if (currentQuestIndex < quests.size() - 1) {
-        currentQuestIndex++;
+    if (platformNumber - 1 > highestQuestIndex) {
+        highestQuestIndex = platformNumber - 1;
+        currentQuestIndex = highestQuestIndex;
     }
 }
 

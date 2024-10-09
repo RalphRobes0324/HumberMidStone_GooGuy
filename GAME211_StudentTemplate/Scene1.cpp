@@ -70,6 +70,11 @@ void Scene1::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	//Update the build
+	platform1.Update();
+	platform2.Update();
+	platform3.Update();
+	wall1.Update();
+	wall2.Update();
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
 
@@ -87,31 +92,40 @@ void Scene1::Update(const float deltaTime) {
 		//if the player has collided with the sides of one of the platforms
 		if (game->getPlayer()->HasCollidedSide(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than x make it 0 to stop x motion when colliding
-
 			Vec3 currentAccel = game->getPlayer()->getAccel();
 			Vec3 currentVel = game->getPlayer()->getVel();
 			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(0.0f, currentVel.y, currentVel.z));
 			
 		}
-			//Check Collision
+
+		//Check Collision
 		if (game->getPlayer()->HasCollidedTop(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
-
 			Vec3 currentAccel = game->getPlayer()->getAccel();
 			Vec3 currentVel = game->getPlayer()->getVel();
 			game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
+
+			// Check if player reached a certain platform
+			if (RectsAreEqual(build, platform1.getPlatform())) {
+				quest.UpdateQuest(1); // Touching platform 1
+			}
+			else if (RectsAreEqual(build, platform2.getPlatform())) {
+				quest.UpdateQuest(2); // Touching platform 2
+			}
+			else if (RectsAreEqual(build, platform3.getPlatform())) {
+				quest.UpdateQuest(3); // Touching platform 3
+			}
+
 			break;
 		}
 
 		else {
 			game->getPlayer()->isGrounded = false; //if yo aren't colliding set is grounded to false
 
-		}
-		
-		
+		}	
 	}
 }
 
@@ -142,17 +156,13 @@ void Scene1::Render() {
 
 void Scene1::HandleEvents(const SDL_Event& event)
 {
-	if (event.type == SDL_KEYDOWN) {
-		switch (event.key.keysym.scancode) {
-		case(SDL_SCANCODE_DOWN):
-			quest.PreviousQuest();
-			break;
-		case(SDL_SCANCODE_UP):
-			quest.NextQuest();
-			break;
-		}
-	}
-
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+}
+
+bool Scene1::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2) {
+	return (rect1.x == rect2.x &&
+		rect1.y == rect2.y &&
+		rect1.w == rect2.w &&
+		rect1.h == rect2.h);
 }
