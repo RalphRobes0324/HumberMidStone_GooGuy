@@ -64,28 +64,30 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -6.0f velocity is achieved
         case(SDL_SCANCODE_A):
-            if (vel.x > -6.0f && !wallTouchLeft)
-                vel.x -= 1.0f;
+            if (!wallTouchLeft)
+                if (vel.x > -6.0f)
+                    vel.x = -6.0f;
             break;
             //D add 2 from velocity x until 6.0f velocity is achieved
         case(SDL_SCANCODE_D):
-            if (vel.x < 6.0f && !wallTouchRight)
-                vel.x += 1.0f;
+            if (!wallTouchRight)
+                if (vel.x < 6.0f)
+                    vel.x = 6.0f;
             break;
             //When spacebar is pressed, add 6 to velocity y to simulate a jump is player is grounded
         // Elijah added wall jump
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                vel.y += 6.0f;
+                vel.y = 6.0f;
             }
-            else if (!isGrounded && wallTouchLeft)
+            if ( wallTouchLeft)
             {
                 wallTouchLeft = false;
                 vel.y = 6.0f;
                 vel.x = 6.0f;
             }
-            else if (!isGrounded && wallTouchRight)
+            if (wallTouchRight)
             {
                 wallTouchRight = false;
                 vel.y = 6.0f;
@@ -94,12 +96,12 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             break;
         }
     }
-    //if key up A or D make velocity x 0, optimize this later
     if (event.type == SDL_KEYUP) {
         switch (event.key.keysym.scancode) {
-        case (SDL_SCANCODE_A):
-        case (SDL_SCANCODE_D):
-            //vel.x = 0.0f;
+            //A subtract 2 from velocity x until -6.0f velocity is achieved
+        case(SDL_SCANCODE_A):
+        case(SDL_SCANCODE_D):
+            vel.x = 0.0f;
             break;
         }
     }
@@ -111,16 +113,16 @@ void PlayerBody::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
-
+    std::cout << isGrounded << " " << wallTouchLeft << " " << wallTouchRight << std::endl;
     //Maya Added
     //if the player isGrounded make the grav force 0 so you don't have any gravity,
     // if the character isn't grounded grav force is -9.8
     GravForce = Vec3(0.0f, -9.8f * mass, 0.0f);
-    if (vel.x < 0)
-        frictionForce = Vec3(3.0f, 0, 0.0f);
+    /*if (vel.x < 0)
+        frictionForce = Vec3(6.0f, 0, 0.0f);
     else if (vel.x > 0)
-        frictionForce = Vec3(-3.0f, 0, 0.0f);
-    else
+        frictionForce = Vec3(-6.0f, 0, 0.0f);
+    else*/
         frictionForce = Vec3();
 
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
@@ -165,14 +167,12 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
     float overlapTop = (rect.y + rect.h) - (pos.y - radius);  // Overlap on top side
     float overlapBottom = (pos.y + radius) - rect.y;  // Overlap on bottom side
 
-    std::cout << "overLapRight: " << overlapRight << " overLapLeft: " << overlapLeft << " overLapTop: " << overlapTop << " overLapBottom: " << overlapBottom << std::endl;
-
     // Determine the smallest overlap (side or top/bottom)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
 
     // If horizontal overlap is smaller, it's a side collision
-    std::cout << "minHorizontalOverlap: " << minHorizontalOverlap << " minVerticalOverlap: " << minVerticalOverlap << std::endl;
+   
     if (minHorizontalOverlap < 0.5f && minVerticalOverlap < 0.90f) {
         if (overlapLeft < overlapRight) {
             std::cout << "Right side\n";
@@ -185,6 +185,11 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
 
         }
         return true;  // Side collision occurred
+    }
+    else {
+        wallTouchRight = false;
+        wallTouchLeft = false;
+
     }
     return false;
 }
@@ -205,12 +210,10 @@ bool PlayerBody::HasCollidedTop(SDL_Rect rect)
     // Determine the smallest overlap (side or top/bottom)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
-
-    // If horizontal overlap is smaller, it's a side collision
-    std::cout << "minHorizontalOverlap: " << minHorizontalOverlap << " minVerticalOverlap: " << minVerticalOverlap << std::endl;
+    std::cout << minVerticalOverlap << std::endl;
+    // If horizontal overlap is smaller, it's a top collision
     if (minVerticalOverlap > 0.8) {
-        
-        return true;  // Side collision occurred
+        return true;  // top collision occurred
     }
     return false;
 }

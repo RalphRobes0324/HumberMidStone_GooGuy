@@ -86,6 +86,15 @@ void Scene1::Update(const float deltaTime) {
 		wall1.getPlatform(),
 		wall2.getPlatform()
 	};
+	if (redPlatform.getVisibility() == true)
+		builds.push_back(redPlatform.getPlatform());
+	if (bluePlatform.getVisibility() == true)
+		builds.push_back(bluePlatform.getPlatform());
+
+	if (game->getPlayer()->getAccel().y != 0.0f) {
+
+		game->getPlayer()->isGrounded = false; //set isGrounded to true
+		}
 
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
@@ -108,6 +117,7 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 
+			std::cout << game->getPlayer()->isGrounded << std::endl;
 			// Check if player reached a certain platform
 			if (RectsAreEqual(build, platform1.getPlatform())) {
 				quest.UpdateQuest(1); // Touching platform 1
@@ -118,14 +128,8 @@ void Scene1::Update(const float deltaTime) {
 			else if (RectsAreEqual(build, platform3.getPlatform())) {
 				quest.UpdateQuest(3); // Touching platform 3
 			}
-
-			break;
 		}
 
-		else {
-			game->getPlayer()->isGrounded = false; //if yo aren't colliding set is grounded to false
-
-		}	
 	}
 }
 
