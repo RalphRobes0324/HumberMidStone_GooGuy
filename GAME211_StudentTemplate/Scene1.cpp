@@ -87,10 +87,14 @@ void Scene1::Update(const float deltaTime) {
 		wall2.getPlatform()
 	};
 
+	if (game->getPlayer()->getAccel().y != 0.0f) {
+
+		game->getPlayer()->isGrounded = false; //set isGrounded to true
+		}
+
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
 		//if the player has collided with the sides of one of the platforms
-		std::cout << game->getPlayer()->wallTouchLeft << " " << game->getPlayer()->wallTouchRight << std::endl;
 		if (game->getPlayer()->HasCollidedSide(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than x make it 0 to stop x motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
@@ -98,11 +102,6 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(0.0f, currentVel.y, currentVel.z));
 			
-		}
-		else {
-			game->getPlayer()->wallTouchLeft = false;
-			game->getPlayer()->wallTouchRight = false;
-			game->getPlayer()->wallTouch = false;
 		}
 
 		//Check Collision
@@ -114,6 +113,7 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 
+			std::cout << game->getPlayer()->isGrounded << std::endl;
 			// Check if player reached a certain platform
 			if (RectsAreEqual(build, platform1.getPlatform())) {
 				quest.UpdateQuest(1); // Touching platform 1
@@ -126,10 +126,6 @@ void Scene1::Update(const float deltaTime) {
 			}
 		}
 
-		else {
-			game->getPlayer()->isGrounded = false; //if yo aren't colliding set is grounded to false
-
-		}	
 	}
 }
 
