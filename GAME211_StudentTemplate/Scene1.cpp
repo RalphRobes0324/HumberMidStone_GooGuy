@@ -86,6 +86,10 @@ void Scene1::Update(const float deltaTime) {
 		wall1.getPlatform(),
 		wall2.getPlatform()
 	};
+	if (redPlatform.getVisibility() == true)
+		builds.push_back(redPlatform.getPlatform());
+	if (bluePlatform.getVisibility() == true)
+		builds.push_back(bluePlatform.getPlatform());
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
