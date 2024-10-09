@@ -90,6 +90,7 @@ void Scene1::Update(const float deltaTime) {
 	//loop through platforms
 	for (const SDL_Rect& build : builds) {
 		//if the player has collided with the sides of one of the platforms
+		std::cout << game->getPlayer()->wallTouchLeft << " " << game->getPlayer()->wallTouchRight << std::endl;
 		if (game->getPlayer()->HasCollidedSide(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than x make it 0 to stop x motion when colliding
 			Vec3 currentAccel = game->getPlayer()->getAccel();
@@ -97,6 +98,11 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(0.0f, currentVel.y, currentVel.z));
 			
+		}
+		else {
+			game->getPlayer()->wallTouchLeft = false;
+			game->getPlayer()->wallTouchRight = false;
+			game->getPlayer()->wallTouch = false;
 		}
 
 		//Check Collision
@@ -118,8 +124,6 @@ void Scene1::Update(const float deltaTime) {
 			else if (RectsAreEqual(build, platform3.getPlatform())) {
 				quest.UpdateQuest(3); // Touching platform 3
 			}
-
-			break;
 		}
 
 		else {
