@@ -5,11 +5,13 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(0, 2, 8, 2),
-	platform2(12, 2, 6, 2),
-	platform3(22, 2, 6, 2),
-	wall1(6, 10, 2, 9),
-	wall2(0, 10, 2, 9),
+	platform1(0, 2, 8, 2, false, false, false, 0.0f, Vec4(255,255,255,255)),
+	platform2(12, 2, 6, 2, false, false, false, 0.0f,  Vec4(255, 255, 255, 255)),
+	platform3(22, 2, 6, 2, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
+	wall1(6, 10, 2, 9, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
+	wall2(0, 10, 2, 9, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
+	redPlatform(11, 10, 6, 1, false, true, true, 4.0f, Vec4(255, 0, 0, 255)),
+	bluePlatform(20, 10, 6, 1, false, true, false, 4.0f, Vec4(0, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
@@ -68,7 +70,8 @@ void Scene1::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	//Update the build
-	platform1.Update();
+	redPlatform.Update(deltaTime);
+	bluePlatform.Update(deltaTime);
 
 
 	std::vector<SDL_Rect> builds = {
@@ -124,6 +127,8 @@ void Scene1::Render() {
 	platform3.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
+	redPlatform.Render(renderer, game);
+	bluePlatform.Render(renderer, game);
 
 
 	// render the player
