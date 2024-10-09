@@ -81,7 +81,7 @@ SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
 /// <param name="renderer"></param>
 void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 
-	//Convert sdl space so it can render in sdl space
+	//Convert physics space so it can render in sdl space
 	SDL_Rect sdlPlatform;
 	sdlPlatform.x = (1000 * rect.x) / game->getSceneWidth(); //converting physical coordinates to sdl coordinates on x-axis
 	sdlPlatform.y = (600 * (game->getSceneHeight() - rect.y)) / game->getSceneHeight();//converting physical coordinates to sdl coordinates on y-axis
