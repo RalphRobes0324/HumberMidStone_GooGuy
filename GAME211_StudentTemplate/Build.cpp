@@ -8,13 +8,22 @@
 /// <param name="_y"></param>
 /// <param name="_w"></param>
 /// <param name="_h"></param>
-Build::Build(int _x, int _y, int _w, int _h)
+Build::Build(int _x, int _y, int _w, int _h, 
+	bool _canMove, 
+	bool _canDisappear, bool _isVisible, float _disappearTime,
+	Vec4 _colour)
 {
 	x = _x;
 	y = _y;
 	width = _w;
 	height = _h;
 
+	canMove = _canMove;
+	canDisappear = _canDisappear;
+	isVisible = _isVisible;
+	disappearTime = _disappearTime;
+	
+	colour = _colour;
 	rect = { x, y, width, height };
 }
 
@@ -23,6 +32,24 @@ Build::Build(int _x, int _y, int _w, int _h)
 /// </summary>
 void Build::Update() {
 	rect = { x , y, width, height };
+}
+
+void Build::Update(float DeltaTime)
+{
+	//check build can disappear
+	if (canDisappear) {
+		timer += DeltaTime;
+		//Time is up, make platform disappear
+		if (isVisible && timer >= disappearTime) {
+			isVisible = false;// Platform disappear
+			timer = 0.0f; // Reset the timer
+		}
+		//Time is up, make platform reappear
+		else if (!isVisible && timer >= disappearTime) {
+			isVisible = true;// build  reappear
+			timer = 0.0f; // Reset the timer
+		}
+	}
 }
 
 
@@ -61,8 +88,17 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	sdlPlatform.w = (1000 * rect.w) / game->getSceneWidth();
 	sdlPlatform.h = (600 * rect.h) / game->getSceneHeight();
 
-	SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
-
-	SDL_RenderFillRect(renderer, &sdlPlatform);
+	//Check Type of build
+	if (canDisappear) {
+		//Check visable
+		if (isVisible) {
+			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, colour.w);
+			SDL_RenderFillRect(renderer, &sdlPlatform);
+		}
+	}
+	else {
+		SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, colour.w);
+		SDL_RenderFillRect(renderer, &sdlPlatform);
+	}
 }
 
