@@ -9,6 +9,7 @@
 class Quest {
 private:
     int currentQuestIndex; // sets the current quest index
+    int highestQuestIndex; // track the latest quest
     std::vector<std::string> quests; // vector of strings to hold the quests
 
     // SDL_ttf Rendering
@@ -24,8 +25,8 @@ public:
     bool LoadFont(const char* fontPath, int fontSize);
     void AddQuest(const std::string& quest);
     void RenderCurrentQuest();
-    void NextQuest();
-    void PreviousQuest();
+
+    void UpdateQuest(int platformNumber);
 
     // Cleanup resources
     void Cleanup();
