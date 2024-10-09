@@ -26,13 +26,16 @@ private:
 	int x, y, width, height;
 	SDL_Rect rect;
 
+	//Type of Build
 	bool canMove;
 	bool canDisappear;
-	bool isVisable;
 
-	Vec4 colour;
+	bool isVisible; //Display Build
+	float disappearTime; //length 
 
-	float disappearTime;
+	Vec4 colour; //Build's colour
+
+	
 	float timer;
 };
 
