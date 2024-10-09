@@ -5,11 +5,11 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_) 
 	:
 	//init the build
-	platform1(0, 2, 8, 2),
-	platform2(12, 2, 6, 2),
-	platform3(22, 2, 6, 2),
-	wall1(6, 10, 2, 9),
-	wall2(0, 10, 2, 9),
+	platform1(0, 2, 8, 2, false, false, false, 0.0f, Vec4(255,255,255,255)),
+	platform2(12, 2, 6, 2, false, false, false, 0.0f,  Vec4(255, 255, 255, 255)),
+	platform3(22, 2, 6, 2, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
+	wall1(6, 10, 2, 9, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
+	wall2(0, 10, 2, 9, false, false, false, 0.0f, Vec4(255, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_))
 {
 	window = sdlWindow_;
