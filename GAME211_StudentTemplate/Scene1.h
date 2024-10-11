@@ -5,8 +5,7 @@
 #include <vector>
 #include "Scene.h"
 #include "Quest.h"
-
-
+#include "JumpText.h"
 #include "Build.h"
 
 using namespace MATH;
@@ -28,6 +27,7 @@ private:
 	Build bluePlatform;
 
 	Quest quest;
+	JumpText jumpText;
 
 public:
 	// This constructor may be different from what you've seen before
