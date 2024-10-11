@@ -38,7 +38,7 @@ void JumpText::SetText(const std::string& text) {
 void JumpText::Render() {
     if (textToDisplay.empty()) return;
 
-    SDL_Color textColor = { 0, 255, 0, 255 }; // Green text
+    SDL_Color textColor = { 0, 255, 0, 255 };
     SDL_Surface* textSurface = TTF_RenderText_Solid(jumpFont, textToDisplay.c_str(), textColor);
 
     if (!textSurface) {
@@ -53,16 +53,16 @@ void JumpText::Render() {
         return;
     }
 
-    // Get the window size
+    // Get Window Size
     int windowWidth, windowHeight;
     SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
-    // Set the jumpRect position to the bottom right corner
+    // Set jumpRect position to bottom right corner
     jumpRect = { windowWidth - textSurface->w - 10, windowHeight - textSurface->h - 10, textSurface->w, textSurface->h };
 
-    SDL_FreeSurface(textSurface); // Free the surface after creating the texture
+    SDL_FreeSurface(textSurface); // Free surface
 
-    // Render the jump text
+    // Render jump text
     SDL_RenderCopy(renderer, jumpTexture, nullptr, &jumpRect);
 }
 
