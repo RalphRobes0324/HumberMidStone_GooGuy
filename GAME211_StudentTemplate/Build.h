@@ -9,10 +9,15 @@
 class Build {
 public:
 	Build(int _x, int _y, int _w, int _h, 
-		bool _canMove, bool _isMoving, float _waitTime,
+		bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, float _waitTime,
 		bool _canDisappear, bool _isVisable, float _disappearTime,
 		Vec4 _colour);
+
+	//Setting up Default Build
 	Build(int _x, int _y, int _w, int _h, Vec4 _colour);
+
+	//Setting up Disappearing Build
+	Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 
 	void Render(SDL_Renderer* renderer, GameManager* game);
 
@@ -28,7 +33,7 @@ private:
 	SDL_Rect rect;
 
 	//Type of Build
-	bool canMove;
+	bool canMove, canLoop;
 	bool canDisappear;
 
 	//Settings Visiability
@@ -41,6 +46,8 @@ private:
 
 	//Settings Movments
 	bool isMoving;
+	bool moveForward;
+	bool moveUpward;
 	float waitTime;
 	Vec3 endDestination;
 
