@@ -22,8 +22,10 @@ Build::Build(int _x, int _y, int _w, int _h,
 	canDisappear = _canDisappear;
 	isVisible = _isVisible;
 	disappearTime = _disappearTime;
+	warningTime = _disappearTime / 2;
 	
 	colour = _colour;
+	alpha = colour.w;
 	rect = { x, y, width, height };
 }
 
@@ -39,10 +41,25 @@ void Build::Update(float DeltaTime)
 	//check build can disappear
 	if (canDisappear) {
 		timer += DeltaTime;
+
+		if (isVisible && timer >= (disappearTime - warningTime)) {
+			isWarning = true;
+		}
+
+		//Handle warning system on the platforms if warning begins
+		if (isWarning) {
+			float progress = (disappearTime - timer) / warningTime;
+			alpha = static_cast<int>(255 * progress); // Reduce alpha to fade out
+			if (alpha < 0) alpha = 0; // Clamp to avoid negative alpha
+		}
+		
 		//Time is up, make platform disappear
 		if (isVisible && timer >= disappearTime) {
 			isVisible = false;// Platform disappear
+			isWarning = false; //reset warning
 			timer = 0.0f; // Reset the timer
+			alpha = colour.w; //reset alpha
+
 		}
 		//Time is up, make platform reappear
 		else if (!isVisible && timer >= disappearTime) {
@@ -81,6 +98,9 @@ SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
 /// <param name="renderer"></param>
 void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 
+	// Enable alpha blending
+	SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+
 	//Convert physics space so it can render in sdl space
 	SDL_Rect sdlPlatform;
 	sdlPlatform.x = (1000 * rect.x) / game->getSceneWidth(); //converting physical coordinates to sdl coordinates on x-axis
@@ -92,7 +112,7 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	if (canDisappear) {
 		//Check visable
 		if (isVisible) {
-			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, colour.w);
+			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alpha);
 			SDL_RenderFillRect(renderer, &sdlPlatform);
 		}
 	}
