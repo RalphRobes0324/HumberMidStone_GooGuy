@@ -47,6 +47,33 @@ Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible
 	rect = { x, y, width, height };
 }
 
+Build::Build(int _x, int _y, int _w, int _h, 
+	bool _canMove, bool _canLoop, bool _isMoving, 
+	bool _moveForward, bool _moveUpward, 
+	float _waitTime, 
+	Vec3 _startPoint, Vec3 _endPoint, 
+	Vec4 _colour)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+
+	canMove = _canMove;
+	canLoop = _canLoop;
+
+	isMoving = _canLoop;
+	moveForward = _moveForward;
+	moveUpward = _moveUpward;
+
+	waitTime = _waitTime;
+	endPoint = _endPoint;
+	startPoint = _startPoint;
+
+	colour = _colour;
+	rect = { x, y, width, height };
+}
+
 /// <summary>
 /// Update the changes to the build
 /// </summary>
