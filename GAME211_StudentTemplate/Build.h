@@ -37,6 +37,7 @@ private:
 	float disappearTime; //length
 	float warningTime; //Time to start warning the player
 	int alpha; //Alpha of build
+	int alphaEnds = 50; //Where alpha ends
 
 	Vec4 colour; //Build's colour
 

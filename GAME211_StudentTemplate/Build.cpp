@@ -50,7 +50,7 @@ void Build::Update(float DeltaTime)
 		if (isWarning) {
 			float progress = (disappearTime - timer) / warningTime;
 			alpha = static_cast<int>(255 * progress); // Reduce alpha to fade out
-			if (alpha < 0) alpha = 0; // Clamp to avoid negative alpha
+			if (alpha < alphaEnds) alpha = alphaEnds; // Clamp to avoid negative alpha
 		}
 		
 		//Time is up, make platform disappear
@@ -113,6 +113,10 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 		//Check visable
 		if (isVisible) {
 			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alpha);
+			SDL_RenderFillRect(renderer, &sdlPlatform);
+		}
+		else if (!isVisible) {
+			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alphaEnds);
 			SDL_RenderFillRect(renderer, &sdlPlatform);
 		}
 	}
