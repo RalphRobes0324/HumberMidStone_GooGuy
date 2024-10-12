@@ -1,4 +1,4 @@
-#ifndef BUILD_H
+ #ifndef BUILD_H
 #define BUILD_H
 
 #include <SDL.h>

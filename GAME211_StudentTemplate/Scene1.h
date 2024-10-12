@@ -25,6 +25,7 @@ private:
 	Build wall2;
 	Build redPlatform;
 	Build bluePlatform;
+	Build movePlatform;
 
 	Quest quest;
 	JumpText jumpText;

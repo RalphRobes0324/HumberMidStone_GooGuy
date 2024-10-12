@@ -125,7 +125,9 @@ void Build::Update(float DeltaTime)
 				}
 			}
 			else {
+
 				if (moveForward) {
+					
 					// Move towards the end point
 					if (rect.x < endPoint.x) rect.x += speed * DeltaTime;
 
