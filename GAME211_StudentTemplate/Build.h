@@ -14,6 +14,7 @@ public:
 	//Setting up Disappearing Build
 	Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 
+	//Setting up Moving Build
 	Build(int _x, int _y, int _w, int _h, 
 		bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, 
 		float _speed, float _waitTime, 
