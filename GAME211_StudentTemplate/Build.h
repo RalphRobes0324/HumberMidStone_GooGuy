@@ -36,7 +36,7 @@ private:
 	bool isWarning; //state if platform will warn the player
 	float disappearTime; //length
 	float warningTime; //Time to start warning the player
-	int alpha = 255;
+	int alpha; //Alpha of build
 
 	Vec4 colour; //Build's colour
 

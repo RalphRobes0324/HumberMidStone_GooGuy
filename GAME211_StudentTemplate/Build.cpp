@@ -25,6 +25,7 @@ Build::Build(int _x, int _y, int _w, int _h,
 	warningTime = _disappearTime / 2;
 	
 	colour = _colour;
+	alpha = colour.w;
 	rect = { x, y, width, height };
 }
 
@@ -57,7 +58,7 @@ void Build::Update(float DeltaTime)
 			isVisible = false;// Platform disappear
 			isWarning = false; //reset warning
 			timer = 0.0f; // Reset the timer
-			alpha = 255; //reset alpha
+			alpha = colour.w; //reset alpha
 
 		}
 		//Time is up, make platform reappear
