@@ -1,37 +1,5 @@
 #include "Build.h"
 
-
-/// <summary>
-/// Define the build
-/// </summary>
-/// <param name="_x"></param>
-/// <param name="_y"></param>
-/// <param name="_w"></param>
-/// <param name="_h"></param>
-Build::Build(int _x, int _y, int _w, int _h, 
-	bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, float _waitTime,
-	bool _canDisappear, bool _isVisible, float _disappearTime,
-	Vec4 _colour)
-{
-	x = _x;
-	y = _y;
-	width = _w;
-	height = _h;
-
-	canMove = _canMove;
-	isMoving = _isMoving;
-	waitTime = _waitTime;
-
-	canDisappear = _canDisappear;
-	isVisible = _isVisible;
-	disappearTime = _disappearTime;
-	warningTime = _disappearTime / 2;
-
-	colour = _colour;
-	alpha = colour.w;
-	rect = { x, y, width, height };
-}
-
 /// <summary>
 /// Define the default build
 /// </summary>
@@ -51,6 +19,17 @@ Build::Build(int _x, int _y, int _w, int _h, Vec4 _colour)
 	rect = { x, y, width, height };
 }
 
+/// <summary>
+/// Init disappearing platform
+/// </summary>
+/// <param name="_x"></param>
+/// <param name="_y"></param>
+/// <param name="_w"></param>
+/// <param name="_h"></param>
+/// <param name="_canDisappear"></param>
+/// <param name="_isVisible"></param>
+/// <param name="_disappearTime"></param>
+/// <param name="_colour"></param>
 Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour)
 {
 	x = _x;
