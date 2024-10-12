@@ -51,7 +51,7 @@ Build::Build(int _x, int _y, int _w, int _h,
 	bool _canMove, bool _canLoop, bool _isMoving, 
 	bool _moveForward, bool _moveUpward, 
 	float _waitTime, 
-	Vec3 _startPoint, Vec3 _endPoint, 
+	Vec3 _endPoint, 
 	Vec4 _colour)
 {
 	x = _x;
@@ -68,7 +68,7 @@ Build::Build(int _x, int _y, int _w, int _h,
 
 	waitTime = _waitTime;
 	endPoint = _endPoint;
-	startPoint = _startPoint;
+	startPoint = Vec3(x, y, 0.0f);
 
 	colour = _colour;
 	rect = { x, y, width, height };

@@ -21,7 +21,7 @@ public:
 
 	Build(int _x, int _y, int _w, int _h, 
 		bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, 
-		float _waitTime, Vec3 _startPoint, Vec3 _endPoint,
+		float _waitTime, Vec3 _endPoint,
 		Vec4 _colour);
 
 	void Render(SDL_Renderer* renderer, GameManager* game);
