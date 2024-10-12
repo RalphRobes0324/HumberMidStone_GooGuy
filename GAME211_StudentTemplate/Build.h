@@ -9,9 +9,10 @@
 class Build {
 public:
 	Build(int _x, int _y, int _w, int _h, 
-		bool _canMove, 
+		bool _canMove, bool _isMoving, float _waitTime,
 		bool _canDisappear, bool _isVisable, float _disappearTime,
 		Vec4 _colour);
+	Build(int _x, int _y, int _w, int _h, Vec4 _colour);
 
 	void Render(SDL_Renderer* renderer, GameManager* game);
 
@@ -30,6 +31,7 @@ private:
 	bool canMove;
 	bool canDisappear;
 
+	//Settings Visiability
 	bool isVisible; //Display Build
 	bool isWarning; //state if platform will warn the player
 	float disappearTime; //length
@@ -37,7 +39,13 @@ private:
 	int alpha; //Alpha of build
 	int alphaEnds = 50; //Where alpha ends
 
+	//Settings Movments
+	bool isMoving;
+	float waitTime;
+	Vec3 endDestination;
+
 	Vec4 colour; //Build's colour
+	
 
 	
 	float timer;

@@ -9,7 +9,7 @@
 /// <param name="_w"></param>
 /// <param name="_h"></param>
 Build::Build(int _x, int _y, int _w, int _h, 
-	bool _canMove, 
+	bool _canMove, bool _isMoving, float _waitTime,
 	bool _canDisappear, bool _isVisible, float _disappearTime,
 	Vec4 _colour)
 {
@@ -19,13 +19,35 @@ Build::Build(int _x, int _y, int _w, int _h,
 	height = _h;
 
 	canMove = _canMove;
+	isMoving = _isMoving;
+	waitTime = _waitTime;
+
 	canDisappear = _canDisappear;
 	isVisible = _isVisible;
 	disappearTime = _disappearTime;
 	warningTime = _disappearTime / 2;
-	
+
 	colour = _colour;
 	alpha = colour.w;
+	rect = { x, y, width, height };
+}
+
+/// <summary>
+/// Define the default build
+/// </summary>
+/// <param name="_x"></param>
+/// <param name="_y"></param>
+/// <param name="_w"></param>
+/// <param name="_h"></param>
+/// <param name="_colour"></param>
+Build::Build(int _x, int _y, int _w, int _h, Vec4 _colour)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+
+	colour = _colour;
 	rect = { x, y, width, height };
 }
 
@@ -66,6 +88,9 @@ void Build::Update(float DeltaTime)
 			isVisible = true;// build  reappear
 			timer = 0.0f; // Reset the timer
 		}
+	}
+	else if (canMove) {
+
 	}
 }
 
