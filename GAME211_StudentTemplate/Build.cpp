@@ -45,7 +45,7 @@ void Build::Update(float DeltaTime)
 			isWarning = true;
 		}
 
-		//Handle warning system on the platforms
+		//Handle warning system on the platforms if warning begins
 		if (isWarning) {
 			float progress = (disappearTime - timer) / warningTime;
 			alpha = static_cast<int>(255 * progress); // Reduce alpha to fade out
@@ -57,6 +57,7 @@ void Build::Update(float DeltaTime)
 			isVisible = false;// Platform disappear
 			isWarning = false; //reset warning
 			timer = 0.0f; // Reset the timer
+			alpha = 255; //reset alpha
 
 		}
 		//Time is up, make platform reappear
