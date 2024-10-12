@@ -114,8 +114,9 @@ void Build::Update(float DeltaTime)
 		}
 	}
 
-	else if (canMove) {
+	if (canMove) {
 		if (canLoop) {
+			
 			if (!isMoving) {
 				timer += DeltaTime;
 				if (timer >= waitTime) {
@@ -133,6 +134,7 @@ void Build::Update(float DeltaTime)
 
 					// Check if reached the destination
 					if (rect.x >= endPoint.x) {
+						std::cout << "End point reached\n";
 						rect.x = endPoint.x;
 						isMoving = false;
 					}
@@ -142,6 +144,7 @@ void Build::Update(float DeltaTime)
 					if (rect.x > startPoint.x) rect.x -= speed * DeltaTime;
 					// Check if reached the starting point
 					if (rect.x <= startPoint.x) {
+						std::cout << "Start point reached\n";
 						rect.x = startPoint.x; // Snap to the starting point
 						isMoving = false;
 					}
