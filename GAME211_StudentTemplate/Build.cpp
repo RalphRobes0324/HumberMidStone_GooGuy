@@ -69,29 +69,6 @@ void Build::Update(float DeltaTime)
 	}
 }
 
-
-/// <summary>
-/// Converts Screen space to physics space
-/// </summary>
-/// <param name="game"></param>
-/// <returns></returns>
-SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
-{
-	//found windows w and h 1000x600
-
-	SDL_Rect physicsRect; 
-
-	float screenHeight = game->getSceneHeight();
-	float screenWidth = game->getSceneWidth();
-
-	physicsRect.x = x * screenWidth / 1000;
-	physicsRect.y = (600 - y) * screenHeight / 600;
-	physicsRect.w = width * screenWidth / 1000;
-	physicsRect.h = (600 - height) * screenHeight / 600;
-
-	return physicsRect;
-}
-
 /// <summary>
 /// Render the build
 /// </summary>
