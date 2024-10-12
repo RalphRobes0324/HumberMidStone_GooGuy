@@ -1,4 +1,4 @@
-#ifndef BUILD_H
+ #ifndef BUILD_H
 #define BUILD_H
 
 #include <SDL.h>
@@ -8,9 +8,17 @@
 
 class Build {
 public:
+	//Setting up Default Build
+	Build(int _x, int _y, int _w, int _h, Vec4 _colour);
+
+	//Setting up Disappearing Build
+	Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
+
+	//Setting up Moving Build
 	Build(int _x, int _y, int _w, int _h, 
-		bool _canMove, 
-		bool _canDisappear, bool _isVisable, float _disappearTime,
+		bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, 
+		float _speed, float _waitTime, 
+		Vec3 _endPoint,
 		Vec4 _colour);
 
 	void Render(SDL_Renderer* renderer, GameManager* game);
@@ -20,8 +28,6 @@ public:
 
 	SDL_Rect getPlatform() { return rect; } //added getter to get the platform so it can be used for checks of collision (Maya)
 
-	SDL_Rect getPlatformInSDLspace(GameManager* game);
-
 	bool getVisibility() { return isVisible; } //added to return visibility for collision checks (Maya)
 	
 private:
@@ -29,9 +35,10 @@ private:
 	SDL_Rect rect;
 
 	//Type of Build
-	bool canMove;
+	bool canMove, canLoop;
 	bool canDisappear;
 
+	//Settings Visiability
 	bool isVisible; //Display Build
 	bool isWarning; //state if platform will warn the player
 	float disappearTime; //length
@@ -39,7 +46,17 @@ private:
 	int alpha; //Alpha of build
 	int alphaEnds = 50; //Where alpha ends
 
+	//Settings Movments
+	bool isMoving;
+	bool moveForward;
+	bool moveUpward;
+	float speed;
+	float waitTime;
+	Vec3 startPoint;
+	Vec3 endPoint;
+
 	Vec4 colour; //Build's colour
+	
 
 	
 	float timer;

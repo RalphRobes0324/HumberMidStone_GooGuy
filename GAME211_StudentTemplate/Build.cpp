@@ -1,16 +1,57 @@
 #include "Build.h"
 
-
 /// <summary>
-/// Define the build
+/// Define the default build
 /// </summary>
 /// <param name="_x"></param>
 /// <param name="_y"></param>
 /// <param name="_w"></param>
 /// <param name="_h"></param>
+/// <param name="_colour"></param>
+Build::Build(int _x, int _y, int _w, int _h, Vec4 _colour)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+	colour = _colour;
+
+	rect = { x, y, width, height };
+}
+
+/// <summary>
+/// Init disappearing platform
+/// </summary>
+/// <param name="_x"></param>
+/// <param name="_y"></param>
+/// <param name="_w"></param>
+/// <param name="_h"></param>
+/// <param name="_canDisappear"></param>
+/// <param name="_isVisible"></param>
+/// <param name="_disappearTime"></param>
+/// <param name="_colour"></param>
+Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+
+	canDisappear = _canDisappear;
+	isVisible = _isVisible;
+	disappearTime = _disappearTime;
+	warningTime = _disappearTime / 2;
+
+	colour = _colour;
+	alpha = colour.w;
+	rect = { x, y, width, height };
+}
+
 Build::Build(int _x, int _y, int _w, int _h, 
-	bool _canMove, 
-	bool _canDisappear, bool _isVisible, float _disappearTime,
+	bool _canMove, bool _canLoop, bool _isMoving, 
+	bool _moveForward, bool _moveUpward, 
+	float _speed, float _waitTime, 
+	Vec3 _endPoint, 
 	Vec4 _colour)
 {
 	x = _x;
@@ -19,13 +60,18 @@ Build::Build(int _x, int _y, int _w, int _h,
 	height = _h;
 
 	canMove = _canMove;
-	canDisappear = _canDisappear;
-	isVisible = _isVisible;
-	disappearTime = _disappearTime;
-	warningTime = _disappearTime / 2;
-	
+	canLoop = _canLoop;
+
+	isMoving = _canLoop;
+	moveForward = _moveForward;
+	moveUpward = _moveUpward;
+
+	waitTime = _waitTime;
+	speed = _speed;
+	startPoint = Vec3(x, y, 0.0f);
+	endPoint = _endPoint;
+
 	colour = _colour;
-	alpha = colour.w;
 	rect = { x, y, width, height };
 }
 
@@ -67,30 +113,50 @@ void Build::Update(float DeltaTime)
 			timer = 0.0f; // Reset the timer
 		}
 	}
+
+	if (canMove) {
+		if (canLoop) {
+			
+			if (!isMoving) {
+				timer += DeltaTime;
+				if (timer >= waitTime) {
+					isMoving = true;
+					timer = 0.0f;
+					moveForward = !moveForward; // Switch direction after stopping
+				}
+			}
+			else {
+
+				if (moveForward) {
+					
+					// Move towards the end point
+					if (rect.x < endPoint.x) rect.x += speed * DeltaTime;
+
+					// Check if reached the destination
+					if (rect.x >= endPoint.x) {
+						std::cout << "End point reached\n";
+						rect.x = endPoint.x;
+						isMoving = false;
+					}
+				}
+				else {
+					//Move towards start point
+					if (rect.x > startPoint.x) rect.x -= speed * DeltaTime;
+					// Check if reached the starting point
+					if (rect.x <= startPoint.x) {
+						std::cout << "Start point reached\n";
+						rect.x = startPoint.x; // Snap to the starting point
+						isMoving = false;
+					}
+
+				}
+			}
+		}
+	}
+
 }
 
 
-/// <summary>
-/// Converts Screen space to physics space
-/// </summary>
-/// <param name="game"></param>
-/// <returns></returns>
-SDL_Rect Build::getPlatformInSDLspace(GameManager* game)
-{
-	//found windows w and h 1000x600
-
-	SDL_Rect physicsRect; 
-
-	float screenHeight = game->getSceneHeight();
-	float screenWidth = game->getSceneWidth();
-
-	physicsRect.x = x * screenWidth / 1000;
-	physicsRect.y = (600 - y) * screenHeight / 600;
-	physicsRect.w = width * screenWidth / 1000;
-	physicsRect.h = (600 - height) * screenHeight / 600;
-
-	return physicsRect;
-}
 
 /// <summary>
 /// Render the build
