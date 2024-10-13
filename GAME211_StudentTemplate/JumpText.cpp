@@ -50,7 +50,7 @@ void JumpText::RenderJump() {
     jumpRect.h = 75;
 
     // bottom right corner
-    jumpRect.x = windowWidth - jumpRect.w - 10;
+    jumpRect.x = windowWidth - jumpRect.w - 160;
     jumpRect.y = windowHeight - jumpRect.h - 10;
 
     // Render Jump Image
@@ -72,7 +72,7 @@ void JumpText::RenderWallJump() {
     jumpRect.h = 75;
 
     // bottom right corner
-    jumpRect.x = windowWidth - jumpRect.w - 10;
+    jumpRect.x = windowWidth - jumpRect.w - 160;
     jumpRect.y = windowHeight - jumpRect.h - 10;
 
     // Render Wall Jump Image
