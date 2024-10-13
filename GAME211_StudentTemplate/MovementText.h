@@ -19,8 +19,10 @@ public:
     MovementText(SDL_Renderer* renderer_, SDL_Window* window_);
     ~MovementText();
 
-    bool LoadImage(const char* movementImagePath);
-    void RenderDash();
+    bool LoadImage(const char* movementImagePath, const char* leftMovementImagePath, const char* rightMovementImagePath);
+    void RenderMovement();
+    void RenderLeftMovement();
+    void RenderRightMovement();
     void Cleanup();
 };
 
