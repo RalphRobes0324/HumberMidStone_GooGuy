@@ -24,6 +24,7 @@
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="JumpText.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MovementText.cpp" />
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Quest.cpp" />
     <ClCompile Include="Scene1.cpp" />
@@ -35,6 +36,7 @@
     <ClInclude Include="Build.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="JumpText.h" />
+    <ClInclude Include="MovementText.h" />
     <ClInclude Include="PlayerBody.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Scene.h" />
