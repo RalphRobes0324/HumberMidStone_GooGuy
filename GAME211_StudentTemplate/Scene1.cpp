@@ -25,8 +25,9 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	if (!quest.LoadFont("Atop-R99O3.ttf", 24)) {
 		std::cerr << "Failed to load quest font" << std::endl;
 	}
-	if (!jumpText.LoadFont("Atop-R99O3.ttf", 24)) {
-		std::cerr << "Failed to load jump font" << std::endl;
+	
+	if (!jumpText.LoadImages("jump.png", "wall_jump.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
 	}
 
 	// Set Quests
@@ -134,22 +135,9 @@ void Scene1::Update(const float deltaTime) {
 		}
 
 	}
-
-	// Determine which text to render based on player state
-	if (game->getPlayer()->isGrounded && !game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
-		jumpText.SetText("Jump");
-	}
-	else if (game->getPlayer()->wallTouchLeft || game->getPlayer()->wallTouchRight) {
-		jumpText.SetText("Wall Jump");
-	}
-	else {
-		jumpText.SetText(""); // clear text if none should be displayed
-	}
 }
 
-void Scene1::Render() {
-
-	
+void Scene1::Render() {	
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
@@ -169,7 +157,14 @@ void Scene1::Render() {
 
 	// Render Quest
 	quest.RenderCurrentQuest();
-	jumpText.Render();
+
+	// Determine which text to render based on player state
+	if (game->getPlayer()->isGrounded && !game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		jumpText.RenderJump();
+	}
+	else if (game->getPlayer()->wallTouchLeft || game->getPlayer()->wallTouchRight) {
+		jumpText.RenderWallJump();
+	}
 
 	SDL_RenderPresent(renderer);
 }
