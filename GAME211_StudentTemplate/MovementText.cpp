@@ -14,7 +14,7 @@ MovementText::~MovementText() {
     Cleanup();
 }
 
-bool MovementText::LoadImage(const char* movementImagePath, const char* leftMovementImagePath, const char* rightMovementImagePath) {
+bool MovementText::LoadImages(const char* movementImagePath, const char* leftMovementImagePath, const char* rightMovementImagePath) {
     // load movement image
     SDL_Surface* movementSurface = IMG_Load(movementImagePath);
     if (!movementSurface) {

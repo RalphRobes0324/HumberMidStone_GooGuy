@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "Quest.h"
 #include "JumpText.h"
+#include "MovementText.h"
 #include "Build.h"
 
 using namespace MATH;
@@ -29,6 +30,7 @@ private:
 
 	Quest quest;
 	JumpText jumpText;
+	MovementText movementText;
 
 public:
 	// This constructor may be different from what you've seen before
