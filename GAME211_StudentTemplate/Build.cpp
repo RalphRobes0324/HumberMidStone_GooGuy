@@ -129,7 +129,7 @@ void Build::Update(float DeltaTime)
 				float distance = speed * DeltaTime;
 				if (moveForward) {
 					if (rect.x < endPoint.x) {
-						rect.x += distance;
+						rect.x += speed;
 						if (rect.x >= endPoint.x) {
 							rect.x = endPoint.x; // set to end point
 							isMoving = false; // Stop moving when end is reached
@@ -138,7 +138,7 @@ void Build::Update(float DeltaTime)
 				}
 				else {
 					if (rect.x > startPoint.x) {
-						rect.x -= distance;
+						rect.x -= speed;
 						if (rect.x <= startPoint.x) {
 							rect.x = startPoint.x; // set to start point
 							isMoving = false; // Stop moving when start is reached
