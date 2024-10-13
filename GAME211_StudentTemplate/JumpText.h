@@ -7,9 +7,6 @@
 
 class JumpText {
 private:
-    std::string textToDisplay; // Text Displayed
-
-    // SDL_ttf Rendering
     SDL_Texture* jumpImage;
     SDL_Texture* wallJumpImage;
 
