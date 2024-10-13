@@ -85,7 +85,7 @@ void Build::Update() {
 void Build::Update(float DeltaTime)
 {
 	//check build can disappear
-	if (canDisappear) {
+	if (canDisappear && !canMove) {
 		timer += DeltaTime;
 
 		if (isVisible && timer >= (disappearTime - warningTime)) {
@@ -114,7 +114,7 @@ void Build::Update(float DeltaTime)
 		}
 	}
 
-	if (canMove) {
+	if (canMove && !canDisappear) {
 		if (canLoop) {
 			
 			if (!isMoving) {
