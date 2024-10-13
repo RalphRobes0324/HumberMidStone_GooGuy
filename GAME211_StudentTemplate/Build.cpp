@@ -126,29 +126,24 @@ void Build::Update(float DeltaTime)
 				}
 			}
 			else {
-
+				float distance = speed * DeltaTime;
 				if (moveForward) {
-					
-					// Move towards the end point
-					if (rect.x < endPoint.x) rect.x += speed * DeltaTime;
-
-					// Check if reached the destination
-					if (rect.x >= endPoint.x) {
-						std::cout << "End point reached\n";
-						rect.x = endPoint.x;
-						isMoving = false;
+					if (rect.x < endPoint.x) {
+						rect.x += distance;
+						if (rect.x >= endPoint.x) {
+							rect.x = endPoint.x; // set to end point
+							isMoving = false; // Stop moving when end is reached
+						}
 					}
 				}
 				else {
-					//Move towards start point
-					if (rect.x > startPoint.x) rect.x -= speed * DeltaTime;
-					// Check if reached the starting point
-					if (rect.x <= startPoint.x) {
-						std::cout << "Start point reached\n";
-						rect.x = startPoint.x; // Snap to the starting point
-						isMoving = false;
+					if (rect.x > startPoint.x) {
+						rect.x -= distance;
+						if (rect.x <= startPoint.x) {
+							rect.x = startPoint.x; // set to start point
+							isMoving = false; // Stop moving when start is reached
+						}
 					}
-
 				}
 			}
 		}
