@@ -85,13 +85,13 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             {
                 wallTouchLeft = false;
                 vel.y = 6.0f;
-                vel.x = 6.0f;
+                vel.x = 3.0f;
             }
             if (wallTouchRight)
             {
                 wallTouchRight = false;
                 vel.y = 6.0f;
-                vel.x = -6.0f;
+                vel.x = -3.0f;
             }
             break;
         }
@@ -124,6 +124,10 @@ void PlayerBody::Update(float deltaTime)
         frictionForce = Vec3(-6.0f, 0, 0.0f);
     else*/
         frictionForce = Vec3();
+
+    // slowly slide down walls
+    if (wallTouchLeft || wallTouchRight)
+        vel.y = std::max(vel.y - 1.0f * deltaTime, -2.0f);
 
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
