@@ -125,6 +125,10 @@ void PlayerBody::Update(float deltaTime)
     else*/
         frictionForce = Vec3();
 
+    // slowly slide down walls
+    if (wallTouchLeft || wallTouchRight)
+        vel.y = std::max(vel.y - 1.0f * deltaTime, -2.0f);
+
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
     //Maya Added
