@@ -85,13 +85,13 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             {
                 wallTouchLeft = false;
                 vel.y = 6.0f;
-                vel.x = 6.0f;
+                vel.x = 3.0f;
             }
             if (wallTouchRight)
             {
                 wallTouchRight = false;
                 vel.y = 6.0f;
-                vel.x = -6.0f;
+                vel.x = -3.0f;
             }
             break;
         }
