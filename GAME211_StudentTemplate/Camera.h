@@ -9,9 +9,10 @@ class Camera {
 public:
 	Camera(int _screenWidth, int _screenHeight);
 	void Update(float _targetX, float _targetY, GameManager* _game);
-
+	void Render(SDL_Renderer* renderer, GameManager* game);
 private:
 	SDL_Rect gameCamera;
+	GameManager* game;
 	int screenWidth;
 	int screenHeight;
 };
