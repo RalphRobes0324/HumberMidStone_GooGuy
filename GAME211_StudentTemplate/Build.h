@@ -14,13 +14,6 @@ public:
 	//Setting up Disappearing Build
 	Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 
-	//Setting up Moving Build
-	Build(int _x, int _y, int _w, int _h, 
-		bool _canMove, bool _canLoop, bool _isMoving, bool _moveForward, bool _moveUpward, 
-		float _speed, float _waitTime, 
-		Vec3 _endPoint,
-		Vec4 _colour);
-
 	void Render(SDL_Renderer* renderer, GameManager* game);
 
 	void Update();
@@ -35,7 +28,6 @@ private:
 	SDL_Rect rect;
 
 	//Type of Build
-	bool canMove, canLoop;
 	bool canDisappear;
 
 	//Settings Visiability
@@ -45,15 +37,6 @@ private:
 	float warningTime; //Time to start warning the player
 	int alpha; //Alpha of build
 	int alphaEnds = 50; //Where alpha ends
-
-	//Settings Movments
-	bool isMoving;
-	bool moveForward;
-	bool moveUpward;
-	float speed;
-	float waitTime;
-	Vec3 startPoint;
-	Vec3 endPoint;
 
 	Vec4 colour; //Build's colour
 	
