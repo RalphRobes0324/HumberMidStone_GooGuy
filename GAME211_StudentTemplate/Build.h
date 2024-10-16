@@ -28,7 +28,6 @@ private:
 	SDL_Rect rect;
 
 	//Type of Build
-	bool canMove, canLoop;
 	bool canDisappear;
 
 	//Settings Visiability

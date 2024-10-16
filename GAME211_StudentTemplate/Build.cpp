@@ -40,7 +40,6 @@ Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible
 	canDisappear = _canDisappear;
 	isVisible = _isVisible;
 	disappearTime = _disappearTime;
-	warningTime = _disappearTime / 2;
 
 	colour = _colour;
 	alpha = colour.w;
@@ -58,8 +57,9 @@ void Build::Update() {
 void Build::Update(float DeltaTime)
 {
 	//check build can disappear
-	if (canDisappear && !canMove) {
+	if (canDisappear) {
 		timer += DeltaTime;
+		warningTime = disappearTime / 4;
 
 		if (isVisible && timer >= (disappearTime - warningTime)) {
 			isWarning = true;

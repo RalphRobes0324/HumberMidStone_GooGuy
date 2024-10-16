@@ -10,8 +10,8 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform3(22, 2, 6, 2, Vec4(255, 255, 255, 255)),
 	wall1(6, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
-	redPlatform(11, 10, 6, 1, true, true, 10.0f, Vec4(255, 0, 0, 255)),
-	bluePlatform(20, 10, 6, 1, true, false, 10.0f, Vec4(0, 0, 255, 255)),
+	redPlatform(11, 10, 6, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	bluePlatform(20, 10, 6, 1, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
