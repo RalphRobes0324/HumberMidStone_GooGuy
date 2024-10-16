@@ -12,7 +12,6 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	redPlatform(11, 10, 6, 1, true, true, 10.0f, Vec4(255, 0, 0, 255)),
 	bluePlatform(20, 10, 6, 1, true, false, 10.0f, Vec4(0, 0, 255, 255)),
-	movePlatform(11, 5, 3, 1, true, true, true, true, false, 60, 1.5, Vec3(20,5,0),  Vec4(0, 255, 0, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -85,8 +84,6 @@ void Scene1::Update(const float deltaTime) {
 	//Update the build
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
-	movePlatform.Update(deltaTime);
-
 
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
@@ -154,7 +151,6 @@ void Scene1::Render() {
 	wall2.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 	bluePlatform.Render(renderer, game);
-	movePlatform.Render(renderer, game);
 
 
 	// render the player

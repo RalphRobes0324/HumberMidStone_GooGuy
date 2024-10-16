@@ -47,33 +47,6 @@ Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible
 	rect = { x, y, width, height };
 }
 
-Build::Build(int _x, int _y, int _w, int _h, 
-	bool _canMove, bool _canLoop, bool _isMoving, 
-	bool _moveForward, bool _moveUpward, 
-	float _speed, float _waitTime, 
-	Vec3 _endPoint, 
-	Vec4 _colour)
-{
-	x = _x;
-	y = _y;
-	width = _w;
-	height = _h;
-
-	canMove = _canMove;
-	canLoop = _canLoop;
-
-	isMoving = _canLoop;
-	moveForward = _moveForward;
-	moveUpward = _moveUpward;
-
-	waitTime = _waitTime;
-	speed = _speed;
-	startPoint = Vec3(x, y, 0.0f);
-	endPoint = _endPoint;
-
-	colour = _colour;
-	rect = { x, y, width, height };
-}
 
 /// <summary>
 /// Update the changes to the build
@@ -113,42 +86,6 @@ void Build::Update(float DeltaTime)
 			timer = 0.0f; // Reset the timer
 		}
 	}
-
-	if (canMove && !canDisappear) {
-		if (canLoop) {
-			
-			if (!isMoving) {
-				timer += DeltaTime;
-				if (timer >= waitTime) {
-					isMoving = true;
-					timer = 0.0f;
-					moveForward = !moveForward; // Switch direction after stopping
-				}
-			}
-			else {
-				float distance = speed * DeltaTime;
-				if (moveForward) {
-					if (rect.x < endPoint.x) {
-						rect.x += distance;
-						if (rect.x >= endPoint.x) {
-							rect.x = endPoint.x; // set to end point
-							isMoving = false; // Stop moving when end is reached
-						}
-					}
-				}
-				else {
-					if (rect.x > startPoint.x) {
-						rect.x -= distance;
-						if (rect.x <= startPoint.x) {
-							rect.x = startPoint.x; // set to start point
-							isMoving = false; // Stop moving when start is reached
-						}
-					}
-				}
-			}
-		}
-	}
-
 }
 
 
