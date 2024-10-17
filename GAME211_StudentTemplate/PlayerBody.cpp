@@ -67,12 +67,16 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             if (!wallTouchLeft)
                 if (vel.x > -6.0f)
                     vel.x = -6.0f;
+            // reset wall touch
+            wallTouchRight = false;
             break;
             //D add 2 from velocity x until 6.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (!wallTouchRight)
                 if (vel.x < 6.0f)
                     vel.x = 6.0f;
+            // reset wall touch
+            wallTouchLeft = false;
             break;
             //When spacebar is pressed, add 6 to velocity y to simulate a jump is player is grounded
         // Elijah added wall jump
@@ -123,7 +127,8 @@ void PlayerBody::Update(float deltaTime)
     else if (vel.x > 0)
         frictionForce = Vec3(-6.0f, 0, 0.0f);
     else*/
-        frictionForce = Vec3();
+
+    frictionForce = Vec3();
 
     // slowly slide down walls
     if (wallTouchLeft || wallTouchRight)
