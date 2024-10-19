@@ -3,6 +3,7 @@
 #define CAMERA_H
 
 #include <SDL.h>
+#include <SDL_opengl.h>
 #include "GameManager.h"
 
 class Camera {
@@ -15,6 +16,7 @@ private:
 	GameManager* game;
 	int screenWidth;
 	int screenHeight;
+
 };
 
 
