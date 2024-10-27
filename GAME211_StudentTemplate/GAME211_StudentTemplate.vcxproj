@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Build.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="JumpText.cpp" />
     <ClCompile Include="Main.cpp" />
@@ -34,6 +35,7 @@
   <ItemGroup>
     <ClInclude Include="Body.h" />
     <ClInclude Include="Build.h" />
+    <ClInclude Include="Camera.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="JumpText.h" />
     <ClInclude Include="MovementText.h" />

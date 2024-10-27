@@ -8,6 +8,7 @@
 #include "JumpText.h"
 #include "MovementText.h"
 #include "Build.h"
+#include "Camera.h"
 
 using namespace MATH;
 class Scene1 : public Scene {
@@ -30,6 +31,8 @@ private:
 	Quest quest;
 	JumpText jumpText;
 	MovementText movementText;
+	
+	Camera camera;
 
 public:
 	// This constructor may be different from what you've seen before
