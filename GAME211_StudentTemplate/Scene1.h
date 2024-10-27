@@ -31,6 +31,8 @@ private:
 	Quest quest;
 	JumpText jumpText;
 	MovementText movementText;
+	
+	Camera camera;
 
 public:
 	// This constructor may be different from what you've seen before

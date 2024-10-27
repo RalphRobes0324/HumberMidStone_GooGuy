@@ -40,6 +40,8 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	quest.AddQuest("Quest 3: Run from the Amalgamation");
 	quest.AddQuest("Quest 4: Locate the Exit");
 	quest.AddQuest("Quest 5: Leave the Lab");
+
+	
 }
 
 Scene1::~Scene1() {
@@ -51,7 +53,7 @@ bool Scene1::OnCreate() {
 	SDL_GetWindowSize(window,&w,&h);
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
-	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
+	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f); 
 	projectionMatrix = ndc * ortho;
 
 	// Turn on the SDL imaging subsystem
@@ -78,8 +80,14 @@ void Scene1::OnDestroy() {
 
 void Scene1::Update(const float deltaTime) {
 
+
+	//Update Camera *NOTE DOES NOT WORK. MUST ASK PROF FOR HELP
+	//camera.Update(deltaTime, window, xAxis, yAxis, game);
+	//projectionMatrix = camera.GetProjectionMatrix();
+
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+
 
 	//Update the build
 	redPlatform.Update(deltaTime);
