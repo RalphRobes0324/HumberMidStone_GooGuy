@@ -81,7 +81,7 @@ void Scene1::OnDestroy() {
 void Scene1::Update(const float deltaTime) {
 
 
-	//Update Camera *NOTE DOES NOT WORK. MUST ASK PROF FOR HELP
+	//Update Camera *NOTE DOES NOT WORK. MUST ASK PROF FOR HELP*
 	//camera.Update(deltaTime, window, xAxis, yAxis, game);
 	//projectionMatrix = camera.GetProjectionMatrix();
 
