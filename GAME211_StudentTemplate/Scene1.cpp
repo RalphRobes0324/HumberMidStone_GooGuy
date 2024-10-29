@@ -131,7 +131,6 @@ void Scene1::Update(const float deltaTime) {
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 
-			std::cout << game->getPlayer()->isGrounded << std::endl;
 			// Check if player reached a certain platform
 			if (RectsAreEqual(build, platform1.getPlatform())) {
 				quest.UpdateQuest(1); // Touching platform 1

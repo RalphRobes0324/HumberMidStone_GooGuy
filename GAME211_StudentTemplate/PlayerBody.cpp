@@ -61,20 +61,30 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
 {
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
+
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -6.0f velocity is achieved
         case(SDL_SCANCODE_A):
-            if (!wallTouchLeft)
-                if (vel.x > -6.0f)
-                    vel.x = -6.0f;
+            if (!wallTouchLeft) {
+                if (vel.x == 0.0f)
+                    vel.x = -7.0f;
+                else if (vel.x > -10.0f)
+                    accel.x = -10.0f;//vel.x -= 1.5f;
+
+            }
             // reset wall touch
             wallTouchRight = false;
             break;
             //D add 2 from velocity x until 6.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (!wallTouchRight)
-                if (vel.x < 6.0f)
-                    vel.x = 6.0f;
+            {
+                if (vel.x == 0.0f)
+                    vel.x = 7.0f;
+                else if (vel.x < 10.0f)
+                    accel.x = 10.0f; //vel.x += 1.5f;
+
+            }
             // reset wall touch
             wallTouchLeft = false;
             break;
@@ -117,7 +127,6 @@ void PlayerBody::Update(float deltaTime)
     // Note that would update velocity too, and rotation motion
 
     Body::Update(deltaTime);
-    std::cout << isGrounded << " " << wallTouchLeft << " " << wallTouchRight << std::endl;
     //Maya Added
     //if the player isGrounded make the grav force 0 so you don't have any gravity,
     // if the character isn't grounded grav force is -9.8
@@ -136,7 +145,8 @@ void PlayerBody::Update(float deltaTime)
 
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
-    //Maya Added
+
+    std::cout << vel.x << std::endl;
 }
 /// <summary>
 /// Maya added Has Collided With function
@@ -219,7 +229,6 @@ bool PlayerBody::HasCollidedTop(SDL_Rect rect)
     // Determine the smallest overlap (side or top/bottom)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
-    std::cout << minVerticalOverlap << std::endl;
     // If horizontal overlap is smaller, it's a top collision
     if (minVerticalOverlap > 0.75) {
         return true;  // top collision occurred
