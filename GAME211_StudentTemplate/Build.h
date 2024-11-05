@@ -23,6 +23,10 @@ public:
 
 	bool getVisibility() { return isVisible; } //added to return visibility for collision checks (Maya)
 	
+	void OnTriggerEnter(GameManager* game);
+
+	bool isPlayerInTriggerBox(const Vec3& playerPos);
+
 private:
 	int x, y, width, height;
 	SDL_Rect rect;

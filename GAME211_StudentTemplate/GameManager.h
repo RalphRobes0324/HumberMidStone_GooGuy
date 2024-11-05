@@ -30,6 +30,7 @@ private:
 	void handleEvents();
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
+	Uint32 changeScene;
 
 
 public:
@@ -48,6 +49,8 @@ public:
 	SDL_Renderer* getRenderer();
 
 	void Run();
+
+	Uint32 GetChangeScene();
     
 };
 #endif

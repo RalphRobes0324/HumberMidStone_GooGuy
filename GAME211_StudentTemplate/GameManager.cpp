@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "Scene1.h"
+#include "CopyBaseScene.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -70,6 +71,13 @@ bool GameManager::OnCreate() {
         OnDestroy();
         return false;
     }
+
+    // create user define event 
+    changeScene = SDL_RegisterEvents(1);
+    if (changeScene == ((Uint32) - 1)) {
+        OnDestroy();
+        return false;
+    }
            
 	return true;
 }
@@ -92,6 +100,11 @@ void GameManager::Run() {
 	}
 }
 
+Uint32 GameManager::GetChangeScene()
+{
+    return changeScene;
+}
+
 void GameManager::handleEvents() 
 {
     SDL_Event event;
@@ -107,7 +120,18 @@ void GameManager::handleEvents()
     {
         if (event.type == SDL_QUIT)
         {
-            isRunning = false;
+            isRunning = false; 
+        }
+        else if (event.type == changeScene) {
+            //switch scene
+            currentScene->OnDestroy();
+            delete currentScene;
+            currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
+            
+            if (!currentScene->OnCreate()) {
+                OnDestroy();
+                isRunning = false;
+            }
         }
         else if (event.type == SDL_KEYDOWN)
         {

@@ -88,6 +88,22 @@ void Build::Update(float DeltaTime)
 	}
 }
 
+void Build::OnTriggerEnter(GameManager* game)
+{
+	Vec3 playerPos = game->getPlayer()->getPos();
+
+	if (isPlayerInTriggerBox(playerPos)) {
+		std::cout << "Player has entered the trigger area!" << std::endl;
+	}
+
+}
+
+bool Build::isPlayerInTriggerBox(const Vec3& playerPos)
+{
+	return (playerPos.x >= rect.x && playerPos.x <= rect.x + rect.w &&
+		playerPos.y >= rect.y && playerPos.y <= rect.y + rect.h);
+}
+
 
 
 /// <summary>

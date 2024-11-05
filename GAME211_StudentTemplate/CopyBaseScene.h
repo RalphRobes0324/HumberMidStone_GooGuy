@@ -4,6 +4,7 @@
 #include <MMath.h>
 #include "Scene.h"
 #include "Build.h"
+#include "Quest.h"
 
 using namespace MATH;
 class CopyBaseScene : public Scene {
@@ -13,7 +14,9 @@ private:
 	SDL_Window* window;		// an SDL window with a SDL renderer
 	SDL_Renderer* renderer;	// the renderer associated with SDL window
 	Matrix4 projectionMatrix;	// set in OnCreate()
-    Matrix4     inverseProjection;	// set in OnCreate()
+    Matrix4 inverseProjection;	// set in OnCreate()
+
+	Build platform1;
 
 public:
 	// This constructor may be different from what you've seen before
@@ -31,6 +34,8 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
+	bool RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2);
 };
 
 #endif
