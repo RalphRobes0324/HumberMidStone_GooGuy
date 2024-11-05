@@ -82,8 +82,6 @@ void Scene1::Update(const float deltaTime) {
 
 
 	//Update Camera *NOTE DOES NOT WORK. MUST ASK PROF FOR HELP*
-	//camera.Update(deltaTime, window, xAxis, yAxis, game);
-	//projectionMatrix = camera.GetProjectionMatrix();
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
