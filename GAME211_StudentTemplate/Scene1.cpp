@@ -71,7 +71,9 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	//set Player position when spawned into world
+
+	/*DONT REMOVE CODE*/
+	//set Player position when spawned into world 
 	//if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
 	//	game->getPlayer()->setPos(Vec3(3, 5, 0));
 	//}
