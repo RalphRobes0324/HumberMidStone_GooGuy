@@ -75,7 +75,7 @@ bool Scene1::OnCreate() {
 		game->getPlayer()->setPos(Vec3(3, 5, 0));
 	}
 	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
-		game->getPlayer()->setPos(Vec3(platform3.getPlatform().x + .3, platform3.getPlatform().y + 1, 0));
+		game->getPlayer()->setPos(Vec3(platform3.getPlatform().x + .3f, platform3.getPlatform().y + .5f, 0));
 	}
 	
 	

@@ -37,8 +37,9 @@ bool CopyBaseScene::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	game->getPlayer()->setPos(Vec3(platform1.getPlatform().x + 2.5f, platform1.getPlatform().y + 1, 0));
-
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
+		game->getPlayer()->setPos(Vec3(platform1.getPlatform().x + 2.5f, platform1.getPlatform().y + .5f, 0));
+	}
 	return true;
 }
 
