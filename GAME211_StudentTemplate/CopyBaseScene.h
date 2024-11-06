@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Build.h"
 #include "Quest.h"
+#include "DefineScenes.h"
 
 using namespace MATH;
 class CopyBaseScene : public Scene {
@@ -17,6 +18,7 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	Build platform1;
+	Build triggerEvent;
 
 public:
 	// This constructor may be different from what you've seen before
