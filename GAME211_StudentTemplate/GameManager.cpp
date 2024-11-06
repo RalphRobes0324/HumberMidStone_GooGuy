@@ -108,45 +108,54 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
-void GameManager::HandleSpawnPoint()
+void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
 {
     Vec3 playerPos = oldPlayerPos;
     float radius = player->getRadius();
     Vec3 newPosition;
-    const float offset = 1.f;
 
     float overlapRight = (oldSpawn.x + oldSpawn.w) - (playerPos.x - radius);
     float overlapLeft = (playerPos.x + radius) - oldSpawn.x;
     float overlapTop = (oldSpawn.y + oldSpawn.h) - (playerPos.y - radius);
     float overlapBottom = (playerPos.y + radius) - oldSpawn.y;
 
-    if (overlapLeft < overlapRight && overlapLeft < overlapTop && overlapLeft < overlapBottom) {
-        // Coming from left, spawn on the right side of the new trigger box with an offset
-        newPosition.x = newSpawn.x + newSpawn.w + radius + offset;
-        newPosition.y = playerPos.y;  // Maintain the same y-position
+    float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
+    float minVerticalOverlap = std::min(overlapTop, overlapBottom);
 
-        std::cout << "Coming from left side\n";
+    if (minHorizontalOverlap < 0.5f && minVerticalOverlap < 0.90f) {
+        if (overlapLeft < overlapRight)
+        {
+            // Coming from the left, spawn on the right side of the new trigger box
+            newPosition.x = newSpawn.x + newSpawn.w + radius + offset;
+            newPosition.y = playerPos.y;
+            std::cout << "Coming from left side\n";
+        }
+        else 
+        {
+            newPosition.x = newSpawn.x - radius - offset;
+            newPosition.y = playerPos.y;
+            std::cout << "Coming from right side\n";
+        }
     }
-    else if (overlapRight < overlapLeft && overlapRight < overlapTop && overlapRight < overlapBottom) {
-        // Coming from right, spawn on the left side of the new trigger box with an offset
-        newPosition.x = newSpawn.x - radius - offset;
-        newPosition.y = playerPos.y;  // Maintain the same y-position
+    else
+    {
+        if (minVerticalOverlap > 0.75) 
+        {
 
-        std::cout << "Coming from Right side\n";
+            newPosition.y = newSpawn.y - radius - topOffset;
+            newPosition.x = newSpawn.x + offset;
+            std::cout << "Coming from top side\n";
+            
+  
+        }
+        else
+        {
+            newPosition.y = newSpawn.y + newSpawn.h + radius + topOffset;
+            newPosition.x = newSpawn.x + offset;
+            std::cout << "Coming from bottom side\n";
+        }
     }
-    else if (overlapTop < overlapBottom && overlapTop < overlapLeft && overlapTop < overlapRight) {
-        // Coming from top, spawn below the new trigger box with an offset
-        newPosition.y = newSpawn.y + newSpawn.h + radius - offset;
-        newPosition.x = playerPos.x;  // Maintain the same x-position
 
-        std::cout << "Coming from top side\n";
-    }
-    else if (overlapBottom < overlapTop && overlapBottom < overlapLeft && overlapBottom < overlapRight) {
-        // Coming from bottom, spawn above the new trigger box with an offset
-        newPosition.y = newSpawn.y - radius + offset;
-        newPosition.x = playerPos.x;  // Maintain the same x-position
-        std::cout << "Coming from bottom side\n";
-    }
 
     SetPlayerNewPos(newPosition);
 }

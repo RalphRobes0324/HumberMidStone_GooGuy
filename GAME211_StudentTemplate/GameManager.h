@@ -77,7 +77,7 @@ public:
 
 	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
 	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; }
-	void HandleSpawnPoint();
+	void HandleSpawnPoint(const float offset, const float topOffset);
 
 
 };

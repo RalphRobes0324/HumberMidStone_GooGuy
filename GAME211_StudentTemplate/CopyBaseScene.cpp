@@ -44,7 +44,7 @@ bool CopyBaseScene::OnCreate() {
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint();
+		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
 	return true;
