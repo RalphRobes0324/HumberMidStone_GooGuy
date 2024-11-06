@@ -4,7 +4,7 @@
 // See notes about this constructor in Scene1.h.
 CopyBaseScene::CopyBaseScene(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255))
+	triggerEvent(5, 5, 2, 2, Vec4(0, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -38,7 +38,8 @@ bool CopyBaseScene::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-		game->getPlayer()->setPos(Vec3(platform1.getPlatform().x + 2.5f, platform1.getPlatform().y + .5f, 0));
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
 	return true;
 }

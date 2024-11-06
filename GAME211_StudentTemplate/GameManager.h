@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "PlayerBody.h"
 #include "DefineScenes.h"
+#include "Build.h"
 
 
 
@@ -34,7 +35,11 @@ private:
 	bool ValidateCurrentScene();
 	Uint32 changeScene;
 
-	Vec3 lastPlayerPos;
+	Vec3 newPlayerPos;
+	Vec3 oldPlayerPos;
+
+	SDL_Rect newSpawn;
+	SDL_Rect oldSpawn;
 
 	DefineScenes sceneManager;
 
@@ -61,8 +66,17 @@ public:
 
 	Uint32 GetChangeScene();
 
-	Vec3 CalNewDesination();
+	void SetPlayerNewPos(Vec3 newPos) { newPlayerPos = newPos; }
+	Vec3 GetPlayerNewPos();
 
+	void SetPlayerOldPos(Vec3 old) { oldPlayerPos = old; }
+
+	SDL_Rect GetOldTriggerBox() const { return oldSpawn; }
+	void SetOldTriggerBox(const SDL_Rect& _rect) { oldSpawn = _rect; }
+
+	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
+	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; }
+	void HandleSpawnPoint(const SDL_Rect& oldTrigger, const SDL_Rect& newTrigger);
 
 
 };

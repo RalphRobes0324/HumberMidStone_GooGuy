@@ -9,7 +9,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
 	platform2(12, 2, 6, 2, Vec4(255, 255, 255, 255)),
 	platform3(22, 2, 6, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(25, 4, 2, 2, Vec4(0,255, 255, 255)),
+	triggerEvent(24, 4, 2, 2, Vec4(0,255, 255, 255)),
 	wall1(6, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	redPlatform(11, 10, 6, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),

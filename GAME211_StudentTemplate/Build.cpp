@@ -90,8 +90,6 @@ void Build::Update(float DeltaTime)
 
 void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene)
 {
-	Vec3 playerPos = game->getPlayer()->getPos();
-
 	game->GetSceneManager().SetCurrentScene(newScene);
 	game->GetSceneManager().SetLastScene(lastScene);
 
@@ -120,6 +118,10 @@ bool Build::isPlayerInTriggerBox(GameManager* game)
 
 		return false;
 	}
+
+	game->SetOldTriggerBox(rect);
+	game->SetPlayerOldPos(pos);
+
 
 	return true;
 }

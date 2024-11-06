@@ -108,6 +108,51 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
+Vec3 GameManager::GetPlayerNewPos()
+{
+    Vec3 playerPos = oldPlayerPos;
+    float radius = player->getRadius();
+    Vec3 newPosition;
+
+    const float offset = .2f;
+
+    float overlapRight = (oldSpawn.x + oldSpawn.w) - (playerPos.x - radius);
+    float overlapLeft = (playerPos.x + radius) - oldSpawn.x;
+    float overlapTop = (oldSpawn.y + oldSpawn.h) - (playerPos.y - radius);
+    float overlapBottom = (playerPos.y + radius) - oldSpawn.y;
+
+    if (overlapLeft < overlapRight && overlapLeft < overlapTop && overlapLeft < overlapBottom) {
+        // Coming from left, spawn on the right side of the new trigger box with an offset
+        newPosition.x = newSpawn.x + newSpawn.w + radius;
+        std::cout << "Coming from the left\n";
+    }
+    else if (overlapRight < overlapLeft && overlapRight < overlapTop && overlapRight < overlapBottom) {
+        // Coming from right, spawn on the left side of the new trigger box with an offset
+        newPosition.x = newSpawn.x - radius;
+        std::cout << "Coming from the right\n";
+    }
+    else if (overlapTop < overlapBottom && overlapTop < overlapLeft && overlapTop < overlapRight) {
+        // Coming from top, spawn below the new trigger box with an offset
+        newPosition.y = newSpawn.y + newSpawn.h + radius;
+        newPosition.x = playerPos.x;  // Maintain the same x-position
+        std::cout << "Coming from the top\n";
+    }
+    else if (overlapBottom < overlapTop && overlapBottom < overlapLeft && overlapBottom < overlapRight) {
+        // Coming from bottom, spawn above the new trigger box with an offset
+        newPosition.y = newSpawn.y - radius;
+        std::cout << "Coming from the bottom\n";
+    }
+
+    std::cout << "New Position: " << newPosition.x << " | " << newPosition.y << std::endl;
+
+    return newPlayerPos;
+}
+
+void GameManager::HandleSpawnPoint(const SDL_Rect& oldTrigger, const SDL_Rect& newTrigger)
+{
+
+}
+
 void GameManager::handleEvents() 
 {
     SDL_Event event;
