@@ -27,6 +27,8 @@ private:
 	Build redPlatform;
 	Build bluePlatform;
 
+	Build triggerEvent;
+
 	Quest quest;
 	JumpText jumpText;
 	MovementText movementText;

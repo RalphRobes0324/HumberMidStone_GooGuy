@@ -8,6 +8,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
 	platform2(12, 2, 6, 2, Vec4(255, 255, 255, 255)),
 	platform3(22, 2, 6, 2, Vec4(255, 255, 255, 255)),
+	triggerEvent(22, 4, 3, 2, Vec4(0,255, 255, 255)),
 	wall1(6, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	redPlatform(11, 10, 6, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
@@ -91,6 +92,8 @@ void Scene1::Update(const float deltaTime) {
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
 
+	triggerEvent.OnTriggerEnter(game);
+
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
 		platform2.getPlatform(),
@@ -152,6 +155,7 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	redPlatform.Render(renderer, game);

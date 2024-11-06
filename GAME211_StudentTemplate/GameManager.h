@@ -32,6 +32,7 @@ private:
 	bool ValidateCurrentScene();
 	Uint32 changeScene;
 
+	Vec3 lastPlayerPos;
 
 public:
 	GameManager();
@@ -51,6 +52,8 @@ public:
 	void Run();
 
 	Uint32 GetChangeScene();
+
+	Vec3 CalNewDesination();
     
 };
 #endif

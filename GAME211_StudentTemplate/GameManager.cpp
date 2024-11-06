@@ -105,6 +105,11 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
+Vec3 GameManager::CalNewDesination()
+{
+    return Vec3();
+}
+
 void GameManager::handleEvents() 
 {
     SDL_Event event;
