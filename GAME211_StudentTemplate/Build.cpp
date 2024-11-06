@@ -121,6 +121,7 @@ bool Build::isPlayerInTriggerBox(GameManager* game)
 
 	game->SetOldTriggerBox(rect);
 	game->SetPlayerOldPos(pos);
+	std::cout << pos.x << "||" << pos.y << "\n";
 
 
 	return true;

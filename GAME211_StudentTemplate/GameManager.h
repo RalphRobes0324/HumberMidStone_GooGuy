@@ -41,6 +41,7 @@ private:
 	SDL_Rect newSpawn;
 	SDL_Rect oldSpawn;
 
+
 	DefineScenes sceneManager;
 
 public:
@@ -67,7 +68,7 @@ public:
 	Uint32 GetChangeScene();
 
 	void SetPlayerNewPos(Vec3 newPos) { newPlayerPos = newPos; }
-	Vec3 GetPlayerNewPos();
+	Vec3 GetPlayerNewPos() { return newPlayerPos;  }
 
 	void SetPlayerOldPos(Vec3 old) { oldPlayerPos = old; }
 
@@ -76,7 +77,7 @@ public:
 
 	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
 	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; }
-	void HandleSpawnPoint(const SDL_Rect& oldTrigger, const SDL_Rect& newTrigger);
+	void HandleSpawnPoint();
 
 
 };

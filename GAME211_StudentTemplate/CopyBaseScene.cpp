@@ -4,13 +4,15 @@
 // See notes about this constructor in Scene1.h.
 CopyBaseScene::CopyBaseScene(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(5, 5, 2, 2, Vec4(0, 255, 255, 255))
+	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+
 }
 
 CopyBaseScene::~CopyBaseScene(){
@@ -19,6 +21,8 @@ CopyBaseScene::~CopyBaseScene(){
 bool CopyBaseScene::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
+
+	
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
@@ -32,6 +36,7 @@ bool CopyBaseScene::OnCreate() {
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
+
 	image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
@@ -39,6 +44,7 @@ bool CopyBaseScene::OnCreate() {
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint();
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
 	return true;

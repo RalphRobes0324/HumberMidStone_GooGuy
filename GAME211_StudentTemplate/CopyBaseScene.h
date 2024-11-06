@@ -20,6 +20,9 @@ private:
 	Build platform1;
 	Build triggerEvent;
 
+	Vec3 newPos;
+
+
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
