@@ -4,9 +4,7 @@
 // See notes about this constructor in Scene1.h.
 SceneA2::SceneA2(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	platform2(5, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(255, 0, 255, 255)),
-	triggerEvent2(5, 4, 1, 2, Vec4(0, 255, 255, 255))
+	platform2(5, 2, 8, 2, Vec4(255, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -45,17 +43,6 @@ bool SceneA2::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	//Check last scene was
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
-	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A3) {
-		game->SetNewTriggerBox(triggerEvent2.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
 	return true;
 }
 
@@ -66,9 +53,6 @@ void SceneA2::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
-	//set distination
-	triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2); //go to A1 and save A2
-	triggerEvent2.OnTriggerEnter(game, DefineScenes::A3, DefineScenes::A2);  //go to A3 and save A2
 
 
 	std::vector<SDL_Rect> builds = {
@@ -112,8 +96,6 @@ void SceneA2::Render() {
 
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
-	triggerEvent2.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

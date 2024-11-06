@@ -72,14 +72,16 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//set Player position when spawned into world
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
-		game->getPlayer()->setPos(Vec3(3, 5, 0));
-	}
-	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
-		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
+	//if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
+	//	game->getPlayer()->setPos(Vec3(3, 5, 0));
+	//}
+	//else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
+	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
+	//	game->HandleSpawnPoint(.2f, 1.f);
+	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
+	//}
+
+	game->getPlayer()->setPos(Vec3(3, 5, 0));
 	
 	
 
@@ -103,7 +105,7 @@ void Scene1::Update(const float deltaTime) {
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
 
-	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
+	//triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
 
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
@@ -166,7 +168,7 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
+	//triggerEvent.Render(renderer, game); *IMPORTANT* DONT REMOVE
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	redPlatform.Render(renderer, game);

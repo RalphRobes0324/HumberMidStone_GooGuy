@@ -19,8 +19,6 @@ private:
 
 	Build platform1;
 	Build platform2;
-	Build triggerEvent;
-	Build triggerEvent2;
 
 	Vec3 newPos;
 
