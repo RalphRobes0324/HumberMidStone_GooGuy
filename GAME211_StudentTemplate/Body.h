@@ -39,6 +39,7 @@ public:
     virtual void ApplyForce(Vec3 force_);
     virtual Vec3 getPos() { return pos; }
     virtual Vec3 getVel() { return vel; }
+    virtual float getRadius() { return radius; }
     virtual Vec3 getAccel() { return accel; }
     virtual float getMass() { return mass; }
     virtual float getOrientation() { return orientation; }

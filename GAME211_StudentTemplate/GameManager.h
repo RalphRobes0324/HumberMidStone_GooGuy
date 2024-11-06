@@ -6,6 +6,9 @@
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
+#include "DefineScenes.h"
+#include "Build.h"
+
 
 
 class GameManager {
@@ -30,13 +33,26 @@ private:
 	void handleEvents();
 	void LoadScene(int i);
 	bool ValidateCurrentScene();
+	Uint32 changeScene;
 
+	Vec3 newPlayerPos;
+	Vec3 oldPlayerPos;
+
+	SDL_Rect newSpawn;
+	SDL_Rect oldSpawn;
+
+
+	DefineScenes sceneManager;
 
 public:
+
+
 	GameManager();
 	~GameManager();
 	bool OnCreate();
 	void OnDestroy();
+
+	DefineScenes& GetSceneManager() { return sceneManager; }
 
 
 	// These might be unfamiliar
@@ -48,7 +64,22 @@ public:
 	SDL_Renderer* getRenderer();
 
 	void Run();
-    
+
+	Uint32 GetChangeScene();
+
+	void SetPlayerNewPos(Vec3 newPos) { newPlayerPos = newPos; }
+	Vec3 GetPlayerNewPos() { return newPlayerPos;  }
+
+	void SetPlayerOldPos(Vec3 old) { oldPlayerPos = old; }
+
+	SDL_Rect GetOldTriggerBox() const { return oldSpawn; }
+	void SetOldTriggerBox(const SDL_Rect& _rect) { oldSpawn = _rect; }
+
+	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
+	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; }
+	void HandleSpawnPoint(const float offset, const float topOffset);
+
+
 };
 #endif
 

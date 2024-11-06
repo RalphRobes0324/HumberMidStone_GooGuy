@@ -146,7 +146,7 @@ void PlayerBody::Update(float deltaTime)
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
 
-    std::cout << vel.x << std::endl;
+    //std::cout << vel.x << std::endl;
 }
 /// <summary>
 /// Maya added Has Collided With function
@@ -194,12 +194,12 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
    
     if (minHorizontalOverlap < 0.5f && minVerticalOverlap < 0.90f) {
         if (overlapLeft < overlapRight) {
-            std::cout << "Right side\n";
+            //std::cout << "Right side\n";
             wallTouchRight = true;
         }
         else {
 
-            std::cout << "Left Side\n";
+            //std::cout << "Left Side\n";
             wallTouchLeft = true;
 
         }

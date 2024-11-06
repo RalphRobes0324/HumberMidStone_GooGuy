@@ -1,6 +1,7 @@
 #include "Scene1.h"
 #include <VMath.h>
 
+
 // See notes about this constructor in Scene1.h.
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	:
@@ -8,6 +9,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
 	platform2(12, 2, 6, 2, Vec4(255, 255, 255, 255)),
 	platform3(22, 2, 6, 2, Vec4(255, 255, 255, 255)),
+	triggerEvent(24, 4, 1, 2, Vec4(0,255, 255, 255)),
 	wall1(6, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
 	redPlatform(11, 10, 6, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
@@ -69,7 +71,16 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//set Player position when spawned into world
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
+		game->getPlayer()->setPos(Vec3(3, 5, 0));
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	
+	
 
 	return true;
 }
@@ -82,8 +93,6 @@ void Scene1::Update(const float deltaTime) {
 
 
 	//Update Camera *NOTE DOES NOT WORK. MUST ASK PROF FOR HELP*
-	//camera.Update(deltaTime, window, xAxis, yAxis, game);
-	//projectionMatrix = camera.GetProjectionMatrix();
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -92,6 +101,8 @@ void Scene1::Update(const float deltaTime) {
 	//Update the build
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
+
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
 
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
@@ -154,6 +165,7 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	redPlatform.Render(renderer, game);

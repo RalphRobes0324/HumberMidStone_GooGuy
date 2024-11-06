@@ -88,6 +88,45 @@ void Build::Update(float DeltaTime)
 	}
 }
 
+void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene)
+{
+	game->GetSceneManager().SetCurrentScene(newScene);
+	game->GetSceneManager().SetLastScene(lastScene);
+
+	if (isPlayerInTriggerBox(game)) {
+		SDL_Event event;
+		SDL_memset(&event, 0, sizeof(event));
+		event.type = game->GetChangeScene();
+		event.user.code = 1;
+		event.user.data1 = nullptr;
+		event.user.data2 = nullptr;
+		SDL_PushEvent(&event);
+	}
+	
+
+}
+
+bool Build::isPlayerInTriggerBox(GameManager* game)
+{
+	Vec3 pos = game->getPlayer()->getPos();
+	float radius = game->getPlayer()->getRadius();
+
+	if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
+		||
+		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
+	{
+
+		return false;
+	}
+
+	game->SetOldTriggerBox(rect);
+	game->SetPlayerOldPos(pos);
+	std::cout << pos.x << "||" << pos.y << "\n";
+
+
+	return true;
+}
+
 
 
 /// <summary>

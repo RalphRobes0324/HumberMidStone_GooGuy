@@ -1,17 +1,14 @@
-#ifndef SCENE1_H
-#define SCENE1_H
+#ifndef COPYBASESCENE_H
+#define COPYBASESCENE_H
 
 #include <MMath.h>
-#include <vector>
 #include "Scene.h"
-#include "Quest.h"
-#include "JumpText.h"
-#include "MovementText.h"
 #include "Build.h"
+#include "Quest.h"
 #include "DefineScenes.h"
 
 using namespace MATH;
-class Scene1 : public Scene {
+class CopyBaseScene : public Scene {
 private:
 	float xAxis;	// scene width, in game coords, set in constructor
 	float yAxis;	// scene height, in game coords, set in constructor
@@ -21,26 +18,17 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	Build platform1;
-	Build platform2;
-	Build platform3;
-	Build wall1;
-	Build wall2;
-	Build redPlatform;
-	Build bluePlatform;
-
 	Build triggerEvent;
 
-	Quest quest;
-	JumpText jumpText;
-	MovementText movementText;
+	Vec3 newPos;
+
 
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
 	// to see how this constructor is called.
-	Scene1(SDL_Window* sdlWindow, GameManager* game_);
-	
-	~Scene1();
+	CopyBaseScene(SDL_Window* sdlWindow, GameManager* game_);
+	~CopyBaseScene();
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);
@@ -51,6 +39,7 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
+
 	bool RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2);
 };
 

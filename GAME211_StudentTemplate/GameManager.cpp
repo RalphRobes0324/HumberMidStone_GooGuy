@@ -1,5 +1,6 @@
 #include "GameManager.h"
 #include "Scene1.h"
+#include "CopyBaseScene.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -70,7 +71,17 @@ bool GameManager::OnCreate() {
         OnDestroy();
         return false;
     }
-           
+
+    // create user define event 
+    changeScene = SDL_RegisterEvents(1);
+    if (changeScene == ((Uint32) - 1)) {
+        OnDestroy();
+        return false;
+    }
+
+    sceneManager.SetCurrentScene(DefineScenes::A1);
+    sceneManager.SetLastScene(DefineScenes::NONE); //DONT FORGET CHANGE WHEN MAIN MENU IS BUILT
+
 	return true;
 }
 
@@ -92,6 +103,63 @@ void GameManager::Run() {
 	}
 }
 
+Uint32 GameManager::GetChangeScene()
+{
+    return changeScene;
+}
+
+void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
+{
+    Vec3 playerPos = oldPlayerPos;
+    float radius = player->getRadius();
+    Vec3 newPosition;
+
+    float overlapRight = (oldSpawn.x + oldSpawn.w) - (playerPos.x - radius);
+    float overlapLeft = (playerPos.x + radius) - oldSpawn.x;
+    float overlapTop = (oldSpawn.y + oldSpawn.h) - (playerPos.y - radius);
+    float overlapBottom = (playerPos.y + radius) - oldSpawn.y;
+
+    float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
+    float minVerticalOverlap = std::min(overlapTop, overlapBottom);
+
+    if (minHorizontalOverlap < 0.5f && minVerticalOverlap < 0.90f) {
+        if (overlapLeft < overlapRight)
+        {
+            // Coming from the left, spawn on the right side of the new trigger box
+            newPosition.x = newSpawn.x + newSpawn.w + radius + offset;
+            newPosition.y = playerPos.y;
+            std::cout << "Coming from left side\n";
+        }
+        else 
+        {
+            newPosition.x = newSpawn.x - radius - offset;
+            newPosition.y = playerPos.y;
+            std::cout << "Coming from right side\n";
+        }
+    }
+    else
+    {
+        if (minVerticalOverlap > 0.75) 
+        {
+
+            newPosition.y = newSpawn.y - radius - topOffset;
+            newPosition.x = newSpawn.x + offset;
+            std::cout << "Coming from top side\n";
+            
+  
+        }
+        else
+        {
+            newPosition.y = newSpawn.y + newSpawn.h + radius + topOffset;
+            newPosition.x = newSpawn.x + offset;
+            std::cout << "Coming from bottom side\n";
+        }
+    }
+
+
+    SetPlayerNewPos(newPosition);
+}
+
 void GameManager::handleEvents() 
 {
     SDL_Event event;
@@ -107,7 +175,23 @@ void GameManager::handleEvents()
     {
         if (event.type == SDL_QUIT)
         {
-            isRunning = false;
+            isRunning = false; 
+        }
+        else if (event.type == changeScene) {
+            //switch scene
+            currentScene->OnDestroy();
+            delete currentScene;
+            if (sceneManager.GetCurrentScene() == DefineScenes::A1) {
+                currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A2) {
+                currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
+            }
+
+            if (!currentScene->OnCreate()) {
+                OnDestroy();
+                isRunning = false;
+            }
         }
         else if (event.type == SDL_KEYDOWN)
         {
