@@ -3,15 +3,14 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA4::SceneA4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255))
+	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
-
+	std::cout << "this is scene A4\n";
 
 }
 
@@ -42,12 +41,8 @@ bool SceneA4::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	//Check last scene was
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
+
+	game->getPlayer()->setPos(Vec3(3, 5, 0));
 	return true;
 }
 
@@ -57,10 +52,6 @@ void SceneA4::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
-
-	//set distination
-	triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
-
 
 	std::vector<SDL_Rect> builds = {
 	platform1.getPlatform()
@@ -101,7 +92,6 @@ void SceneA4::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
@@ -113,6 +103,7 @@ void SceneA4::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+	game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool SceneA4::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2)

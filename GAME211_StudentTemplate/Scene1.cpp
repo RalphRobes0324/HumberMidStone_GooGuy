@@ -43,7 +43,8 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	quest.AddQuest("Quest 4: Locate the Exit");
 	quest.AddQuest("Quest 5: Leave the Lab");
 
-	
+
+	std::cout << "this is scene A1\n";
 }
 
 Scene1::~Scene1() {
@@ -70,15 +71,19 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	//set Player position when spawned into world
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
-		game->getPlayer()->setPos(Vec3(3, 5, 0));
-	}
-	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
-		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
+
+	/*DONT REMOVE CODE*/
+	//set Player position when spawned into world 
+	//if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
+	//	game->getPlayer()->setPos(Vec3(3, 5, 0));
+	//}
+	//else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
+	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
+	//	game->HandleSpawnPoint(.2f, 1.f);
+	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
+	//}
+
+	game->getPlayer()->setPos(Vec3(3, 5, 0));
 	
 	
 
@@ -102,7 +107,7 @@ void Scene1::Update(const float deltaTime) {
 	redPlatform.Update(deltaTime);
 	bluePlatform.Update(deltaTime);
 
-	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
+	//triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
 
 	std::vector<SDL_Rect> builds = {
 		platform1.getPlatform(),
@@ -165,7 +170,7 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
+	//triggerEvent.Render(renderer, game); *IMPORTANT* DONT REMOVE
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	redPlatform.Render(renderer, game);
@@ -205,6 +210,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+	game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool Scene1::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2) {
