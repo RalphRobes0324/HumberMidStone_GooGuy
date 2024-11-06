@@ -22,7 +22,9 @@ bool SceneA8::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
-	
+	SDL_GetWindowSize(window, &w, &h);
+
+
 
 	Matrix4 ndc = MMath::viewportNDC(w, h);
 	Matrix4 ortho = MMath::orthographic(0.0f, xAxis, 0.0f, yAxis, 0.0f, 1.0f);
