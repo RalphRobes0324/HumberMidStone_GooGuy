@@ -1,5 +1,12 @@
 #include "GameManager.h"
 #include "Scene1.h"
+#include "SceneA2.h"
+#include "SceneA3.h"
+#include "SceneA4.h"
+#include "SceneA5.h"
+#include "SceneA6.h"
+#include "SceneA7.h"
+#include "SceneA8.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -185,7 +192,25 @@ void GameManager::handleEvents()
                 currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::A2) {
-                currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
+                currentScene = new SceneA2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A3) {
+                currentScene = new SceneA3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A4) {
+                currentScene = new SceneA4(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A5) {
+                currentScene = new SceneA5(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A6) {
+                currentScene = new SceneA6(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A7) {
+                currentScene = new SceneA7(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A8) {
+                currentScene = new SceneA8(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {

@@ -29,6 +29,12 @@
     <ClCompile Include="PlayerBody.cpp" />
     <ClCompile Include="Quest.cpp" />
     <ClCompile Include="Scene1.cpp" />
+    <ClCompile Include="SceneA2.cpp" />
+    <ClCompile Include="SceneA3.cpp" />
+    <ClCompile Include="SceneA4.cpp" />
+    <ClCompile Include="SceneA5.cpp" />
+    <ClCompile Include="SceneA6.cpp" />
+    <ClCompile Include="SceneA7.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -44,6 +50,12 @@
     <ClInclude Include="Quest.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="Scene1.h" />
+    <ClInclude Include="SceneA2.h" />
+    <ClInclude Include="SceneA3.h" />
+    <ClInclude Include="SceneA4.h" />
+    <ClInclude Include="SceneA5.h" />
+    <ClInclude Include="SceneA6.h" />
+    <ClInclude Include="SceneA7.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
