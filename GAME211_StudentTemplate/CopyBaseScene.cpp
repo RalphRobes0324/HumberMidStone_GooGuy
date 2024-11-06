@@ -36,6 +36,8 @@ bool CopyBaseScene::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	game->getPlayer()->setPos(Vec3(platform1.getPlatform().x + 1, platform1.getPlatform().y + 1, 0));
+
 	return true;
 }
 

@@ -1,9 +1,10 @@
- #ifndef BUILD_H
+#ifndef BUILD_H
 #define BUILD_H
 
 #include <SDL.h>
 #include "GameManager.h"
 #include "Body.h"
+#include "DefineScenes.h"
 
 
 class Build {
@@ -23,9 +24,9 @@ public:
 
 	bool getVisibility() { return isVisible; } //added to return visibility for collision checks (Maya)
 	
-	void OnTriggerEnter(GameManager* game);
+	void OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene);
 
-	bool isPlayerInTriggerBox(const Vec3& playerPos);
+	bool isPlayerInTriggerBox(GameManager* game);
 
 private:
 	int x, y, width, height;

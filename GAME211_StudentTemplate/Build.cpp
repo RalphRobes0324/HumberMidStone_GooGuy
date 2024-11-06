@@ -88,11 +88,14 @@ void Build::Update(float DeltaTime)
 	}
 }
 
-void Build::OnTriggerEnter(GameManager* game)
+void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene)
 {
 	Vec3 playerPos = game->getPlayer()->getPos();
 
-	if (isPlayerInTriggerBox(playerPos)) {
+	game->GetSceneManager().SetCurrentScene(newScene);
+	game->GetSceneManager().SetLastScene(lastScene);
+
+	if (isPlayerInTriggerBox(game)) {
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
 		event.type = game->GetChangeScene();
@@ -101,13 +104,24 @@ void Build::OnTriggerEnter(GameManager* game)
 		event.user.data2 = nullptr;
 		SDL_PushEvent(&event);
 	}
+	
 
 }
 
-bool Build::isPlayerInTriggerBox(const Vec3& playerPos)
+bool Build::isPlayerInTriggerBox(GameManager* game)
 {
-	return (playerPos.x >= rect.x && playerPos.x <= rect.x + rect.w &&
-		playerPos.y >= rect.y && playerPos.y <= rect.y + rect.h);
+	Vec3 pos = game->getPlayer()->getPos();
+	float radius = game->getPlayer()->getRadius();
+
+	if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
+		||
+		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
+	{
+
+		return false;
+	}
+
+	return true;
 }
 
 

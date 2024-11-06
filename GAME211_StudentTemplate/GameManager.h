@@ -6,6 +6,8 @@
 #include "Timer.h"
 #include "Scene.h"
 #include "PlayerBody.h"
+#include "DefineScenes.h"
+
 
 
 class GameManager {
@@ -34,11 +36,17 @@ private:
 
 	Vec3 lastPlayerPos;
 
+	DefineScenes sceneManager;
+
 public:
+
+
 	GameManager();
 	~GameManager();
 	bool OnCreate();
 	void OnDestroy();
+
+	DefineScenes& GetSceneManager() { return sceneManager; }
 
 
 	// These might be unfamiliar
@@ -54,7 +62,9 @@ public:
 	Uint32 GetChangeScene();
 
 	Vec3 CalNewDesination();
-    
+
+
+
 };
 #endif
 

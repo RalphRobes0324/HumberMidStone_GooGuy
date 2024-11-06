@@ -78,7 +78,10 @@ bool GameManager::OnCreate() {
         OnDestroy();
         return false;
     }
-           
+
+    sceneManager.SetCurrentScene(DefineScenes::A1);
+    sceneManager.SetLastScene(DefineScenes::NONE); //DONT FORGET CHANGE WHEN MAIN MENU IS BUILT
+
 	return true;
 }
 
@@ -105,11 +108,6 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
-Vec3 GameManager::CalNewDesination()
-{
-    return Vec3();
-}
-
 void GameManager::handleEvents() 
 {
     SDL_Event event;
@@ -131,8 +129,13 @@ void GameManager::handleEvents()
             //switch scene
             currentScene->OnDestroy();
             delete currentScene;
-            currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
-            
+            if (sceneManager.GetCurrentScene() == DefineScenes::A1) {
+                currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A2) {
+                currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
+            }
+
             if (!currentScene->OnCreate()) {
                 OnDestroy();
                 isRunning = false;

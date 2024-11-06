@@ -89,5 +89,8 @@
     <ClInclude Include="CopyBaseScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DefineScenes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

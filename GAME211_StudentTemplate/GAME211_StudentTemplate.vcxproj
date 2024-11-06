@@ -36,6 +36,7 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="Build.h" />
     <ClInclude Include="CopyBaseScene.h" />
+    <ClInclude Include="DefineScenes.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="JumpText.h" />
     <ClInclude Include="MovementText.h" />
