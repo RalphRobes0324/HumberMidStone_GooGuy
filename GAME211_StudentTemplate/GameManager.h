@@ -76,7 +76,7 @@ public:
 	void SetOldTriggerBox(const SDL_Rect& _rect) { oldSpawn = _rect; }
 
 	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
-	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; }
+	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; } //set new destination
 	void HandleSpawnPoint(const float offset, const float topOffset);
 
 

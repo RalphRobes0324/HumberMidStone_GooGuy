@@ -88,6 +88,13 @@ void Build::Update(float DeltaTime)
 	}
 }
 
+
+/// <summary>
+/// On enter, player will be teleported to new scene
+/// </summary>
+/// <param name="game">Needs access to the game manager</param>
+/// <param name="newScene">Scene to go to</param>
+/// <param name="lastScene">Save last scene</param>
 void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene)
 {
 	game->GetSceneManager().SetCurrentScene(newScene);

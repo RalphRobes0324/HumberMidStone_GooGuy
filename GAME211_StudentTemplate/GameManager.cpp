@@ -1,5 +1,18 @@
 #include "GameManager.h"
 #include "Scene1.h"
+#include "SceneA2.h"
+#include "SceneA3.h"
+#include "SceneA4.h"
+#include "SceneA5.h"
+#include "SceneA6.h"
+#include "SceneA7.h"
+#include "SceneA8.h"
+#include "SceneB1.h"
+#include "SceneB2.h"
+#include "SceneB3.h"
+#include "SceneB4.h"
+#include "SceneB5.h"
+#include "SceneB6.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -108,6 +121,12 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
+
+/// <summary>
+/// Setting spawn point
+/// </summary>
+/// <param name="offset">Adjust offset on x-axis</param>
+/// <param name="topOffset">Adjust offset on y-axis</param>
 void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
 {
     Vec3 playerPos = oldPlayerPos;
@@ -185,7 +204,43 @@ void GameManager::handleEvents()
                 currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::A2) {
-                currentScene = new CopyBaseScene(windowPtr->GetSDL_Window(), this);
+                currentScene = new SceneA2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A3) {
+                currentScene = new SceneA3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A4) {
+                currentScene = new SceneA4(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A5) {
+                currentScene = new SceneA5(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A6) {
+                currentScene = new SceneA6(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A7) {
+                currentScene = new SceneA7(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::A8) {
+                currentScene = new SceneA8(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B1) {
+                currentScene = new SceneB1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B2) {
+                currentScene = new SceneB2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B3) {
+                currentScene = new SceneB3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B4) {
+                currentScene = new SceneB4(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B5) {
+                currentScene = new SceneB5(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B6) {
+                currentScene = new SceneB6(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {
