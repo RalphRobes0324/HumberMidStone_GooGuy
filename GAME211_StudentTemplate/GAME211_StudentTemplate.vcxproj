@@ -35,6 +35,13 @@
     <ClCompile Include="SceneA5.cpp" />
     <ClCompile Include="SceneA6.cpp" />
     <ClCompile Include="SceneA7.cpp" />
+    <ClCompile Include="SceneA8.cpp" />
+    <ClCompile Include="SceneB1.cpp" />
+    <ClCompile Include="SceneB2.cpp" />
+    <ClCompile Include="SceneB3.cpp" />
+    <ClCompile Include="SceneB4.cpp" />
+    <ClCompile Include="SceneB5.cpp" />
+    <ClCompile Include="SceneB6.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -56,6 +63,13 @@
     <ClInclude Include="SceneA5.h" />
     <ClInclude Include="SceneA6.h" />
     <ClInclude Include="SceneA7.h" />
+    <ClInclude Include="SceneA8.h" />
+    <ClInclude Include="SceneB1.h" />
+    <ClInclude Include="SceneB2.h" />
+    <ClInclude Include="SceneB3.h" />
+    <ClInclude Include="SceneB4.h" />
+    <ClInclude Include="SceneB5.h" />
+    <ClInclude Include="SceneB6.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>

@@ -7,6 +7,12 @@
 #include "SceneA6.h"
 #include "SceneA7.h"
 #include "SceneA8.h"
+#include "SceneB1.h"
+#include "SceneB2.h"
+#include "SceneB3.h"
+#include "SceneB4.h"
+#include "SceneB5.h"
+#include "SceneB6.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -115,6 +121,12 @@ Uint32 GameManager::GetChangeScene()
     return changeScene;
 }
 
+
+/// <summary>
+/// Setting spawn point
+/// </summary>
+/// <param name="offset">Adjust offset on x-axis</param>
+/// <param name="topOffset">Adjust offset on y-axis</param>
 void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
 {
     Vec3 playerPos = oldPlayerPos;
@@ -211,6 +223,24 @@ void GameManager::handleEvents()
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::A8) {
                 currentScene = new SceneA8(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B1) {
+                currentScene = new SceneB1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B2) {
+                currentScene = new SceneB2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B3) {
+                currentScene = new SceneB3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B4) {
+                currentScene = new SceneB4(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B5) {
+                currentScene = new SceneB5(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::B6) {
+                currentScene = new SceneB6(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {
