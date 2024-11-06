@@ -43,7 +43,8 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	quest.AddQuest("Quest 4: Locate the Exit");
 	quest.AddQuest("Quest 5: Leave the Lab");
 
-	
+
+	std::cout << "this is scene A1\n";
 }
 
 Scene1::~Scene1() {
@@ -205,6 +206,7 @@ void Scene1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+	game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool Scene1::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2) {

@@ -12,6 +12,7 @@ SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
+	std::cout << "this is scene A8\n";
 
 }
 
@@ -113,6 +114,7 @@ void SceneA8::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+	game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool SceneA8::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2)

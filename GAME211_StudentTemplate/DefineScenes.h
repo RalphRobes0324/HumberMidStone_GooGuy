@@ -3,6 +3,13 @@
 class DefineScenes
 {
 public:
+
+	enum TypeOfScenes {
+		A,
+		B,
+		C,
+		D
+	};
 	enum GameScenes
 	{
 		NONE,
@@ -43,6 +50,9 @@ public:
 
 	void SetCurrentScene(GameScenes _currScene) { currScene = _currScene;  }
 	void SetLastScene(GameScenes _lastScene) { lastScene = _lastScene;  }
+
+
+
 
 };
 

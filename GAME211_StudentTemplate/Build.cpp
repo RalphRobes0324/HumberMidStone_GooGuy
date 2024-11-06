@@ -97,10 +97,11 @@ void Build::Update(float DeltaTime)
 /// <param name="lastScene">Save last scene</param>
 void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene)
 {
-	game->GetSceneManager().SetCurrentScene(newScene);
-	game->GetSceneManager().SetLastScene(lastScene);
+
 
 	if (isPlayerInTriggerBox(game)) {
+		game->GetSceneManager().SetCurrentScene(newScene);
+		game->GetSceneManager().SetLastScene(lastScene);
 		SDL_Event event;
 		SDL_memset(&event, 0, sizeof(event));
 		event.type = game->GetChangeScene();

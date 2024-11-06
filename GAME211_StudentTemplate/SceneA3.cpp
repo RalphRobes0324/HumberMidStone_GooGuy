@@ -12,6 +12,8 @@ SceneA3::SceneA3(SDL_Window* sdlWindow_, GameManager* game_) :
 	xAxis = 25.0f;
 	yAxis = 15.0f;
 
+	//safe guard
+	std::cout << "this is scene A3\n";
 
 }
 
@@ -43,7 +45,7 @@ bool SceneA3::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//Check last scene was
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
@@ -59,7 +61,7 @@ void SceneA3::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	//set distination
-	triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A3);
 
 
 	std::vector<SDL_Rect> builds = {
@@ -113,6 +115,7 @@ void SceneA3::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
+	game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool SceneA3::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2)

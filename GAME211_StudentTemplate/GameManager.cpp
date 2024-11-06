@@ -86,7 +86,7 @@ bool GameManager::OnCreate() {
     }
 
     // create user define event 
-    changeScene = SDL_RegisterEvents(1);
+    changeScene = SDL_RegisterEvents(20);
     if (changeScene == ((Uint32) - 1)) {
         OnDestroy();
         return false;
@@ -130,6 +130,7 @@ Uint32 GameManager::GetChangeScene()
 void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
 {
     Vec3 playerPos = oldPlayerPos;
+
     float radius = player->getRadius();
     Vec3 newPosition;
 
@@ -147,13 +148,13 @@ void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
             // Coming from the left, spawn on the right side of the new trigger box
             newPosition.x = newSpawn.x + newSpawn.w + radius + offset;
             newPosition.y = playerPos.y;
-            std::cout << "Coming from left side\n";
+            //std::cout << "Coming from left side\n";
         }
         else 
         {
             newPosition.x = newSpawn.x - radius - offset;
             newPosition.y = playerPos.y;
-            std::cout << "Coming from right side\n";
+            //std::cout << "Coming from right side\n";
         }
     }
     else
@@ -163,7 +164,7 @@ void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
 
             newPosition.y = newSpawn.y - radius - topOffset;
             newPosition.x = newSpawn.x + offset;
-            std::cout << "Coming from top side\n";
+            //std::cout << "Coming from top side\n";
             
   
         }
@@ -171,12 +172,108 @@ void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
         {
             newPosition.y = newSpawn.y + newSpawn.h + radius + topOffset;
             newPosition.x = newSpawn.x + offset;
-            std::cout << "Coming from bottom side\n";
+            //std::cout << "Coming from bottom side\n";
         }
     }
 
 
     SetPlayerNewPos(newPosition);
+}
+
+void GameManager::SceneSwitching(SDL_Event event, DefineScenes::TypeOfScenes sceneType)
+{
+    if (event.type == SDL_KEYDOWN)
+    {
+        SDL_Keycode key = SDL_GetKeyFromScancode(event.key.keysym.scancode);
+
+        if (key >= SDLK_0 && key <= SDLK_9)
+        {
+            int numberPressed = key - SDLK_0;
+            SwitchScene(sceneType, numberPressed);
+        }
+    }
+}
+
+void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
+{
+    SDL_Event event;
+    if (sceneType == DefineScenes::A) {
+        if (num == 1) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A1);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 2) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A2);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A3);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 4) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A4);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 5) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A5);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 6) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A6);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 7) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A7);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 8) {
+            GetSceneManager().SetCurrentScene(DefineScenes::A8);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+    }
+    else if (sceneType == DefineScenes::B) {
+
+    }
 }
 
 void GameManager::handleEvents() 
@@ -262,7 +359,7 @@ void GameManager::handleEvents()
                 isRunning = false;
                 break;
             case SDL_SCANCODE_1:
-                LoadScene(1);
+                //LoadScene(2);
                 break;
             default:
                 break;

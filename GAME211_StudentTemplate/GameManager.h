@@ -71,6 +71,7 @@ public:
 	Vec3 GetPlayerNewPos() { return newPlayerPos;  }
 
 	void SetPlayerOldPos(Vec3 old) { oldPlayerPos = old; }
+	Vec3 GetPlayerOldPos() { return oldPlayerPos; }
 
 	SDL_Rect GetOldTriggerBox() const { return oldSpawn; }
 	void SetOldTriggerBox(const SDL_Rect& _rect) { oldSpawn = _rect; }
@@ -79,7 +80,8 @@ public:
 	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; } //set new destination
 	void HandleSpawnPoint(const float offset, const float topOffset);
 
-
+	void SceneSwitching(SDL_Event event, DefineScenes::TypeOfScenes sceneType);
+	void SwitchScene(DefineScenes::TypeOfScenes sceneType, int num);
 };
 #endif
 
