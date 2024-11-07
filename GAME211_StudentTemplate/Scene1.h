@@ -22,7 +22,6 @@ private:
 
 	Build platform1, platform2, platform3, platform4; //intializing platforms
 	Build wall1, wall2, wall3; //intializing walls
-
 	Build triggerEvent;
 
 	Quest quest;

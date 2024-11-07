@@ -10,7 +10,7 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	platform2(4.5f, 10.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
 	platform3(8.0f, 4.0f, 10.0f, 4.0f, Vec4(255, 255, 255, 255)),
 	platform4(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	triggerEvent(24.0f, 4.0f, 1.0f, 2.0f, Vec4(0,255, 255, 255)),
+	triggerEvent(25.0f, 17.0f, 5.0f, 18.0f, Vec4(255,0, 255, 255)),
 	wall1(3.5f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
 	wall2(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
 	wall3(0.0f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
@@ -71,21 +71,16 @@ bool Scene1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
+		
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else{
+		game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	}
 
-	/*DONT REMOVE CODE*/
-	//set Player position when spawned into world 
-	//if (game->GetSceneManager().GetLastScene() == DefineScenes::NONE) {
-	//	game->getPlayer()->setPos(Vec3(3, 5, 0));
-	//}
-	//else if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
-	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
-	//	game->HandleSpawnPoint(.2f, 1.f);
-	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
-	//}
-
-	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
-	
-	
 
 	return true;
 }
@@ -102,7 +97,7 @@ void Scene1::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
-	//triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
 
 	std::vector<SDL_FRect> builds = {
 		platform1.getPlatform(),
@@ -163,7 +158,7 @@ void Scene1::Render() {
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
-	//triggerEvent.Render(renderer, game); *IMPORTANT* DONT REMOVE
+	triggerEvent.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	wall3.Render(renderer, game);

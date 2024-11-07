@@ -8,6 +8,8 @@ SceneA2::SceneA2(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform3(0.0f, 15.0f, 6.0f, 0.5f, Vec4(255, 255, 255, 255)),
 	platform4(15.0f, 15.0f, 12.0f, 0.5f, Vec4(255, 255, 255, 255)),
 	wall(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	triggerEvent(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
+	triggerEvent2(5.5f, 17.0f, 10.0f, 1.0f, Vec4(255, 0, 255, 255)),
 	redPlatform1(6.5f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	redPlatform2(6.5f, 4.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	redPlatform3(6.5f, 13.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
@@ -51,6 +53,16 @@ bool SceneA2::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
+
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	}
+
 	return true;
 }
 
@@ -61,6 +73,8 @@ void SceneA2::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::A4, DefineScenes::A2);
 
 	//Update the build
 	redPlatform1.Update(deltaTime);
@@ -127,6 +141,8 @@ void SceneA2::Render() {
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
 	wall.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
 
 	redPlatform1.Render(renderer, game);
 	redPlatform2.Render(renderer, game);
