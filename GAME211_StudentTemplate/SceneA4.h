@@ -19,6 +19,10 @@ private:
 
 	Build platform1, platform2, platform3, platform4;
 	Build redPlatform;
+	Build triggerEvent;
+	Build triggerEvent2;
+	Build triggerEvent3;
+	Build triggerEvent4;
 
 	Vec3 newPos;
 

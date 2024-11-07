@@ -7,6 +7,10 @@ SceneA4::SceneA4(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform2(0, 15.0f, 4.0f, 0.5f, Vec4(255, 255, 255, 255)),
 	platform3(0.0f, 2.0f, 6.0f, 2.0f, Vec4(255, 255, 255, 255)),
 	platform4(15.0f, 2.0f, 12.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	triggerEvent(5.5f, 0.0f, 10.0f, 1.0f, Vec4(255, 0, 255, 255)),
+	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
+	triggerEvent3(25.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 255)),
+	triggerEvent4(3.5f, 17.0f, 7.0f, 1.0f, Vec4(255, 0, 255, 255)),
 	redPlatform(7.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255))
 {
 	window = sdlWindow_;
@@ -45,8 +49,32 @@ bool SceneA4::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
 
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A3) {
+
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A5) {
+
+		game->SetNewTriggerBox(triggerEvent3.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A7) {
+		game->SetNewTriggerBox(triggerEvent4.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(3, 5, 0));
+	}
 	return true;
 }
 
@@ -59,6 +87,10 @@ void SceneA4::Update(const float deltaTime) {
 
 	//Update the build
 	redPlatform.Update(deltaTime);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A4);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::A3, DefineScenes::A4);
+	triggerEvent3.OnTriggerEnter(game, DefineScenes::A5, DefineScenes::A4);
+	triggerEvent4.OnTriggerEnter(game, DefineScenes::A7, DefineScenes::A4);
 
 	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform(),
@@ -108,6 +140,10 @@ void SceneA4::Render() {
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
+	triggerEvent3.Render(renderer, game);
+	triggerEvent4.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 
 	// render the player
