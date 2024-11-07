@@ -70,6 +70,11 @@ bool SceneB3::OnCreate() {
 		game->HandleSpawnPoint(.2f, .3f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::B4) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, .2f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
 	else {
 		game->getPlayer()->setPos(Vec3(4, 5, 0));
 	}
