@@ -23,10 +23,10 @@ private:
 	Build platform1;
 	Build platform2;
 	Build platform3;
+	Build platform4;
 	Build wall1;
 	Build wall2;
-	//Build redPlatform;
-	//Build bluePlatform;
+	Build wall3;
 
 	Build triggerEvent;
 

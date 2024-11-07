@@ -6,14 +6,14 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	:
 	//init the build
-	platform1(0, 2, 30, 2, Vec4(255, 255, 255, 255)),
-	platform2(6, 5, 6, 2, Vec4(255, 255, 255, 255)),
-	platform3(22, 2, 6, 2, Vec4(255, 255, 255, 255)),
-	triggerEvent(24, 4, 1, 2, Vec4(0,255, 255, 255)),
-	wall1(4, 10, 2, 9, Vec4(255, 255, 255, 255)),
-	wall2(0, 10, 2, 9, Vec4(255, 255, 255, 255)),
-	//redPlatform(11, 10, 6, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	//bluePlatform(20, 10, 6, 1, true, false, 2.0f, Vec4(0, 0, 255, 255)),
+	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform2(4.5f, 10.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
+	platform3(8.0f, 4.0f, 10.0f, 4.0f, Vec4(255, 255, 255, 255)),
+	platform4(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	triggerEvent(24.0f, 4.0f, 1.0f, 2.0f, Vec4(0,255, 255, 255)),
+	wall1(3.5f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
+	wall2(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	wall3(0.0f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -83,7 +83,7 @@ bool Scene1::OnCreate() {
 	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
 	//}
 
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
+	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
 	
 	
 
@@ -113,8 +113,10 @@ void Scene1::Update(const float deltaTime) {
 		platform1.getPlatform(),
 		platform2.getPlatform(),
 		platform3.getPlatform(),
+		platform4.getPlatform(),
 		wall1.getPlatform(),
-		wall2.getPlatform()
+		wall2.getPlatform(),
+		wall3.getPlatform()
 	};
 	/*
 	if (redPlatform.getVisibility() == true)
@@ -171,9 +173,11 @@ void Scene1::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
 	//triggerEvent.Render(renderer, game); *IMPORTANT* DONT REMOVE
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
+	wall3.Render(renderer, game);
 	//redPlatform.Render(renderer, game);
 	//bluePlatform.Render(renderer, game);
 
