@@ -92,6 +92,7 @@ void SceneA7::Update(const float deltaTime) {
 
 void SceneA7::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
 
