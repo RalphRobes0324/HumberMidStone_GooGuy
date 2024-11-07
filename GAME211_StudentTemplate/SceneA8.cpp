@@ -3,11 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	platform2(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	platform3(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	wall1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
-	wall2(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(0.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform2(0.0f, 15.0f, 20.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	platform3(6.0f, 5.5f, 8.0f, 10.0f, Vec4(255, 255, 255, 255)),
+	wall1(14.0f, 12.0f, 5.0f, 18.0f, Vec4(255, 255, 255, 255)),
+	wall2(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
