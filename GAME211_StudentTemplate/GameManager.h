@@ -38,8 +38,8 @@ private:
 	Vec3 newPlayerPos;
 	Vec3 oldPlayerPos;
 
-	SDL_Rect newSpawn;
-	SDL_Rect oldSpawn;
+	SDL_FRect newSpawn;
+	SDL_FRect oldSpawn;
 
 
 	DefineScenes sceneManager;
@@ -73,11 +73,11 @@ public:
 	void SetPlayerOldPos(Vec3 old) { oldPlayerPos = old; }
 	Vec3 GetPlayerOldPos() { return oldPlayerPos; }
 
-	SDL_Rect GetOldTriggerBox() const { return oldSpawn; }
-	void SetOldTriggerBox(const SDL_Rect& _rect) { oldSpawn = _rect; }
+	SDL_FRect GetOldTriggerBox() const { return oldSpawn; }
+	void SetOldTriggerBox(const SDL_FRect& _rect) { oldSpawn = _rect; }
 
-	SDL_Rect GetNewTriggerBox() const { return newSpawn; }
-	void SetNewTriggerBox(const SDL_Rect& _rect) { newSpawn = _rect; } //set new destination
+	SDL_FRect GetNewTriggerBox() const { return newSpawn; }
+	void SetNewTriggerBox(const SDL_FRect& _rect) { newSpawn = _rect; } //set new destination
 	void HandleSpawnPoint(const float offset, const float topOffset);
 
 	void SceneSwitching(SDL_Event event, DefineScenes::TypeOfScenes sceneType);

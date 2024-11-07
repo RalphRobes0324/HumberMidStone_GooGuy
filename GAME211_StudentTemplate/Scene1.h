@@ -25,8 +25,8 @@ private:
 	Build platform3;
 	Build wall1;
 	Build wall2;
-	Build redPlatform;
-	Build bluePlatform;
+	//Build redPlatform;
+	//Build bluePlatform;
 
 	Build triggerEvent;
 
@@ -51,7 +51,7 @@ public:
 	SDL_Window* getWindow() { return window; }
     Matrix4 getProjectionMatrix() { return projectionMatrix; }
 	Matrix4 getInverseMatrix() { return inverseProjection; }
-	bool RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2);
+	bool RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2);
 };
 
 #endif

@@ -62,7 +62,7 @@ void CopyBaseScene::Update(const float deltaTime) {
 	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
 
 
-	std::vector<SDL_Rect> builds = {
+	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform()
 	};
 
@@ -72,7 +72,7 @@ void CopyBaseScene::Update(const float deltaTime) {
 	}
 
 	//loop through platforms
-	for (const SDL_Rect& build : builds) {
+	for (const SDL_FRect& build : builds) {
 		//if the player has collided with the sides of one of the platforms
 		if (game->getPlayer()->HasCollidedSide(build)) {
 			//get the accel and vel of player and set the accel and vel to the current accel and vel other than x make it 0 to stop x motion when colliding
@@ -115,7 +115,7 @@ void CopyBaseScene::HandleEvents(const SDL_Event& event)
 	game->getPlayer()->HandleEvents(event);
 }
 
-bool CopyBaseScene::RectsAreEqual(const SDL_Rect& rect1, const SDL_Rect& rect2)
+bool CopyBaseScene::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)
 {
 	return (rect1.x == rect2.x &&
 		rect1.y == rect2.y &&
