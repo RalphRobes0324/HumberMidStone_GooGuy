@@ -17,7 +17,10 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-	Build platform1;
+	Build platform1, platform2, platform3;
+	Build wall;
+	Build redPlatform1, redPlatform2;
+	Build bluePlatform;
 
 	Vec3 newPos;
 

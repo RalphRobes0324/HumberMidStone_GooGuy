@@ -3,7 +3,13 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA3::SceneA3(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform2(5.0f, 15.0f, 6.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	platform3(20.0f, 15.0f, 12.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	wall(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	redPlatform1(14.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	redPlatform2(-1.0f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	bluePlatform(6.0f, 7.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -57,10 +63,25 @@ void SceneA3::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 
+	//Update the build
+	redPlatform1.Update(deltaTime);
+	redPlatform2.Update(deltaTime);
+	bluePlatform.Update(deltaTime);
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	wall.getPlatform()
 	};
+
+	if (redPlatform1.getVisibility() == true) {
+		builds.push_back(redPlatform1.getPlatform());
+		builds.push_back(redPlatform2.getPlatform());
+	}
+	if (bluePlatform.getVisibility() == true) {
+		builds.push_back(bluePlatform.getPlatform());
+	}
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -97,6 +118,12 @@ void SceneA3::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	wall.Render(renderer, game);
+	redPlatform1.Render(renderer, game);
+	redPlatform2.Render(renderer, game);
+	bluePlatform.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

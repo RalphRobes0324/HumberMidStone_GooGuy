@@ -20,13 +20,8 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-	Build platform1;
-	Build platform2;
-	Build platform3;
-	Build wall1;
-	Build wall2;
-	//Build redPlatform;
-	//Build bluePlatform;
+	Build platform1, platform2, platform3, platform4; //intializing platforms
+	Build wall1, wall2, wall3; //intializing walls
 
 	Build triggerEvent;
 
