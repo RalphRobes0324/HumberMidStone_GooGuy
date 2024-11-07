@@ -3,7 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform2(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform3(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	wall1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	wall2(0, 2, 8, 2, Vec4(255, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -58,7 +62,11 @@ void SceneA8::Update(const float deltaTime) {
 
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	wall1.getPlatform(),
+	wall2.getPlatform()
 	};
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
@@ -96,6 +104,10 @@ void SceneA8::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	wall1.Render(renderer, game);
+	wall2.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
