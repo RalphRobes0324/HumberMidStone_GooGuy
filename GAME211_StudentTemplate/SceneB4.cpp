@@ -27,11 +27,7 @@ SceneB4::SceneB4(SDL_Window* sdlWindow_, GameManager* game_) :
 	}
 
 	// Set Quests
-	quest.AddQuest("Quest 1: Escape the Test Tube");
-	quest.AddQuest("Quest 2: Find a Way Out of the Experimentation Room");
-	quest.AddQuest("Quest 3: Run from the Amalgamation");
-	quest.AddQuest("Quest 4: Locate the Exit");
-	quest.AddQuest("Quest 5: Leave the Lab");
+	quest.AddQuest("Quest 4");
 
 	std::cout << "this is scene B4\n";
 }

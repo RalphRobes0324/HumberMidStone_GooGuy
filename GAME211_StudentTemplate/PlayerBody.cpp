@@ -93,19 +93,19 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                vel.y = 6.0f;
+                vel.y = 8.0f;
             }
             if ( wallTouchLeft)
             {
                 wallTouchLeft = false;
-                vel.y = 6.0f;
-                vel.x = 3.0f;
+                vel.y = 8.0f;
+                vel.x = 4.0f;
             }
             if (wallTouchRight)
             {
                 wallTouchRight = false;
-                vel.y = 6.0f;
-                vel.x = -3.0f;
+                vel.y = 8.0f;
+                vel.x = -4.0f;
             }
             break;
         }

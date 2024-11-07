@@ -3,7 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform1(0, 2, 25, 2, Vec4(255, 255, 255, 255)),
+	platform2(5, 5, 5, 1, Vec4(255, 255, 255, 255)),
+	platform3(15, 8, 5, 1, Vec4(255, 255, 255, 255)),
+	platform4(7, 11, 5, 1, Vec4(255, 255, 255, 255)),
+	redPlatform(16, 14, 5, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -27,11 +31,7 @@ SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
 	}
 
 	// Set Quests
-	quest.AddQuest("Quest 1: Escape the Test Tube");
-	quest.AddQuest("Quest 2: Find a Way Out of the Experimentation Room");
-	quest.AddQuest("Quest 3: Run from the Amalgamation");
-	quest.AddQuest("Quest 4: Locate the Exit");
-	quest.AddQuest("Quest 5: Leave the Lab");
+	quest.AddQuest("Quest 1");
 
 	std::cout << "this is scene B1\n";
 }
@@ -79,8 +79,13 @@ void SceneB1::Update(const float deltaTime) {
 
 
 	std::vector<SDL_Rect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	platform4.getPlatform()
 	};
+	if (redPlatform.getVisibility() == true)
+		builds.push_back(redPlatform.getPlatform());
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -122,6 +127,10 @@ void SceneB1::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
+	redPlatform.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
