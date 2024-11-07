@@ -102,11 +102,6 @@ void Scene1::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
-
-	//Update the build
-	//redPlatform.Update(deltaTime);
-	//bluePlatform.Update(deltaTime);
-
 	//triggerEvent.OnTriggerEnter(game, DefineScenes::A2, DefineScenes::A1);
 
 	std::vector<SDL_FRect> builds = {
@@ -118,12 +113,6 @@ void Scene1::Update(const float deltaTime) {
 		wall2.getPlatform(),
 		wall3.getPlatform()
 	};
-	/*
-	if (redPlatform.getVisibility() == true)
-		builds.push_back(redPlatform.getPlatform());
-	if (bluePlatform.getVisibility() == true)
-		builds.push_back(bluePlatform.getPlatform());
-	*/
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
@@ -178,8 +167,6 @@ void Scene1::Render() {
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
 	wall3.Render(renderer, game);
-	//redPlatform.Render(renderer, game);
-	//bluePlatform.Render(renderer, game);
 
 
 	// render the player

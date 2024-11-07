@@ -19,6 +19,14 @@ private:
 
 	Build platform1;
 	Build platform2;
+	Build platform3;
+	Build platform4;
+	Build wall;
+	Build redPlatform1;
+	Build redPlatform2;
+	Build redPlatform3;
+	Build bluePlatform1;
+	Build bluePlatform2;
 
 	Vec3 newPos;
 
