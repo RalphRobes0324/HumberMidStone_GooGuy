@@ -3,8 +3,8 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB2::SceneB2(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(14, 3, 5, 1, Vec4(255, 255, 255, 255)),
-	platform2(3, 6, 5, 1, Vec4(255, 255, 255, 255)),
+	platform1(17, 3, 5, 1, Vec4(255, 255, 255, 255)),
+	platform2(5, 6, 5, 1, Vec4(255, 255, 255, 255)),
 	platform3(15, 9, 5, 1, Vec4(255, 255, 255, 255)),
 	platform4(20, 16, 5, 2, Vec4(255, 255, 255, 255)),
 	bluePlatform(5, 1, 5, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),

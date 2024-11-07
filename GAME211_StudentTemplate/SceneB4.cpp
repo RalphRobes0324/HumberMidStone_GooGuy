@@ -3,7 +3,10 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB4::SceneB4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform1(12, 1, 5, 1, Vec4(255, 255, 255, 255)),
+	platform2(2, 4, 5, 1, Vec4(255, 255, 255, 255)),
+	platform3(14, 6, 5, 1, Vec4(255, 255, 255, 255)),
+	wall1(19, 20, 1, 12, Vec4(255, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -72,7 +75,10 @@ void SceneB4::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	std::vector<SDL_Rect> builds = {
-	platform1.getPlatform()
+		platform1.getPlatform(),
+		platform2.getPlatform(),
+		platform3.getPlatform(),
+		wall1.getPlatform()
 	};
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
@@ -115,6 +121,9 @@ void SceneB4::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	wall1.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

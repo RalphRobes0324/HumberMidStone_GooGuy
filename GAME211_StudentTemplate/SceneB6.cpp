@@ -3,7 +3,7 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB6::SceneB6(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform1(0, 1, 25, 2, Vec4(255, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
