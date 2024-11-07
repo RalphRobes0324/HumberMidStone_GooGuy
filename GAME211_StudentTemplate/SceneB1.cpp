@@ -3,13 +3,35 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(0, 2, 25, 2, Vec4(255, 255, 255, 255)),
+	platform2(5, 5, 5, 1, Vec4(255, 255, 255, 255)),
+	platform3(15, 8, 5, 1, Vec4(255, 255, 255, 255)),
+	platform4(7, 11, 5, 1, Vec4(255, 255, 255, 255)),
+	redPlatform(16, 14, 5, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	quest(SDL_GetRenderer(sdlWindow_)),
+	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
+	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
 {
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+	if (!quest.LoadFont("Atop-R99O3.ttf", 24)) {
+		std::cerr << "Failed to load quest font" << std::endl;
+	}
+
+	if (!jumpText.LoadImages("jump.png", "wall_jump.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	if (!movementText.LoadImages("movement.png", "left_movement.png", "right_movement.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	// Set Quests
+	quest.AddQuest("Quest 1");
 
 	std::cout << "this is scene B1\n";
 }
@@ -57,8 +79,13 @@ void SceneB1::Update(const float deltaTime) {
 
 
 	std::vector<SDL_Rect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	platform4.getPlatform()
 	};
+	if (redPlatform.getVisibility() == true)
+		builds.push_back(redPlatform.getPlatform());
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -85,6 +112,11 @@ void SceneB1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(currentAccel.x, 0.0f, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(currentVel.x, 0.0f, currentVel.z));
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
+
+			// Check if player reached a certain platform
+			if (RectsAreEqual(build, platform1.getPlatform())) {
+				quest.UpdateQuest(1); // Touching platform 1
+			}
 		}
 
 	}
@@ -95,9 +127,36 @@ void SceneB1::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
+	redPlatform.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render Quest
+	quest.RenderCurrentQuest();
+
+	// Determine which text to render based on player state
+	// Jump Text
+	if (game->getPlayer()->isGrounded && !game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		jumpText.RenderJump();
+	}
+	else if (game->getPlayer()->wallTouchLeft || game->getPlayer()->wallTouchRight) {
+		jumpText.RenderWallJump();
+	}
+
+	// Movement Text
+	if (!game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		movementText.RenderMovement();
+	}
+	else if (game->getPlayer()->wallTouchLeft) {
+		movementText.RenderRightMovement();
+	}
+	else if (game->getPlayer()->wallTouchRight) {
+		movementText.RenderLeftMovement();
+	}
 
 	SDL_RenderPresent(renderer);
 }

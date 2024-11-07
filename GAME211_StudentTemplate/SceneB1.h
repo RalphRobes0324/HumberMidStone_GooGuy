@@ -6,6 +6,8 @@
 #include "Build.h"
 #include "Quest.h"
 #include "DefineScenes.h"
+#include "JumpText.h"
+#include "MovementText.h"
 
 using namespace MATH;
 class SceneB1 : public Scene {
@@ -18,9 +20,16 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	Build platform1;
+	Build platform2;
+	Build platform3;
+	Build platform4;
+	Build redPlatform;
 
 	Vec3 newPos;
 
+	Quest quest;
+	JumpText jumpText;
+	MovementText movementText;
 
 public:
 	// This constructor may be different from what you've seen before
