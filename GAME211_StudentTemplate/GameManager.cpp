@@ -162,8 +162,8 @@ void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
         if (minVerticalOverlap > 0.75) 
         {
 
-            newPosition.y = newSpawn.y - radius - topOffset;
-            newPosition.x = newSpawn.x + offset;
+            newPosition.y = newSpawn.y - newSpawn.h - radius - topOffset;
+            newPosition.x = playerPos.x;
             //std::cout << "Coming from top side\n";
             
   
@@ -171,7 +171,7 @@ void GameManager::HandleSpawnPoint(const float offset, const float topOffset)
         else
         {
             newPosition.y = newSpawn.y + newSpawn.h + radius + topOffset;
-            newPosition.x = newSpawn.x + offset;
+            newPosition.x = playerPos.x;
             //std::cout << "Coming from bottom side\n";
         }
     }

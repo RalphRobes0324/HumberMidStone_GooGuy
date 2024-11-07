@@ -8,6 +8,7 @@ SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform3(15, 8, 5, 1, Vec4(255, 255, 255, 255)),
 	platform4(7, 11, 5, 1, Vec4(255, 255, 255, 255)),
 	redPlatform(16, 14, 5, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	triggerEvent(0,17,25,1, Vec4(255,0,255,255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -64,8 +65,15 @@ bool SceneB1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	
-
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
+	if(game->GetSceneManager().GetLastScene() == DefineScenes::B2){
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(3, 5, 0));
+	}
+	
 
 	return true;
 }
@@ -77,6 +85,9 @@ void SceneB1::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
+	redPlatform.Update(deltaTime);
+
+	triggerEvent.OnTriggerEnter(game, DefineScenes::B2, DefineScenes::B1);
 
 	std::vector<SDL_Rect> builds = {
 	platform1.getPlatform(),
@@ -131,6 +142,7 @@ void SceneB1::Render() {
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
 	redPlatform.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

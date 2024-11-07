@@ -24,6 +24,7 @@ private:
 	Build platform3;
 	Build platform4;
 	Build redPlatform;
+	Build triggerEvent;
 
 	Vec3 newPos;
 
