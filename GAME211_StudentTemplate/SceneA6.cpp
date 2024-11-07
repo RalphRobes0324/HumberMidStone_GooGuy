@@ -3,7 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA6::SceneA6(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	platform2(5.0f, 2.0f, 6.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform3(20.0f, 2.0f, 12.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform4(11.0f, 5.0f, 8.0, 1.0f, Vec4(255, 255, 255, 255)),
+	wall(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -55,7 +59,11 @@ void SceneA6::Update(const float deltaTime) {
 
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	platform4.getPlatform(),
+	wall.getPlatform()
 	};
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
@@ -93,6 +101,10 @@ void SceneA6::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
+	wall.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
