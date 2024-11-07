@@ -154,7 +154,7 @@ void PlayerBody::Update(float deltaTime)
 /// </summary>
 /// <param name="rect"></param>
 /// <returns></returns>
-bool PlayerBody::HasCollidedWith(SDL_Rect rect)
+bool PlayerBody::HasCollidedWith(SDL_FRect rect)
 {
     if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
         ||
@@ -173,7 +173,7 @@ bool PlayerBody::HasCollidedWith(SDL_Rect rect)
 /// </summary>
 /// <param name="rect"></param>
 /// <returns></returns>
-bool PlayerBody::HasCollidedSide(SDL_Rect rect)
+bool PlayerBody::HasCollidedSide(SDL_FRect rect)
 {
     // First, check if there is a general collision
     if (!HasCollidedWith(rect)) {
@@ -213,7 +213,7 @@ bool PlayerBody::HasCollidedSide(SDL_Rect rect)
     return false;
 }
 
-bool PlayerBody::HasCollidedTop(SDL_Rect rect)
+bool PlayerBody::HasCollidedTop(SDL_FRect rect)
 {
     // First, check if there is a general collision
     if (!HasCollidedWith(rect)) {

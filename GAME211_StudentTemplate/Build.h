@@ -10,17 +10,17 @@
 class Build {
 public:
 	//Setting up Default Build
-	Build(int _x, int _y, int _w, int _h, Vec4 _colour);
+	Build(float _x, float _y, float _w, float _h, Vec4 _colour);
 
 	//Setting up Disappearing Build
-	Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
+	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 
 	void Render(SDL_Renderer* renderer, GameManager* game);
 
 	void Update();
 	void Update(float DeltaTime);
 
-	SDL_Rect getPlatform() { return rect; } //added getter to get the platform so it can be used for checks of collision (Maya)
+	SDL_FRect getPlatform() { return rect; }//added getter to get the platform so it can be used for checks of collision (Maya)
 
 	bool getVisibility() { return isVisible; } //added to return visibility for collision checks (Maya)
 	
@@ -29,8 +29,8 @@ public:
 	bool isPlayerInTriggerBox(GameManager* game);
 
 private:
-	int x, y, width, height;
-	SDL_Rect rect;
+	float x, y, width, height;
+	SDL_FRect rect;
 
 	//Type of Build
 	bool canDisappear;

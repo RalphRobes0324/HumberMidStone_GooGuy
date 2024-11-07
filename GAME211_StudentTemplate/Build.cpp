@@ -8,7 +8,7 @@
 /// <param name="_w"></param>
 /// <param name="_h"></param>
 /// <param name="_colour"></param>
-Build::Build(int _x, int _y, int _w, int _h, Vec4 _colour)
+Build::Build(float _x, float _y, float _w, float _h, Vec4 _colour)
 {
 	x = _x;
 	y = _y;
@@ -30,7 +30,7 @@ Build::Build(int _x, int _y, int _w, int _h, Vec4 _colour)
 /// <param name="_isVisible"></param>
 /// <param name="_disappearTime"></param>
 /// <param name="_colour"></param>
-Build::Build(int _x, int _y, int _w, int _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour)
+Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour)
 {
 	x = _x;
 	y = _y;

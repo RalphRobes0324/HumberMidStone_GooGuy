@@ -62,9 +62,9 @@ public:
     void HandleEvents( const SDL_Event& event );
     void Update( float deltaTime );
     void setTexture( SDL_Texture* texture_ ) { texture = texture_; }
-    bool HasCollidedWith(SDL_Rect rect); // added for calculating collision (Maya)
-    bool HasCollidedSide(SDL_Rect rect);
-    bool HasCollidedTop(SDL_Rect rect);
+    bool HasCollidedWith(SDL_FRect rect); // added for calculating collision (Maya)
+    bool HasCollidedSide(SDL_FRect rect);
+    bool HasCollidedTop(SDL_FRect rect);
     
 };
 
