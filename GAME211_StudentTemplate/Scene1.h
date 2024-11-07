@@ -25,8 +25,8 @@ private:
 	Build platform3;
 	Build wall1;
 	Build wall2;
-	Build redPlatform;
-	Build bluePlatform;
+	//Build redPlatform;
+	//Build bluePlatform;
 
 	Build triggerEvent;
 
