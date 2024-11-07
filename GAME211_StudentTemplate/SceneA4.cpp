@@ -3,7 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA4::SceneA4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255))
+	platform1(10.0f, 15.0f, 20.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	platform2(0, 15.0f, 4.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	platform3(0.0f, 2.0f, 6.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform4(15.0f, 2.0f, 12.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	redPlatform(7.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -53,10 +57,19 @@ void SceneA4::Update(const float deltaTime) {
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 
+	//Update the build
+	redPlatform.Update(deltaTime);
+
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform(),
+	platform4.getPlatform()
 	};
 
+	if (redPlatform.getVisibility() == true) {
+		builds.push_back(redPlatform.getPlatform());
+	}
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
@@ -92,6 +105,10 @@ void SceneA4::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
+	redPlatform.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
