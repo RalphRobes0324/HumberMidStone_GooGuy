@@ -9,7 +9,8 @@ SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall1(14.0f, 12.0f, 5.0f, 18.0f, Vec4(255, 255, 255, 255)),
 	wall2(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
 	triggerEvent(20.0f, 0.0f, 4.5f, 1.0f, Vec4(255, 0, 255, 255)),
-	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0))
+	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
+	triggerEvent3(20.0f, 17.f, 4.5f, 1.0f, Vec4(255, 0, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -75,6 +76,7 @@ void SceneA8::Update(const float deltaTime) {
 
 	triggerEvent.OnTriggerEnter(game, DefineScenes::A5, DefineScenes::A8);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::A7, DefineScenes::A8);
+	triggerEvent3.OnTriggerEnter(game, DefineScenes::B1, DefineScenes::A8);
 
 
 	std::vector<SDL_FRect> builds = {
@@ -126,6 +128,7 @@ void SceneA8::Render() {
 	wall2.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);
+	triggerEvent3.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
