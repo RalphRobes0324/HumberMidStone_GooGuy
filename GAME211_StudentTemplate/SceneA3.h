@@ -21,6 +21,8 @@ private:
 	Build wall;
 	Build redPlatform1, redPlatform2;
 	Build bluePlatform;
+	Build triggerEvent;
+	Build triggerEvent2;
 
 	Vec3 newPos;
 
