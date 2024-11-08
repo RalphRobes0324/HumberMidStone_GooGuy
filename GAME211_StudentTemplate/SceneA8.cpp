@@ -55,7 +55,7 @@ bool SceneA8::OnCreate() {
 		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::A7) {
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A7) {
 		game->SetNewTriggerBox(triggerEvent2.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());

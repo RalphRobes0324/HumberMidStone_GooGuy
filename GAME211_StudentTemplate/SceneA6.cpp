@@ -7,7 +7,9 @@ SceneA6::SceneA6(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform2(5.0f, 2.0f, 6.0f, 2.0f, Vec4(255, 255, 255, 255)),
 	platform3(20.0f, 2.0f, 12.0f, 2.0f, Vec4(255, 255, 255, 255)),
 	platform4(11.0f, 5.0f, 8.0, 1.0f, Vec4(255, 255, 255, 255)),
-	wall(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255))
+	wall(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	triggerEvent(0.0f, 0.0f, 20.f, 1.0f, Vec4(255, 0, 255, 255)),
+	triggerEvent2(25.0f, 14.5f, 1.f, 15.0f, Vec4(255, 0, 255, 255))
 {
 	window = sdlWindow_;
     game = game_;
@@ -45,8 +47,19 @@ bool SceneA6::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
-
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A3) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}	
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A7) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(8, 5, 0));
+	}
 	return true;
 }
 
@@ -56,6 +69,9 @@ void SceneA6::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A3, DefineScenes::A6);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::A7, DefineScenes::A6);
 
 
 	std::vector<SDL_FRect> builds = {
@@ -105,6 +121,7 @@ void SceneA6::Render() {
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
 	wall.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
