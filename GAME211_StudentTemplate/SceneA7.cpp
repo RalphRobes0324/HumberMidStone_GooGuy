@@ -5,7 +5,10 @@
 SceneA7::SceneA7(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
 	platform2(0.0f, 2.0f, 4.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform3(10.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255))
+	platform3(10.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	triggerEvent(3.5f, 0.0f, 7.0f, 1.0f, Vec4(255, 0, 255, 255)),
+	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
+	triggerEvent3(25.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0))
 {
 	window = sdlWindow_;
     game = game_;
@@ -46,8 +49,24 @@ bool SceneA7::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	game->getPlayer()->setPos(Vec3(3, 5, 0));
-
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::A4) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A6) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::A8) {
+		game->SetNewTriggerBox(triggerEvent3.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(3, 5, 0));
+	}
 	return true;
 }
 
@@ -57,6 +76,10 @@ void SceneA7::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+
+	triggerEvent.OnTriggerEnter(game, DefineScenes::A4, DefineScenes::A7);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::A6, DefineScenes::A7);
+	triggerEvent3.OnTriggerEnter(game, DefineScenes::A8, DefineScenes::A7);
 
 	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform(),
@@ -101,6 +124,9 @@ void SceneA7::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
+	triggerEvent3.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

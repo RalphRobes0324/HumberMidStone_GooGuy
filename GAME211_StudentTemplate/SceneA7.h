@@ -18,6 +18,9 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	Build platform1, platform2, platform3;
+	Build triggerEvent;
+	Build triggerEvent2;
+	Build triggerEvent3;
 
 	Vec3 newPos;
 
