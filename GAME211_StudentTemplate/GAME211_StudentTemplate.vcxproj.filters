@@ -19,6 +19,18 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{1f7f8514-e419-4bbe-9143-86fc12413adf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Scenes\Level 1">
+      <UniqueIdentifier>{bcd16667-1089-490e-baa1-aaec9bf50cd8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Level 2">
+      <UniqueIdentifier>{559b549d-d13f-4912-affc-6c221916c5ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Level 1">
+      <UniqueIdentifier>{d54735eb-5d43-4ad8-97f7-045aeb0fd7e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Scenes\Level 2">
+      <UniqueIdentifier>{540de084-3f46-4b83-8859-8c0f9e4ea8e6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
@@ -55,46 +67,46 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Scene1.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA2.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA3.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA4.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA5.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA6.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA7.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneA8.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
     <ClCompile Include="SceneB1.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
     <ClCompile Include="SceneB2.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
     <ClCompile Include="SceneB3.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
     <ClCompile Include="SceneB4.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
     <ClCompile Include="SceneB5.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
     <ClCompile Include="SceneB6.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files\Scenes\Level 2</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -135,46 +147,46 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene1.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA2.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA3.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA4.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA5.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA6.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA7.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneA8.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 1</Filter>
     </ClInclude>
     <ClInclude Include="SceneB1.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
     <ClInclude Include="SceneB2.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
     <ClInclude Include="SceneB3.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
     <ClInclude Include="SceneB4.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
     <ClInclude Include="SceneB5.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
     <ClInclude Include="SceneB6.h">
-      <Filter>Header Files\Scenes</Filter>
+      <Filter>Header Files\Scenes\Level 2</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
