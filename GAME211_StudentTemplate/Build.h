@@ -16,6 +16,7 @@ public:
 
 	//Setting up Disappearing Build
 	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
+	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour, const std::string& _texturePath);
 
 	~Build();
 

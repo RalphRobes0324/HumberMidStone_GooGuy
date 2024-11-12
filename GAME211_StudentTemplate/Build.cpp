@@ -59,12 +59,28 @@ Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _i
 	rect = { x, y, width, height };
 }
 
+Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour, const std::string& _texturePath)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+
+	canDisappear = _canDisappear;
+	isVisible = _isVisible;
+	disappearTime = _disappearTime;
+
+	colour = _colour;
+	alpha = colour.w;
+	rect = { x, y, width, height };
+	surface = IMG_Load(_texturePath.c_str());
+	texturePath = _texturePath;
+
+}
+
 Build::~Build()
 {
-	if (texture) {
-		SDL_DestroyTexture(texture);
-		texture = nullptr;
-	}
+	DestroyTexture();
 }
 
 void Build::LoadTexture(SDL_Renderer* renderer)
@@ -198,7 +214,18 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	sdlPlatform.h = (600 * rect.h) / game->getSceneHeight();
 
 	if (texture) {
-		SDL_RenderCopy(renderer, texture, nullptr, &sdlPlatform);
+		if (canDisappear) {
+			if (isVisible) {
+				SDL_SetTextureAlphaMod(texture, alpha);
+			}
+			else {
+				SDL_SetTextureAlphaMod(texture, alphaEnds);
+			}
+			SDL_RenderCopy(renderer, texture, nullptr, &sdlPlatform);
+		}
+		else {
+			SDL_RenderCopy(renderer, texture, nullptr, &sdlPlatform);
+		}
 	}
 	else {
 
