@@ -12,9 +12,17 @@ public:
 	//Setting up Default Build
 	Build(float _x, float _y, float _w, float _h, Vec4 _colour);
 
+	Build(float _x, float _y, float _w, float _h, Vec4 _colour, const std::string& _texturePath);
+
 	//Setting up Disappearing Build
 	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 
+	~Build();
+
+	void LoadTexture(SDL_Renderer* renderer);
+
+	void DestroyTexture();
+	
 	void Render(SDL_Renderer* renderer, GameManager* game);
 
 	void Update();
@@ -42,6 +50,10 @@ private:
 	float warningTime; //Time to start warning the player
 	int alpha; //Alpha of build
 	int alphaEnds = 50; //Where alpha ends
+
+	SDL_Texture* texture = nullptr;
+	SDL_Surface* surface = nullptr;
+	std::string texturePath;
 
 	Vec4 colour; //Build's colour
 	
