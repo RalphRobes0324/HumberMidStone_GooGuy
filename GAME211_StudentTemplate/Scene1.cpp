@@ -6,7 +6,7 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	:
 	//init the build
-	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
 	platform2(4.5f, 10.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
 	platform3(8.0f, 4.0f, 10.0f, 4.0f, Vec4(255, 255, 255, 255)),
 	platform4(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
@@ -48,7 +48,6 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 }
 
 Scene1::~Scene1() {
-	
 }
 
 bool Scene1::OnCreate() {
@@ -66,10 +65,15 @@ bool Scene1::OnCreate() {
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
+
 	image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
+
+
+	//Load Textures
+	platform1.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
 		
@@ -87,6 +91,9 @@ bool Scene1::OnCreate() {
 
 void Scene1::OnDestroy() {
 	jumpText.Cleanup();
+
+	//Destroy Texture
+	platform1.DestroyTexture();
 }
 
 void Scene1::Update(const float deltaTime) {

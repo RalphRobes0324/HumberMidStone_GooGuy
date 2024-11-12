@@ -10,7 +10,7 @@ SceneA2::SceneA2(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
 	triggerEvent(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
 	triggerEvent2(5.5f, 17.0f, 10.0f, 1.0f, Vec4(255, 0, 255, 255)),
-	redPlatform1(6.5f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	redPlatform1(6.5f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
 	redPlatform2(6.5f, 4.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	redPlatform3(6.5f, 13.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	bluePlatform1(15.0f, 7.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
@@ -53,6 +53,9 @@ bool SceneA2::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	redPlatform1.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
 
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -71,7 +74,9 @@ bool SceneA2::OnCreate() {
 	return true;
 }
 
-void SceneA2::OnDestroy() {}
+void SceneA2::OnDestroy() {
+	redPlatform1.DestroyTexture();
+}
 
 void SceneA2::Update(const float deltaTime) {
 

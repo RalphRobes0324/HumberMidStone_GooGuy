@@ -19,6 +19,19 @@ Build::Build(float _x, float _y, float _w, float _h, Vec4 _colour)
 	rect = { x, y, width, height };
 }
 
+Build::Build(float _x, float _y, float _w, float _h, Vec4 _colour, const std::string& _texturePath)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+	colour = _colour;
+	rect = { x, y, width, height };
+	surface = IMG_Load(_texturePath.c_str());
+	texturePath = _texturePath;
+}
+
+
 /// <summary>
 /// Init disappearing platform
 /// </summary>
@@ -44,6 +57,53 @@ Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _i
 	colour = _colour;
 	alpha = colour.w;
 	rect = { x, y, width, height };
+}
+
+Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour, const std::string& _texturePath)
+{
+	x = _x;
+	y = _y;
+	width = _w;
+	height = _h;
+
+	canDisappear = _canDisappear;
+	isVisible = _isVisible;
+	disappearTime = _disappearTime;
+
+	colour = _colour;
+	alpha = colour.w;
+	rect = { x, y, width, height };
+	surface = IMG_Load(_texturePath.c_str());
+	texturePath = _texturePath;
+
+}
+
+Build::~Build()
+{
+	DestroyTexture();
+}
+
+void Build::LoadTexture(SDL_Renderer* renderer)
+{
+	if (!surface) {
+		std::cerr << "Failed to load image: " << texturePath << " - " << IMG_GetError() << std::endl;
+		texture = nullptr;
+	}
+	else {
+		texture = SDL_CreateTextureFromSurface(renderer, surface);
+		SDL_FreeSurface(surface);
+		if (!texture) {
+			std::cerr << "Failed to create texture: " << SDL_GetError() << std::endl;
+		}
+	}
+}
+
+void Build::DestroyTexture()
+{
+	if (texture) {
+		SDL_DestroyTexture(texture);
+		texture = nullptr;
+	}
 }
 
 
@@ -153,21 +213,38 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	sdlPlatform.w = (1000 * rect.w) / game->getSceneWidth();
 	sdlPlatform.h = (600 * rect.h) / game->getSceneHeight();
 
-	//Check Type of build
-	if (canDisappear) {
-		//Check visable
-		if (isVisible) {
-			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alpha);
-			SDL_RenderFillRect(renderer, &sdlPlatform);
+	if (texture) {
+		if (canDisappear) {
+			if (isVisible) {
+				SDL_SetTextureAlphaMod(texture, alpha);
+			}
+			else {
+				SDL_SetTextureAlphaMod(texture, alphaEnds);
+			}
+			SDL_RenderCopy(renderer, texture, nullptr, &sdlPlatform);
 		}
-		else if (!isVisible) {
-			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alphaEnds);
-			SDL_RenderFillRect(renderer, &sdlPlatform);
+		else {
+			SDL_RenderCopy(renderer, texture, nullptr, &sdlPlatform);
 		}
 	}
 	else {
-		SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, colour.w);
-		SDL_RenderFillRect(renderer, &sdlPlatform);
+
+		//Check Type of build
+		if (canDisappear) {
+			//Check visable
+			if (isVisible) {
+				SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alpha);
+				SDL_RenderFillRect(renderer, &sdlPlatform);
+			}
+			else if (!isVisible) {
+				SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, alphaEnds);
+				SDL_RenderFillRect(renderer, &sdlPlatform);
+			}
+		}
+		else {
+			SDL_SetRenderDrawColor(renderer, colour.x, colour.y, colour.z, colour.w);
+			SDL_RenderFillRect(renderer, &sdlPlatform);
+		}
 	}
 }
 
