@@ -54,7 +54,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+    currentScene = new SceneC1(windowPtr->GetSDL_Window(), this);
     
     // create player
     float mass = 1.0f;
@@ -433,6 +433,19 @@ void GameManager::handleEvents()
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::B6) {
                 currentScene = new SceneB6(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C1) {
+                currentScene = new SceneC1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C2) {
+                currentScene = new SceneC2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C3) {
+                currentScene = new SceneC3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C4) {
+                currentScene = new SceneC4(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {

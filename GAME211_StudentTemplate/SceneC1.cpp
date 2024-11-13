@@ -42,12 +42,17 @@ bool SceneC1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
-	//Check last scene was
-	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-		game->SetNewTriggerBox(triggerEvent.getPlatform());
-		game->HandleSpawnPoint(.2f, 1.f);
-		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}
+	//Check last scene was * DONT DELETE THIS*
+	//if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
+	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
+	//	game->HandleSpawnPoint(.2f, 1.f);
+	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
+	//}
+
+	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+
+	std::cout << "this is scene C1\n";
+
 	return true;
 }
 
@@ -101,7 +106,7 @@ void SceneC1::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
+	//triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
@@ -112,7 +117,8 @@ void SceneC1::Render() {
 void SceneC1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	game->getPlayer()->HandleEvents(event); 
+	game->SceneSwitching(event, DefineScenes::C);
 }
 
 bool SceneC1::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)
