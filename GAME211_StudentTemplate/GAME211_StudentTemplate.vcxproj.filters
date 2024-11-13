@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Scenes\Level 3">
       <UniqueIdentifier>{784e25da-8e5f-4438-90a1-09afad79e738}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes\Level 4">
+      <UniqueIdentifier>{5d4b1cfc-a140-4b76-b005-7d7b8b30b32b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Level 4">
+      <UniqueIdentifier>{2372c879-15d9-49a3-b937-c2c8a8d6d3f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
