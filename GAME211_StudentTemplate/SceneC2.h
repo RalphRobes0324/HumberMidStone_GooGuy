@@ -20,10 +20,16 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	Build platform1;
+	Build bluePlatform;
+	Build blueWall;
+	Build redPlatform;
 	Build triggerEvent;
 
 	Vec3 newPos;
 
+	Quest quest;
+	JumpText jumpText;
+	MovementText movementText;
 
 public:
 	// This constructor may be different from what you've seen before
