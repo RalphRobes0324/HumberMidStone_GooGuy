@@ -13,6 +13,10 @@
 #include "SceneB4.h"
 #include "SceneB5.h"
 #include "SceneB6.h"
+#include "SceneC1.h"
+#include "SceneC2.h"
+#include "SceneC3.h"
+#include "SceneC4.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -86,7 +90,7 @@ bool GameManager::OnCreate() {
     }
 
     // create user define event 
-    changeScene = SDL_RegisterEvents(20);
+    changeScene = SDL_RegisterEvents(1);
     if (changeScene == ((Uint32) - 1)) {
         OnDestroy();
         return false;
@@ -319,6 +323,44 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
         }
         else if (num == 6) {
             GetSceneManager().SetCurrentScene(DefineScenes::B6);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+    }
+    else if (sceneType == DefineScenes::C) {
+        if (num == 1) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C1);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 2) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C2);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C3);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 4) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C4);
             SDL_memset(&event, 0, sizeof(event));
             event.type = GetChangeScene();
             event.user.code = 1;
