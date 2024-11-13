@@ -50,6 +50,8 @@
     <ClCompile Include="SceneD2.cpp" />
     <ClCompile Include="SceneD3.cpp" />
     <ClCompile Include="SceneD4.cpp" />
+    <ClCompile Include="SceneD5.cpp" />
+    <ClCompile Include="SceneD6.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
@@ -86,6 +88,8 @@
     <ClInclude Include="SceneD2.h" />
     <ClInclude Include="SceneD3.h" />
     <ClInclude Include="SceneD4.h" />
+    <ClInclude Include="SceneD5.h" />
+    <ClInclude Include="SceneD6.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
