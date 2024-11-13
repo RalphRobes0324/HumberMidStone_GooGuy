@@ -132,6 +132,18 @@
     <ClCompile Include="SceneC4.cpp">
       <Filter>Source Files\Scenes\Level 3</Filter>
     </ClCompile>
+    <ClCompile Include="SceneD2.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneD1.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneD3.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneD4.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -223,6 +235,18 @@
     </ClInclude>
     <ClInclude Include="SceneC4.h">
       <Filter>Header Files\Scenes\Level 3</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD1.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD2.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD3.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD4.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
