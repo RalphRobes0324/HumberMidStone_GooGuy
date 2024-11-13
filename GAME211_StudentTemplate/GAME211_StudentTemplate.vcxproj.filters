@@ -144,6 +144,12 @@
     <ClCompile Include="SceneD4.cpp">
       <Filter>Source Files\Scenes\Level 4</Filter>
     </ClCompile>
+    <ClCompile Include="SceneD5.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneD6.cpp">
+      <Filter>Source Files\Scenes\Level 4</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -246,6 +252,12 @@
       <Filter>Header Files\Scenes\Level 4</Filter>
     </ClInclude>
     <ClInclude Include="SceneD4.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD5.h">
+      <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneD6.h">
       <Filter>Header Files\Scenes\Level 4</Filter>
     </ClInclude>
   </ItemGroup>

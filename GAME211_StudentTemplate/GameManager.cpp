@@ -21,6 +21,8 @@
 #include "SceneD2.h"
 #include "SceneD3.h"
 #include "SceneD4.h"
+#include "SceneD5.h"
+#include "SceneD6.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -58,7 +60,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new SceneC1(windowPtr->GetSDL_Window(), this);
+    currentScene = new SceneD1(windowPtr->GetSDL_Window(), this);
     
     // create player
     float mass = 1.0f;
@@ -411,6 +413,24 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
             event.user.data2 = nullptr;
             SDL_PushEvent(&event);
         }
+        else if (num == 5) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D5);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 6) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D6);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
     }
 }
 
@@ -505,6 +525,12 @@ void GameManager::handleEvents()
 
             else if (sceneManager.GetCurrentScene() == DefineScenes::D4) {
                 currentScene = new SceneD4(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D5) {
+                currentScene = new SceneD5(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D6) {
+                currentScene = new SceneD6(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {
