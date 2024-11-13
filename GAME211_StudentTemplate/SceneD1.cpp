@@ -1,8 +1,8 @@
-#include "CopyBaseScene.h"
+#include "SceneD1.h"
 #include <VMath.h>
 
 // See notes about this constructor in Scene1.h.
-CopyBaseScene::CopyBaseScene(SDL_Window* sdlWindow_, GameManager* game_) :
+SceneD1::SceneD1(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
 	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255))
 {
@@ -15,10 +15,10 @@ CopyBaseScene::CopyBaseScene(SDL_Window* sdlWindow_, GameManager* game_) :
 
 }
 
-CopyBaseScene::~CopyBaseScene(){
+SceneD1::~SceneD1(){
 }
 
-bool CopyBaseScene::OnCreate() {
+bool SceneD1::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
@@ -51,14 +51,14 @@ bool CopyBaseScene::OnCreate() {
 
 	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
 
-	std::cout << "this is scene ##\n";
+	std::cout << "this is scene D1\n";
 
 	return true;
 }
 
-void CopyBaseScene::OnDestroy() {}
+void SceneD1::OnDestroy() {}
 
-void CopyBaseScene::Update(const float deltaTime) {
+void SceneD1::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -101,7 +101,7 @@ void CopyBaseScene::Update(const float deltaTime) {
 	}
 }
 
-void CopyBaseScene::Render() {
+void SceneD1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
@@ -114,14 +114,14 @@ void CopyBaseScene::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-void CopyBaseScene::HandleEvents(const SDL_Event& event)
+void SceneD1::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
-	//game->SceneSwitching(event, DefineScenes::C);
+	game->SceneSwitching(event, DefineScenes::D);
 }
 
-bool CopyBaseScene::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)
+bool SceneD1::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)
 {
 	return (rect1.x == rect2.x &&
 		rect1.y == rect2.y &&

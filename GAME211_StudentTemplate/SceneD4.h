@@ -1,5 +1,5 @@
-#ifndef COPYBASESCENE_H
-#define COPYBASESCENE_H
+#ifndef SCENED4_H
+#define SCENED4_H
 
 #include <MMath.h>
 #include "Scene.h"
@@ -10,7 +10,7 @@
 #include "MovementText.h"
 
 using namespace MATH;
-class CopyBaseScene : public Scene {
+class SceneD4 : public Scene {
 private:
 	float xAxis;	// scene width, in game coords, set in constructor
 	float yAxis;	// scene height, in game coords, set in constructor
@@ -29,8 +29,8 @@ public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp
 	// to see how this constructor is called.
-	CopyBaseScene(SDL_Window* sdlWindow, GameManager* game_);
-	~CopyBaseScene();
+	SceneD4(SDL_Window* sdlWindow, GameManager* game_);
+	~SceneD4();
 	bool OnCreate();
 	void OnDestroy();
 	void Update(const float time);

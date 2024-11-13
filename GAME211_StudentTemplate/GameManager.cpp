@@ -13,6 +13,14 @@
 #include "SceneB4.h"
 #include "SceneB5.h"
 #include "SceneB6.h"
+#include "SceneC1.h"
+#include "SceneC2.h"
+#include "SceneC3.h"
+#include "SceneC4.h"
+#include "SceneD1.h"
+#include "SceneD2.h"
+#include "SceneD3.h"
+#include "SceneD4.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -50,7 +58,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+    currentScene = new SceneD1(windowPtr->GetSDL_Window(), this);
     
     // create player
     float mass = 1.0f;
@@ -86,7 +94,7 @@ bool GameManager::OnCreate() {
     }
 
     // create user define event 
-    changeScene = SDL_RegisterEvents(20);
+    changeScene = SDL_RegisterEvents(1);
     if (changeScene == ((Uint32) - 1)) {
         OnDestroy();
         return false;
@@ -327,6 +335,83 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
             SDL_PushEvent(&event);
         }
     }
+    else if (sceneType == DefineScenes::C) {
+        if (num == 1) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C1);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 2) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C2);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C3);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 4) {
+            GetSceneManager().SetCurrentScene(DefineScenes::C4);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+    }
+    else if (sceneType == DefineScenes::D) {
+        if (num == 1) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D1);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 2) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D2);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D3);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 4) {
+            GetSceneManager().SetCurrentScene(DefineScenes::D4);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+    }
 }
 
 void GameManager::handleEvents() 
@@ -391,6 +476,35 @@ void GameManager::handleEvents()
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::B6) {
                 currentScene = new SceneB6(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C1) {
+                currentScene = new SceneC1(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C2) {
+                currentScene = new SceneC2(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C3) {
+                currentScene = new SceneC3(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::C4) {
+                currentScene = new SceneC4(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D1) {
+                currentScene = new SceneD1(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D2) {
+                currentScene = new SceneD2(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D3) {
+                currentScene = new SceneD3(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::D4) {
+                currentScene = new SceneD4(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {
