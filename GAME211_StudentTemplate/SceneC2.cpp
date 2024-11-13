@@ -3,7 +3,10 @@
 
 // See notes about this constructor in Scene1.h.
 SceneC2::SceneC2(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform1(3, 8, 4, 1, Vec4(255, 255, 255, 255)),
+	bluePlatform(10.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
+	blueWall(18.5f, 14.0f, 1.0f, 10.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
+	redPlatform(21.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -82,10 +85,21 @@ void SceneC2::Update(const float deltaTime) {
 	//set distination
 	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
 
+	bluePlatform.Update(deltaTime);
+	blueWall.Update(deltaTime);
+	redPlatform.Update(deltaTime);
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+		platform1.getPlatform()
 	};
+
+	if (redPlatform.getVisibility() == true) {
+		builds.push_back(redPlatform.getPlatform());
+	}
+	if (bluePlatform.getVisibility() == true) {
+		builds.push_back(bluePlatform.getPlatform());
+		builds.push_back(blueWall.getPlatform());
+	}
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -128,6 +142,10 @@ void SceneC2::Render() {
 
 	platform1.Render(renderer, game);
 	//triggerEvent.Render(renderer, game);
+
+	bluePlatform.Render(renderer, game);
+	blueWall.Render(renderer, game);
+	redPlatform.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
