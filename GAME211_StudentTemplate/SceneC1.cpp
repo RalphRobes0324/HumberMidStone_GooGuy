@@ -81,8 +81,6 @@ void SceneC1::Update(const float deltaTime) {
 
 	// Update Temperature
 	float currentTemperature = TemperatureManager::Instance().GetTemperature();
-	TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
-	std::cout << "Current Temperature: " << currentTemperature << std::endl;
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -131,8 +129,15 @@ void SceneC1::Update(const float deltaTime) {
 			if (RectsAreEqual(build, platform1.getPlatform())) {
 				quest.UpdateQuest(1); // Touching platform 1
 			}
+
+			// Check if on hot platform or not
+			if (!RectsAreEqual(build, platform1.getPlatform()) && !RectsAreEqual(build, redPlatform.getPlatform())) {
+				TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
+			}
 		}
 
+		if(!game->getPlayer()->isGrounded)
+			TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
 	}
 }
 
@@ -148,6 +153,9 @@ void SceneC1::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render temperature meter
+	TemperatureManager::Instance().RenderTemperature(renderer);
 
 	// Render Quest
 	quest.RenderCurrentQuest();

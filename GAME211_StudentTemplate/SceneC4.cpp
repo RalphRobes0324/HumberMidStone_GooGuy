@@ -82,7 +82,6 @@ void SceneC4::Update(const float deltaTime) {
 	// Update Temperature
 	float currentTemperature = TemperatureManager::Instance().GetTemperature();
 	TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
-	std::cout << "Current Temperature: " << currentTemperature << std::endl;
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
@@ -134,7 +133,6 @@ void SceneC4::Update(const float deltaTime) {
 				quest.UpdateQuest(1); // Touching platform 1
 			}
 		}
-
 	}
 }
 
@@ -151,6 +149,9 @@ void SceneC4::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render temperature meter
+	TemperatureManager::Instance().RenderTemperature(renderer);
 
 	// Render Quest
 	quest.RenderCurrentQuest();
