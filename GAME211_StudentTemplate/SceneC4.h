@@ -25,6 +25,7 @@ private:
 	Build bluePlatform1;
 	Build bluePlatform2;
 	Build triggerEvent;
+	Build triggerEvent2;
 
 	Vec3 newPos;
 
