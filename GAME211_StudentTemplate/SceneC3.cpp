@@ -6,7 +6,8 @@ SceneC3::SceneC3(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(8, 8, 8, 1, Vec4(255, 255, 255, 255)),
 	bluePlatform(20.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	redPlatform(-2, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	triggerEvent(0.f, 15, 1, 18, Vec4(255, 0, 255, 255)),
+	triggerEvent(0.f, 15, 1, 18, Vec4(255, 0, 255, 0)),
+	triggerEvent2(25.f, 15, 1, 18, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -66,6 +67,11 @@ bool SceneC3::OnCreate() {
 		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
 	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::C4) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
 	else {
 		game->getPlayer()->setPos(Vec3(2.5, 6, 0));
 	}
@@ -89,6 +95,7 @@ void SceneC3::Update(const float deltaTime) {
 
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::C2, DefineScenes::C3);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::C4, DefineScenes::C3);
 
 	bluePlatform.Update(deltaTime);
 	redPlatform.Update(deltaTime);
@@ -152,6 +159,7 @@ void SceneC3::Render() {
 
 	platform1.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
 
 	bluePlatform.Render(renderer, game);
 	redPlatform.Render(renderer, game);
