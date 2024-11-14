@@ -79,6 +79,11 @@ void SceneC4::OnDestroy() {}
 
 void SceneC4::Update(const float deltaTime) {
 
+	// Update Temperature
+	float currentTemperature = TemperatureManager::Instance().GetTemperature();
+	TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
+	std::cout << "Current Temperature: " << currentTemperature << std::endl;
+
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 

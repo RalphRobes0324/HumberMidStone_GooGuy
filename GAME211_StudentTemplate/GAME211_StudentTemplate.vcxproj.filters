@@ -150,6 +150,9 @@
     <ClCompile Include="SceneD6.cpp">
       <Filter>Source Files\Scenes\Level 4</Filter>
     </ClCompile>
+    <ClCompile Include="TemperatureManager.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -259,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="SceneD6.h">
       <Filter>Header Files\Scenes\Level 4</Filter>
+    </ClInclude>
+    <ClInclude Include="TemperatureManager.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

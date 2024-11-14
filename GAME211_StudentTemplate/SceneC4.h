@@ -8,6 +8,7 @@
 #include "DefineScenes.h"
 #include "JumpText.h"
 #include "MovementText.h"
+#include "TemperatureManager.h"
 
 using namespace MATH;
 class SceneC4 : public Scene {
