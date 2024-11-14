@@ -151,7 +151,7 @@
       <Filter>Source Files\Scenes\Level 4</Filter>
     </ClCompile>
     <ClCompile Include="TemperatureManager.cpp">
-      <Filter>Source Files\Scenes</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
