@@ -25,6 +25,7 @@ private:
 	Build blueWall;
 	Build redPlatform;
 	Build triggerEvent;
+	Build triggerEvent2;
 
 	Vec3 newPos;
 

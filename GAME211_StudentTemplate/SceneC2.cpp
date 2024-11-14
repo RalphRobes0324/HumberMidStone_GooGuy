@@ -7,7 +7,8 @@ SceneC2::SceneC2(SDL_Window* sdlWindow_, GameManager* game_) :
 	bluePlatform(10.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	blueWall(18.5f, 14.0f, 1.0f, 10.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	redPlatform(21.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
+	triggerEvent(0.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 0)),
+	triggerEvent2(25.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -65,13 +66,21 @@ bool SceneC2::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//Check last scene was
-	//if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
-	//	game->HandleSpawnPoint(.2f, 1.f);
-	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
-	//}
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::C1) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::C3) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(5.f, 9.f, 0));
+	}
 
-	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	
 
 	std::cout << "this is scene C2\n";
 
@@ -89,7 +98,8 @@ void SceneC2::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	//set distination
-	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::C1, DefineScenes::C2);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::C3, DefineScenes::C2);
 
 	bluePlatform.Update(deltaTime);
 	blueWall.Update(deltaTime);
@@ -153,7 +163,8 @@ void SceneC2::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
-	//triggerEvent.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
 
 	bluePlatform.Render(renderer, game);
 	blueWall.Render(renderer, game);

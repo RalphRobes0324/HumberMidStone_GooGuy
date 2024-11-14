@@ -11,7 +11,6 @@ class Build {
 public:
 	//Setting up Default Build
 	Build(float _x, float _y, float _w, float _h, Vec4 _colour);
-
 	Build(float _x, float _y, float _w, float _h, Vec4 _colour, const std::string& _texturePath);
 
 	//Setting up Disappearing Build
