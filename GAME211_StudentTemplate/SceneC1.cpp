@@ -7,7 +7,7 @@ SceneC1::SceneC1(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform2(5, 2, 5, 2, Vec4(255, 255, 255, 255)),
 	platform3(15, 5, 6, 1, Vec4(255, 255, 255, 255)),
 	redPlatform(17, 8, 2, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
+	triggerEvent(25, 15.f, 1.0f, 18.0f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -62,13 +62,16 @@ bool SceneC1::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//Check last scene was * DONT DELETE THIS*
-	//if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
-	//	game->HandleSpawnPoint(.2f, 1.f);
-	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
-	//}
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::C2) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	}
 
-	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	
 
 	std::cout << "this is scene C1\n";
 
@@ -88,7 +91,7 @@ void SceneC1::Update(const float deltaTime) {
 	redPlatform.Update(deltaTime);
 
 	//set distination
-	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::C2, DefineScenes::C1);
 
 
 	std::vector<SDL_FRect> builds = {
@@ -149,7 +152,7 @@ void SceneC1::Render() {
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	redPlatform.Render(renderer, game);
-	//triggerEvent.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
