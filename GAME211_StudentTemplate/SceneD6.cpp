@@ -7,9 +7,10 @@ SceneD6::SceneD6(SDL_Window* sdlWindow_, GameManager* game_) :
 	venusFlytrap1(6.0f, 5.0f, 4.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	venusFlytrap2(12.0f, 8.0f, 4.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	redWall(20.0f, 12.0f, 1.0f, 8.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	redPlatform(0.0f, 13.0f, 1.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	redPlatform(0.0f, 13.0f, 5.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	bluePlatform(10.0f, 13.0f, 8.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
-	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
+	triggerEvent(-1.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 255)),
+	triggerEvent2(2.f, 17.f, 23.f, 1.f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -64,13 +65,21 @@ bool SceneD6::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//Check last scene was
-	//if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
-	//	game->SetNewTriggerBox(triggerEvent.getPlatform());
-	//	game->HandleSpawnPoint(.2f, 1.f);
-	//	game->getPlayer()->setPos(game->GetPlayerNewPos());
-	//}
+	if (game->GetSceneManager().GetLastScene() == DefineScenes::D5) {
+		game->SetNewTriggerBox(triggerEvent.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::D3) {
+		game->SetNewTriggerBox(triggerEvent2.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
+	else {
+		game->getPlayer()->setPos(Vec3(1.0f, 13.5f, 0));
+	}
 
-	game->getPlayer()->setPos(Vec3(2.5, 5, 0));
+	
 
 	std::cout << "this is scene D6\n";
 
@@ -85,7 +94,8 @@ void SceneD6::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 
 	//set distination
-	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
+	triggerEvent.OnTriggerEnter(game, DefineScenes::D5, DefineScenes::D6);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::D3, DefineScenes::D6);
 
 	//update the build 
 	redPlatform.Update(deltaTime);
@@ -151,7 +161,8 @@ void SceneD6::Render() {
 	redWall.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 	bluePlatform.Render(renderer, game);
-	//triggerEvent.Render(renderer, game);
+	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);

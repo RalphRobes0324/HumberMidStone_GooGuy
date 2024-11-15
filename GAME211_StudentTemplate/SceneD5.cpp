@@ -11,7 +11,7 @@ SceneD5::SceneD5(SDL_Window* sdlWindow_, GameManager* game_) :
 	blueWall(18.0f, 12.0f, 1.0f, 6.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	redPlatform(19.5f, 13.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
 	triggerEvent(2, 17, 23, 1, Vec4(255, 0, 255, 255)),
-	triggerEvent2(24, 15, 1, 18, Vec4(255, 0, 255, 255)),
+	triggerEvent2(25, 15, 1, 18, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)

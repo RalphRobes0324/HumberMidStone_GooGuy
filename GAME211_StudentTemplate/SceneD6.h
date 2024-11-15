@@ -23,6 +23,7 @@ private:
 	Build venusFlytrap1, venusFlytrap2;
 	Build redWall, redPlatform, bluePlatform;
 	Build triggerEvent;
+	Build triggerEvent2;
 
 	Vec3 newPos;
 
