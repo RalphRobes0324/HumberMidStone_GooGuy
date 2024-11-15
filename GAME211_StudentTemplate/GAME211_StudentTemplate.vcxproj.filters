@@ -75,9 +75,6 @@
     <ClCompile Include="MovementText.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CopyBaseScene.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Scene1.cpp">
       <Filter>Source Files\Scenes\Level 1</Filter>
     </ClCompile>
@@ -153,6 +150,9 @@
     <ClCompile Include="TemperatureManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="CopyBaseScene.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -183,9 +183,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="CopyBaseScene.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DefineScenes.h">
@@ -265,6 +262,9 @@
     </ClInclude>
     <ClInclude Include="TemperatureManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CopyBaseScene.h">
+      <Filter>Header Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
