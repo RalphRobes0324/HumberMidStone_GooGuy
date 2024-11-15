@@ -3,7 +3,10 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD4::SceneD4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	platform1(0.0f, 2.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform2(18.0f, 2.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform3(0.0f, 5.0f, 2.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	blueWall(13.5f, 12.0f, 1.0f, 9.0f, true, true, 2.0f, Vec4(0, 0, 255, 255)),
 	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -82,10 +85,17 @@ void SceneD4::Update(const float deltaTime) {
 	//set distination
 	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
 
+	//update the build
+	blueWall.Update(deltaTime);
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	platform1.getPlatform(),
+	platform2.getPlatform(),
+	platform3.getPlatform()
 	};
+
+	if (blueWall.getVisibility() == true)
+		builds.push_back(blueWall.getPlatform());
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -127,6 +137,9 @@ void SceneD4::Render() {
 	SDL_RenderClear(renderer);
 
 	platform1.Render(renderer, game);
+	platform2.Render(renderer, game);
+	platform3.Render(renderer, game);
+	blueWall.Render(renderer, game);
 	//triggerEvent.Render(renderer, game);
 
 	// render the player
