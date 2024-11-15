@@ -6,6 +6,7 @@ SceneD3::SceneD3(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(20.0f, 5.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	platform2(10.0f, 10.5f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	platform3(1.0f, 8.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	platform4(23.0f, 2.0f, 2.0f, 2.0f, Vec4(255, 255, 255, 255)),
 	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -88,7 +89,8 @@ void SceneD3::Update(const float deltaTime) {
 	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform(),
 	platform2.getPlatform(),
-	platform3.getPlatform()
+	platform3.getPlatform(),
+	platform4.getPlatform()
 	};
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
@@ -133,6 +135,7 @@ void SceneD3::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
 	//triggerEvent.Render(renderer, game);
 
 	// render the player
