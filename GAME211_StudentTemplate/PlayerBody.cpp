@@ -66,27 +66,25 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             //A subtract 2 from velocity x until -6.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (!wallTouchLeft) {
+                // reset wall touch
+                wallTouchRight = false;
                 if (vel.x == 0.0f)
                     vel.x = -7.0f;
                 else if (vel.x > -10.0f)
                     accel.x = -10.0f;//vel.x -= 1.5f;
-
             }
-            // reset wall touch
-            wallTouchRight = false;
             break;
             //D add 2 from velocity x until 6.0f velocity is achieved
         case(SDL_SCANCODE_D):
             if (!wallTouchRight)
             {
+                // reset wall touch
+                wallTouchLeft = false;
                 if (vel.x == 0.0f)
                     vel.x = 7.0f;
                 else if (vel.x < 10.0f)
                     accel.x = 10.0f; //vel.x += 1.5f;
-
             }
-            // reset wall touch
-            wallTouchLeft = false;
             break;
             //When spacebar is pressed, add 6 to velocity y to simulate a jump is player is grounded
         // Elijah added wall jump
