@@ -3,7 +3,7 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD3::SceneD3(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(20.0f, 5.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	platform1(20.0f, 6.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	platform2(10.0f, 10.5f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	platform3(1.0f, 8.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
 	platform4(23.0f, 2.0f, 2.0f, 2.0f, Vec4(255, 255, 255, 255)),
@@ -68,7 +68,12 @@ bool SceneD3::OnCreate() {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
 		game->getPlayer()->setPos(game->GetPlayerNewPos());
-	}	
+	}
+	else if (game->GetSceneManager().GetLastScene() == DefineScenes::D4) {
+		game->SetNewTriggerBox(triggerEvent3.getPlatform());
+		game->HandleSpawnPoint(.2f, 1.f);
+		game->getPlayer()->setPos(game->GetPlayerNewPos());
+	}
 	else if (game->GetSceneManager().GetLastScene() == DefineScenes::D6) {
 		game->SetNewTriggerBox(triggerEvent2.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
