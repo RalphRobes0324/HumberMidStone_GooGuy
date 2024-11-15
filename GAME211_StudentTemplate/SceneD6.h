@@ -19,7 +19,9 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-	Build platform1;
+	Build wall;
+	Build venusFlytrap1, venusFlytrap2;
+	Build redWall, redPlatform, bluePlatform;
 	Build triggerEvent;
 
 	Vec3 newPos;

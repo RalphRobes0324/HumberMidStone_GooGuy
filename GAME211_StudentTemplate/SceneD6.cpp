@@ -3,7 +3,12 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD6::SceneD6(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 8, 2, Vec4(255, 255, 255, 255)),
+	wall(23.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255)),
+	venusFlytrap1(6.0f, 5.0f, 4.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	venusFlytrap2(12.0f, 8.0f, 4.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	redWall(20.0f, 12.0f, 1.0f, 8.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	redPlatform(0.0f, 13.0f, 1.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	bluePlatform(10.0f, 13.0f, 8.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
 	triggerEvent(0, 4, 1, 2, Vec4(0, 255, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -82,10 +87,24 @@ void SceneD6::Update(const float deltaTime) {
 	//set distination
 	//triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
 
+	//update the build 
+	redPlatform.Update(deltaTime);
+	redWall.Update(deltaTime);
+	bluePlatform.Update(deltaTime);
 
 	std::vector<SDL_FRect> builds = {
-	platform1.getPlatform()
+	wall.getPlatform(),
+	venusFlytrap1.getPlatform(),
+	venusFlytrap2.getPlatform()
 	};
+
+	if (redPlatform.getVisibility() == true) {
+		builds.push_back(redPlatform.getPlatform());
+		builds.push_back(redWall.getPlatform());
+	}
+
+	if (bluePlatform.getVisibility() == true)
+		builds.push_back(bluePlatform.getPlatform());
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
@@ -114,7 +133,7 @@ void SceneD6::Update(const float deltaTime) {
 			game->getPlayer()->isGrounded = true; //set isGrounded to true
 
 			// Check if player reached a certain platform
-			if (RectsAreEqual(build, platform1.getPlatform())) {
+			if (RectsAreEqual(build, wall.getPlatform())) {
 				quest.UpdateQuest(1); // Touching platform 1
 			}
 		}
@@ -126,7 +145,12 @@ void SceneD6::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
-	platform1.Render(renderer, game);
+	wall.Render(renderer, game);
+	venusFlytrap1.Render(renderer, game);
+	venusFlytrap2.Render(renderer, game);
+	redWall.Render(renderer, game);
+	redPlatform.Render(renderer, game);
+	bluePlatform.Render(renderer, game);
 	//triggerEvent.Render(renderer, game);
 
 	// render the player
