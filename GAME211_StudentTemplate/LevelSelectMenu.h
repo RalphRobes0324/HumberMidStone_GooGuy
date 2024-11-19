@@ -21,11 +21,15 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	// buttons
-	/*UI* level1Button;
+	UI* level1Button;
 	UI* level2Button;
 	UI* level3Button;
 	UI* level4Button;
-	UI* backButton;*/
+	UI* backButton;
+
+	// button dimensions
+	int buttonWidth;
+	int buttonHeight;
 
 public:
 	// This constructor may be different from what you've seen before
