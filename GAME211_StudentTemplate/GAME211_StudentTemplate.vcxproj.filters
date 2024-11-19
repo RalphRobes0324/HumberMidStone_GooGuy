@@ -171,6 +171,9 @@
     <ClCompile Include="DeathMenu.cpp">
       <Filter>Source Files\Scenes\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -295,6 +298,9 @@
     </ClInclude>
     <ClInclude Include="DeathMenu.h">
       <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
