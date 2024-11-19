@@ -3,11 +3,12 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA6::SceneA6(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	platform2(5.0f, 2.0f, 6.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform3(20.0f, 2.0f, 12.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform4(11.0f, 5.0f, 8.0, 1.0f, Vec4(255, 255, 255, 255)),
-	wall(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
+	platform1(0.0f, 15.5f, 25.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform2(5.0f, 2.0f, 6.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform3(20.0f, 2.0f, 12.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform4(11.0f, 5.0f, 8.0, 1.0f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	wall(-0.75f, 15.0f, 1.5f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
 	triggerEvent(0.0f, 0.0f, 20.f, 1.0f, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25.0f, 14.5f, 1.f, 15.0f, Vec4(255, 0, 255, 255))
 {
@@ -47,6 +48,14 @@ bool SceneA6::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
+	wall.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A3) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
@@ -63,7 +72,14 @@ bool SceneA6::OnCreate() {
 	return true;
 }
 
-void SceneA6::OnDestroy() {}
+void SceneA6::OnDestroy() {
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
+	wall.DestroyTexture();
+}
 
 void SceneA6::Update(const float deltaTime) {
 
@@ -116,6 +132,7 @@ void SceneA6::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);

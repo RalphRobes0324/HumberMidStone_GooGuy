@@ -6,14 +6,16 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	:
 	//init the build
-	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
-	platform2(4.5f, 10.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
-	platform3(8.0f, 4.0f, 10.0f, 4.0f, Vec4(255, 255, 255, 255)),
-	platform4(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
+	platform1(0.0f, 2.0f, 30.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"), //floor 
+	platform2(4.5f, 10.0f, 7.5f, 8.25f, Vec4(255, 255, 255, 255), "bookcase/book_ngVial_stand.png"),
+	platform3(12.0f, 4.5f, 7.5f, 3.0f, Vec4(255, 255, 255, 255), "bookcase/book_ngVial.png"),
+	platform4(0.0f, 15.5f, 25.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform5(0.5f, 2.75f, 4.25f, 2.0f, Vec4(255, 255, 255, 255), "bookcase/vial_Bottom.png"),
 	triggerEvent(25.0f, 17.0f, 1.0f, 18.0f, Vec4(255,0, 255, 255)),
-	wall1(3.5f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
-	wall2(0.0f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
-	wall3(0.0f, 10.0f, 1.5f, 9.0f, Vec4(255, 255, 255, 255)),
+	wall1(3.6f, 9.5f, 1.25f, 6.75f, Vec4(255, 255, 255, 255), "bookcase/vial_RightSide.png"),
+	wall2(-0.75f, 15.0f, 1.5f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
+	wall3(0.5f, 9.5f, 1.25f, 6.75f, Vec4(255, 255, 255, 255), "bookcase/vial_LeftSide.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -35,7 +37,6 @@ Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	if (!movementText.LoadImages("movement.png", "left_movement.png", "right_movement.png")) {
 		std::cerr << "Failed to load jump images" << std::endl;
 	}
-
 	// Set Quests
 	quest.AddQuest("Quest 1: Escape the Test Tube");
 	quest.AddQuest("Quest 2: Find a Way Out of the Experimentation Room");
@@ -73,7 +74,15 @@ bool Scene1::OnCreate() {
 
 
 	//Load Textures
+	Background.LoadTexture(renderer);
 	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
+	platform5.LoadTexture(renderer);
+	wall1.LoadTexture(renderer);
+	wall2.LoadTexture(renderer);
+	wall3.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A2) {
 		
@@ -94,6 +103,14 @@ void Scene1::OnDestroy() {
 
 	//Destroy Texture
 	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
+	platform5.DestroyTexture();
+	wall1.DestroyTexture();
+	wall2.DestroyTexture();
+	wall3.DestroyTexture();
+	Background.DestroyTexture();
 }
 
 void Scene1::Update(const float deltaTime) {
@@ -111,6 +128,7 @@ void Scene1::Update(const float deltaTime) {
 		platform2.getPlatform(),
 		platform3.getPlatform(),
 		platform4.getPlatform(),
+		platform5.getPlatform(),
 		wall1.getPlatform(),
 		wall2.getPlatform(),
 		wall3.getPlatform()
@@ -158,13 +176,15 @@ void Scene1::Update(const float deltaTime) {
 
 void Scene1::Render() {	
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
-	SDL_RenderClear(renderer);
+
 
 	// Render the platforms
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	platform4.Render(renderer, game);
+	platform5.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);

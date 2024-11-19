@@ -3,9 +3,10 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA7::SceneA7(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	platform2(0.0f, 2.0f, 4.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform3(10.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
+	platform1(0.0f, 15.5f, 25.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform2(0.0f, 2.0f, 4.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform3(10.0f, 2.0f, 20.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
 	triggerEvent(3.5f, 0.0f, 7.0f, 1.0f, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
 	triggerEvent3(25.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0))
@@ -43,6 +44,12 @@ bool SceneA7::OnCreate() {
 	SDL_Surface* image;
 	SDL_Texture* texture;
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+
 
 	image = IMG_Load("pacman.png");
 	texture = SDL_CreateTextureFromSurface(renderer, image);
@@ -70,7 +77,12 @@ bool SceneA7::OnCreate() {
 	return true;
 }
 
-void SceneA7::OnDestroy() {}
+void SceneA7::OnDestroy() {
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+}
 
 void SceneA7::Update(const float deltaTime) {
 
@@ -121,6 +133,7 @@ void SceneA7::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);

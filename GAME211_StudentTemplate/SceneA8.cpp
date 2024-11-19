@@ -3,11 +3,13 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform2(0.0f, 15.0f, 20.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	platform3(6.0f, 5.5f, 8.0f, 10.0f, Vec4(255, 255, 255, 255)),
-	wall1(14.0f, 12.0f, 5.0f, 18.0f, Vec4(255, 255, 255, 255)),
-	wall2(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
+	vent(19.0f, 15.5f, 7.0f, 2.0f, Vec4(255, 255, 255, 255), "vent14.png"),
+	platform1(0.0f, 2.0f, 20.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform2(0.0f, 15.5f, 20.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform3(6.0f, 5.5f, 8.0f, 3.75f, Vec4(255, 255, 255, 255), "bookcase/book_b9.png"),
+	wall1(14.0f, 12.0f, 4.5f, 10.25f, Vec4(255, 255, 255, 255), "bookcase/book_b1.png"),
+	wall2(24.5f, 15.0f, 1.5f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
 	triggerEvent(20.0f, 0.0f, 4.5f, 1.0f, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
 	triggerEvent3(20.0f, 17.f, 4.5f, 1.0f, Vec4(255, 0, 255, 255))
@@ -51,6 +53,15 @@ bool SceneA8::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	vent.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	wall1.LoadTexture(renderer);
+	wall2.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A5) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, 1.f);
@@ -67,7 +78,15 @@ bool SceneA8::OnCreate() {
 	return true;
 }
 
-void SceneA8::OnDestroy() {}
+void SceneA8::OnDestroy() {
+	Background.DestroyTexture();
+	vent.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	wall1.DestroyTexture();
+	wall2.DestroyTexture();
+}
 
 void SceneA8::Update(const float deltaTime) {
 
@@ -121,11 +140,13 @@ void SceneA8::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	wall1.Render(renderer, game);
 	wall2.Render(renderer, game);
+	vent.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);
 	triggerEvent3.Render(renderer, game);
