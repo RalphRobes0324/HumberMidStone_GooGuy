@@ -9,9 +9,22 @@ OptionMenu::OptionMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+	buttonWidth = 200;
+	buttonHeight = 75;
+
+	// get window dimensions
+	int windowWidth, windowHeight;
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+
+	// calculate horizontal center
+	int centerX = (windowWidth / 2) - (buttonWidth / 2);
+
+	// Initialize buttons with positions and textures
+	backButton = new UI(renderer, "back.png", "back_hover.png", { 10, windowHeight - buttonHeight - 10, buttonWidth, buttonHeight });
 }
 
 OptionMenu::~OptionMenu(){
+	delete backButton;
 }
 
 bool OptionMenu::OnCreate() {
@@ -37,13 +50,19 @@ bool OptionMenu::OnCreate() {
 void OptionMenu::OnDestroy() {}
 
 void OptionMenu::Update(const float deltaTime) {
+	int windowWidth, windowHeight;
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
+	int centerX = (windowWidth / 2) - (buttonWidth / 2);
+
+	backButton->SetPosition(10, windowHeight - buttonHeight - 10);
 }
 
 void OptionMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	backButton->Render();
 
 	SDL_RenderPresent(renderer);
 }
@@ -53,4 +72,9 @@ void OptionMenu::HandleEvents(const SDL_Event& event)
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 	game->SceneSwitching(event, DefineScenes::MENU);
+
+	backButton->HandleEvent(event, []() {
+		std::cout << "Back Button Clicked\n";
+		// swap to MainMenu
+	});
 }
