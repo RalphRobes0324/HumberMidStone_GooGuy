@@ -45,3 +45,8 @@ void UI::HandleEvent(const SDL_Event& event, void (*onClick)()) {
         }
     }
 }
+
+void UI::SetPosition(int x, int y) {
+    buttonRect.x = x;
+    buttonRect.y = y;
+}

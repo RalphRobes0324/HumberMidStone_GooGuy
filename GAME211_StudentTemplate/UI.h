@@ -19,6 +19,7 @@ public:
 	void Render();
 	bool IsHovered(int mouseX, int mouseY);
 	void HandleEvent(const SDL_Event& event, void (*onClick)());
+	void SetPosition(int x, int y);
 };
 
 #endif
