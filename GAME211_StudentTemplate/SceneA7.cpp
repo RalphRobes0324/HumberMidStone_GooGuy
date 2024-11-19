@@ -3,6 +3,7 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA7::SceneA7(SDL_Window* sdlWindow_, GameManager* game_) :
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
 	platform1(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
 	platform2(0.0f, 2.0f, 4.0f, 2.0f, Vec4(255, 255, 255, 255)),
 	platform3(10.0f, 2.0f, 20.0f, 2.0f, Vec4(255, 255, 255, 255)),

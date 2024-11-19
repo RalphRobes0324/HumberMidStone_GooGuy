@@ -17,6 +17,7 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
+	Build Background;
 	Build platform1, platform2, platform3;
 	Build triggerEvent;
 	Build triggerEvent2;
