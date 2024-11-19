@@ -25,6 +25,7 @@
 #include "SceneD6.h"
 #include "MainMenu.h"
 #include "OptionMenu.h"
+#include "LevelSelectMenu.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -453,6 +454,15 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
             event.user.data2 = nullptr;
             SDL_PushEvent(&event);
         }
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::LEVEL_SELECT_MENU);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
     }
 
 }
@@ -561,6 +571,9 @@ void GameManager::handleEvents()
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::OPTION_MENU) {
                 currentScene = new OptionMenu(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::LEVEL_SELECT_MENU) {
+                currentScene = new LevelSelectMenu(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {

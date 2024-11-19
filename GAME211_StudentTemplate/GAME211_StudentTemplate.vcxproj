@@ -24,6 +24,7 @@
     <ClCompile Include="CopyBaseScene.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="JumpText.cpp" />
+    <ClCompile Include="LevelSelectMenu.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="MovementText.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="DefineScenes.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="JumpText.h" />
+    <ClInclude Include="LevelSelectMenu.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="MovementText.h" />
     <ClInclude Include="OptionMenu.h" />
