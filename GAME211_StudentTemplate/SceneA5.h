@@ -21,6 +21,7 @@ private:
 	Build wall1, wall2, wall3;
 	Build triggerEvent;
 	Build triggerEvent2;
+	Build Background;
 
 	Vec3 newPos;
 
