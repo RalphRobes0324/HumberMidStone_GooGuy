@@ -43,6 +43,12 @@
     <Filter Include="Source Files\Scenes\Level 4">
       <UniqueIdentifier>{2372c879-15d9-49a3-b937-c2c8a8d6d3f6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Scenes\Menus">
+      <UniqueIdentifier>{32ea0703-b480-4988-80b6-daa876a08599}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes\Menus">
+      <UniqueIdentifier>{94d976c7-541e-47c2-bdac-f2fecc0b42ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
@@ -152,6 +158,9 @@
     </ClCompile>
     <ClCompile Include="CopyBaseScene.cpp">
       <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="MainMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -265,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="CopyBaseScene.h">
       <Filter>Header Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="MainMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
