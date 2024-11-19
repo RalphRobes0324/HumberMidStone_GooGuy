@@ -20,9 +20,11 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-	Build platform1, platform2, platform3, platform4; //intializing platforms
+	Build platform1, platform2, platform3, platform4, platform5; //intializing platforms
 	Build wall1, wall2, wall3; //intializing walls
 	Build triggerEvent;
+
+	Build Background;
 
 	Quest quest;
 	JumpText jumpText;
