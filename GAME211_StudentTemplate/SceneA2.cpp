@@ -3,18 +3,19 @@
 
 // See notes about this constructor in Scene1.h.
 SceneA2::SceneA2(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 2.0f, 7.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform2(12.0f, 2.0f, 12.5f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform3(0.0f, 15.0f, 6.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	platform4(15.0f, 15.0f, 12.0f, 0.5f, Vec4(255, 255, 255, 255)),
-	wall(24.5f, 15.0f, 0.5f, 20.0f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "bookcase/book_bg.png"),
+	platform1(0.0f, 2.0f, 7.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform2(12.0f, 2.0f, 12.5f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform3(0.0f, 15.5f, 6.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform4(15.0f, 15.5f, 12.0f, 1.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	wall(24.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
 	triggerEvent(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
 	triggerEvent2(5.5f, 17.0f, 10.0f, 1.0f, Vec4(255, 0, 255, 255)),
 	redPlatform1(6.5f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
-	redPlatform2(6.5f, 4.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	redPlatform3(6.5f, 13.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
-	bluePlatform1(15.0f, 7.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
-	bluePlatform2(15.0f, 12.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255))
+	redPlatform2(6.5f, 4.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
+	redPlatform3(6.5f, 13.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
+	bluePlatform1(15.0f, 7.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "bookcase/book_h1.png"),
+	bluePlatform2(15.0f, 12.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "bookcase/book_h1.png")
 {
 	window = sdlWindow_;
     game = game_;
@@ -54,7 +55,17 @@ bool SceneA2::OnCreate() {
 	game->getPlayer()->setTexture(texture);
 
 	//Load Textures
+	wall.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
 	redPlatform1.LoadTexture(renderer);
+	redPlatform2.LoadTexture(renderer);
+	redPlatform3.LoadTexture(renderer);
+	bluePlatform1.LoadTexture(renderer);
+	bluePlatform2.LoadTexture(renderer);
+	Background.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A1) {
 
@@ -75,7 +86,17 @@ bool SceneA2::OnCreate() {
 }
 
 void SceneA2::OnDestroy() {
+	wall.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
 	redPlatform1.DestroyTexture();
+	redPlatform2.DestroyTexture();
+	redPlatform3.DestroyTexture();
+	bluePlatform1.DestroyTexture();
+	bluePlatform2.DestroyTexture();
+	Background.DestroyTexture();
 }
 
 void SceneA2::Update(const float deltaTime) {
@@ -145,7 +166,7 @@ void SceneA2::Update(const float deltaTime) {
 void SceneA2::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
-
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
