@@ -6,7 +6,7 @@
 Scene1::Scene1(SDL_Window* sdlWindow_, GameManager* game_)
 	:
 	//init the build
-	platform1(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"),
+	platform1(0.0f, 2.0f, 30.0f, 2.5f, Vec4(255, 255, 255, 255), "bookcase/book_h1.png"), //floor 
 	platform2(4.5f, 10.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
 	platform3(8.0f, 4.0f, 10.0f, 4.0f, Vec4(255, 255, 255, 255)),
 	platform4(0.0f, 15.0f, 25.0f, 0.5f, Vec4(255, 255, 255, 255)),
