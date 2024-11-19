@@ -19,6 +19,7 @@ private:
 
 	Build platform1, platform2, platform3, platform4;
 	Build redPlatform;
+	Build Background;
 	Build triggerEvent;
 	Build triggerEvent2;
 	Build triggerEvent3;
