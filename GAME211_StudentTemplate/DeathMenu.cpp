@@ -1,8 +1,8 @@
-#include "MainMenu.h"
+#include "DeathMenu.h"
 #include <VMath.h>
 
 // See notes about this constructor in Scene1.h.
-MainMenu::MainMenu(SDL_Window* sdlWindow_, GameManager* game_)
+DeathMenu::DeathMenu(SDL_Window* sdlWindow_, GameManager* game_)
 {
 	window = sdlWindow_;
     game = game_;
@@ -11,10 +11,10 @@ MainMenu::MainMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	yAxis = 15.0f;
 }
 
-MainMenu::~MainMenu(){
+DeathMenu::~DeathMenu(){
 }
 
-bool MainMenu::OnCreate() {
+bool DeathMenu::OnCreate() {
 	int w, h;
 	SDL_GetWindowSize(window,&w,&h);
 
@@ -27,20 +27,20 @@ bool MainMenu::OnCreate() {
 	IMG_Init(IMG_INIT_PNG);
 
 
-	game->GetSceneManager().SetCurrentScene(DefineScenes::MAIN_MENU);
+	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
 
-	std::cout << "This is Main Menu\n";
+	std::cout << "This is Death Menu\n";
 
 	return true;
 }
 
-void MainMenu::OnDestroy() {}
+void DeathMenu::OnDestroy() {}
 
-void MainMenu::Update(const float deltaTime) {
+void DeathMenu::Update(const float deltaTime) {
 
 }
 
-void MainMenu::Render() {
+void DeathMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
@@ -48,7 +48,7 @@ void MainMenu::Render() {
 	SDL_RenderPresent(renderer);
 }
 
-void MainMenu::HandleEvents(const SDL_Event& event)
+void DeathMenu::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);

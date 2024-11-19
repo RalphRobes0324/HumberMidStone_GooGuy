@@ -168,6 +168,9 @@
     <ClCompile Include="LevelSelectMenu.cpp">
       <Filter>Source Files\Scenes\Menus</Filter>
     </ClCompile>
+    <ClCompile Include="DeathMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -288,6 +291,9 @@
       <Filter>Header Files\Scenes\Menus</Filter>
     </ClInclude>
     <ClInclude Include="LevelSelectMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathMenu.h">
       <Filter>Header Files\Scenes\Menus</Filter>
     </ClInclude>
   </ItemGroup>
