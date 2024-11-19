@@ -23,6 +23,10 @@
 #include "SceneD4.h"
 #include "SceneD5.h"
 #include "SceneD6.h"
+#include "MainMenu.h"
+#include "OptionMenu.h"
+#include "LevelSelectMenu.h"
+#include "DeathMenu.h"
 #include "CopyBaseScene.h"
 
 GameManager::GameManager() {
@@ -60,7 +64,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new SceneD1(windowPtr->GetSDL_Window(), this);
+    currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
     
     // create player
     float mass = 1.0f;
@@ -102,7 +106,7 @@ bool GameManager::OnCreate() {
         return false;
     }
 
-    sceneManager.SetCurrentScene(DefineScenes::A1);
+    sceneManager.SetCurrentScene(DefineScenes::MAIN_MENU);
     sceneManager.SetLastScene(DefineScenes::NONE); //DONT FORGET CHANGE WHEN MAIN MENU IS BUILT
 
 	return true;
@@ -432,6 +436,45 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
             SDL_PushEvent(&event);
         }
     }
+    else if (sceneType == DefineScenes::MENU) {
+        if (num == 1) {
+            GetSceneManager().SetCurrentScene(DefineScenes::MAIN_MENU);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 2) {
+            GetSceneManager().SetCurrentScene(DefineScenes::OPTION_MENU);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 3) {
+            GetSceneManager().SetCurrentScene(DefineScenes::LEVEL_SELECT_MENU);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+        else if (num == 4) {
+            GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+            SDL_memset(&event, 0, sizeof(event));
+            event.type = GetChangeScene();
+            event.user.code = 1;
+            event.user.data1 = nullptr;
+            event.user.data2 = nullptr;
+            SDL_PushEvent(&event);
+        }
+    }
+
 }
 
 void GameManager::handleEvents() 
@@ -531,6 +574,19 @@ void GameManager::handleEvents()
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::D6) {
                 currentScene = new SceneD6(windowPtr->GetSDL_Window(), this);
+            }
+
+            else if (sceneManager.GetCurrentScene() == DefineScenes::MAIN_MENU) {
+                currentScene = new MainMenu(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::OPTION_MENU) {
+                currentScene = new OptionMenu(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::LEVEL_SELECT_MENU) {
+                currentScene = new LevelSelectMenu(windowPtr->GetSDL_Window(), this);
+            }
+            else if (sceneManager.GetCurrentScene() == DefineScenes::DEATH_MENU) {
+                currentScene = new DeathMenu(windowPtr->GetSDL_Window(), this);
             }
 
             if (!currentScene->OnCreate()) {

@@ -8,13 +8,17 @@ public:
 		A,
 		B,
 		C,
-		D
+		D,
+		MENU
 	};
 	enum GameScenes
 	{
 		NONE,
 		MAIN_MENU,
 		OPTION_MENU,
+		WIN_MENU,
+		DEATH_MENU,
+		LEVEL_SELECT_MENU,
 		A1,
 		A2,
 		A3,
