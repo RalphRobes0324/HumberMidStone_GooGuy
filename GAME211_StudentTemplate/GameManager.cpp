@@ -660,10 +660,10 @@ void GameManager::LoadScene( int i )
     switch ( i )
     {
         case 1:
-            currentScene = new Scene1( windowPtr->GetSDL_Window(), this);
+            currentScene = new MainMenu( windowPtr->GetSDL_Window(), this);
             break;
         default:
-            currentScene = new Scene1( windowPtr->GetSDL_Window(), this );
+            currentScene = new MainMenu( windowPtr->GetSDL_Window(), this );
             break;
     }
 

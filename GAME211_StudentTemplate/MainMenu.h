@@ -8,6 +8,7 @@
 #include "DefineScenes.h"
 #include "JumpText.h"
 #include "MovementText.h"
+#include "UI.h"
 
 using namespace MATH;
 class MainMenu : public Scene {
@@ -19,7 +20,11 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
-
+	// buttons
+	UI* playButton;
+	UI* levelSelectButton;
+	UI* optionsButton;
+	UI* exitButton;
 
 public:
 	// This constructor may be different from what you've seen before
