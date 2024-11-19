@@ -9,9 +9,30 @@ LevelSelectMenu::LevelSelectMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+	buttonWidth = 200;
+	buttonHeight = 75;
+
+	// get window dimensions
+	int windowWidth, windowHeight;
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
+
+	// calculate horizontal center
+	int centerX = (windowWidth / 2) - (buttonWidth / 2);
+
+	// Initialize buttons with positions and textures
+	level1Button = new UI(renderer, "level1.png", "level1_hover.png", { centerX, 200, buttonWidth, buttonHeight });
+	level2Button = new UI(renderer, "level2.png", "level2_hover.png", { centerX, 300, buttonWidth, buttonHeight });
+	level3Button = new UI(renderer, "level3.png", "level3_hover.png", { centerX, 400, buttonWidth, buttonHeight });
+	level4Button = new UI(renderer, "level4.png", "level4_hover.png", { centerX, 500, buttonWidth, buttonHeight });
+	backButton = new UI(renderer, "back.png", "back_hover.png", { 10, windowHeight - buttonHeight - 10, buttonWidth, buttonHeight });
 }
 
 LevelSelectMenu::~LevelSelectMenu(){
+	delete level1Button;
+	delete level2Button;
+	delete level3Button;
+	delete level4Button;
+	delete backButton;
 }
 
 bool LevelSelectMenu::OnCreate() {
@@ -37,13 +58,28 @@ bool LevelSelectMenu::OnCreate() {
 void LevelSelectMenu::OnDestroy() {}
 
 void LevelSelectMenu::Update(const float deltaTime) {
+	int windowWidth, windowHeight;
+	SDL_GetWindowSize(window, &windowWidth, &windowHeight);
 
+	int centerX = (windowWidth / 2) - (buttonWidth / 2);
+
+	level1Button->SetPosition(centerX, 200);
+	level2Button->SetPosition(centerX, 300);
+	level3Button->SetPosition(centerX, 400);
+	level4Button->SetPosition(centerX, 500);
+	backButton->SetPosition(10, windowHeight - buttonHeight - 10);
 }
 
 void LevelSelectMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	// render buttons
+	level1Button->Render();
+	level2Button->Render();
+	level3Button->Render();
+	level4Button->Render();
+	backButton->Render();
 
 	SDL_RenderPresent(renderer);
 }
@@ -53,4 +89,29 @@ void LevelSelectMenu::HandleEvents(const SDL_Event& event)
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 	game->SceneSwitching(event, DefineScenes::MENU);
+
+	level1Button->HandleEvent(event, []() {
+		std::cout << "Level 1 Button Clicked\n";
+		// swap to Level1
+	});
+
+	level2Button->HandleEvent(event, []() {
+		std::cout << "Level 2 Button Clicked\n";
+		// swap to Level2
+	});
+
+	level3Button->HandleEvent(event, []() {
+		std::cout << "Level 3 Button Clicked\n";
+		// swap to Level3
+	});
+
+	level4Button->HandleEvent(event, []() {
+		std::cout << "Level 4 Button Clicked\n";
+		// swap to Level4
+	});
+
+	backButton->HandleEvent(event, []() {
+		std::cout << "Back Button Clicked\n";
+		// swap to MainMenu
+	});
 }
