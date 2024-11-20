@@ -3,12 +3,13 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB2::SceneB2(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(1, 3, 3, 1, Vec4(255, 255, 255, 255)),
-	platform2(5, 6, 5, 1, Vec4(255, 255, 255, 255)),
-	platform3(15, 9, 5, 1, Vec4(255, 255, 255, 255)),
-	platform4(20, 16, 5, 2, Vec4(255, 255, 255, 255)),
-	bluePlatform(5, 1, 5, 1, true, true, 2.0f, Vec4(0, 0, 255, 255)),
-	wall1(20, 15, 1, 7, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
+	platform1(1, 3, 3, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform2(5, 6, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(15, 9, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform4(20, 16, 5, 2, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	bluePlatform(5, 1, 5, 1, true, true, 2.0f, Vec4(0, 0, 255, 255), "vent/vent_h4.png"),
+	wall1(20, 15, 1, 7, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(0,0,25,1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(12,17,8,1, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
@@ -67,6 +68,15 @@ bool SceneB2::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
+	bluePlatform.LoadTexture(renderer);
+	wall1.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B1) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, .2f);
@@ -85,7 +95,16 @@ bool SceneB2::OnCreate() {
 	return true;
 }
 
-void SceneB2::OnDestroy() {}
+void SceneB2::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
+	bluePlatform.DestroyTexture();
+	wall1.DestroyTexture();
+}
 
 void SceneB2::Update(const float deltaTime) {
 
@@ -145,6 +164,7 @@ void SceneB2::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
