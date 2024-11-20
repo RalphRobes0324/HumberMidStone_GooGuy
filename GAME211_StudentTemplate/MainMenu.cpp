@@ -9,7 +9,7 @@ MainMenu::MainMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
-	buttonWidth = 150;
+	buttonWidth = 200;
 	buttonHeight = 50;
 
 	// get window dimensions
