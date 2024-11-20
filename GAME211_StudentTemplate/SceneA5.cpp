@@ -11,7 +11,7 @@ SceneA5::SceneA5(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall2(21.5f, 11.0f, 3.0f, 9.5f, Vec4(255, 255, 255, 255), "bookcase/book_b2.png"),
 	wall3(24.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255),"bookcase/book_v7.png"),
 	triggerEvent(0.0f, 15.0f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
-	triggerEvent2(19.f, 17.0f, 5.5f, 1.0f, Vec4(255, 0, 255, 255)),
+	triggerEvent2(20.f, 16.0f, 5.f, 1.0f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
