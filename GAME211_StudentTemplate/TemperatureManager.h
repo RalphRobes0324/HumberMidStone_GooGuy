@@ -7,6 +7,7 @@
 class TemperatureManager {
 private:
     float temperature;
+    bool isOnHotPlatform;
     TemperatureManager();
 
     SDL_Rect tempMeter;
@@ -28,6 +29,10 @@ public:
 
     // render temperature meter
     void RenderTemperature(SDL_Renderer* renderer);
+
+    void SetHotPlatform(bool _isOnHotPlatform);
+
+    bool GetHotPlatform();
 };
 
 #endif

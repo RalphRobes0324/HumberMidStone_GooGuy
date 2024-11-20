@@ -101,9 +101,6 @@ void SceneC2::OnDestroy() {}
 
 void SceneC2::Update(const float deltaTime) {
 
-	// Update Temperature
-	float currentTemperature = TemperatureManager::Instance().GetTemperature();
-
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 	game->getPlayer()->wallTouchRight = false;
@@ -133,6 +130,8 @@ void SceneC2::Update(const float deltaTime) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
 	}
+
+	TemperatureManager::Instance().SetHotPlatform(false);
 
 	//loop through platforms
 	for (const SDL_FRect& build : builds) {
@@ -165,14 +164,15 @@ void SceneC2::Update(const float deltaTime) {
 				quest.UpdateQuest(1); // Touching platform 1
 			}
 
-			if (!RectsAreEqual(build, redPlatform.getPlatform())) {
-				TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
+			// Check if on hot platform or not
+			if (RectsAreEqual(build, redPlatform.getPlatform())) {
+				TemperatureManager::Instance().SetHotPlatform(true);
 			}
 		}
-
-		if (!game->getPlayer()->isGrounded)
-			TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
 	}
+
+	if (!game->getPlayer()->isGrounded || !TemperatureManager::Instance().GetHotPlatform())
+		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime);
 }
 
 void SceneC2::Render() {

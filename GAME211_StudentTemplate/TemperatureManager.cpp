@@ -9,6 +9,7 @@ TemperatureManager& TemperatureManager::Instance() {
 // initializes temperature
 TemperatureManager::TemperatureManager() :
     temperature(100.0f),
+    isOnHotPlatform(false),
     tempMeter({ 14, 260, 20, -200 }),
     tempColour({ 255, 0, 0, 255 }),
     tempMeterBackground({ 10, 270, 28, -220 }),
@@ -39,4 +40,14 @@ void TemperatureManager::RenderTemperature(SDL_Renderer* renderer) {
     tempMeter.h = static_cast<int>(-temperature * 2);
     SDL_SetRenderDrawColor(renderer, tempColour.r, tempColour.g, tempColour.b, tempColour.a);
     SDL_RenderFillRect(renderer, &tempMeter);
+}
+
+// set hot platform bool
+void TemperatureManager::SetHotPlatform(bool _isOnHotPlatform) {
+    isOnHotPlatform = _isOnHotPlatform;
+}
+
+// get hot platform bool
+bool TemperatureManager::GetHotPlatform() {
+    return isOnHotPlatform;
 }

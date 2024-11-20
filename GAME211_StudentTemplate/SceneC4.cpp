@@ -104,10 +104,6 @@ void SceneC4::OnDestroy() {
 
 void SceneC4::Update(const float deltaTime) {
 
-	// Update Temperature
-	float currentTemperature = TemperatureManager::Instance().GetTemperature();
-	TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
-
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 	game->getPlayer()->wallTouchRight = false;
@@ -134,6 +130,8 @@ void SceneC4::Update(const float deltaTime) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
 	}
+
+	TemperatureManager::Instance().SetHotPlatform(false);
 
 	//loop through platforms
 	for (const SDL_FRect& build : builds) {
@@ -167,6 +165,9 @@ void SceneC4::Update(const float deltaTime) {
 			}
 		}
 	}
+
+	if (!game->getPlayer()->isGrounded || !TemperatureManager::Instance().GetHotPlatform())
+		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime);
 }
 
 void SceneC4::Render() {
