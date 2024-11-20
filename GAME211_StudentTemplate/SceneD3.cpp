@@ -3,10 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD3::SceneD3(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(20.0f, 6.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	platform2(10.0f, 10.5f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	platform3(1.0f, 8.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	platform4(23.0f, 2.0f, 2.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "greenhouse/gh_bg.png"),
+	platform1(20.0f, 6.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform2(10.0f, 10.5f, 8.0f, 1.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform3(1.0f, 8.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform4(23.0f, 2.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
 	triggerEvent(-1.0f, 15, 1, 14, Vec4(0, 255, 255, 255)),
 	triggerEvent2(0.0f, 0.0f, 23, 1, Vec4(0, 255, 255, 255)),
 	triggerEvent3(25.0f, 15.0f, 1, 18, Vec4(0, 255, 255, 255)),
@@ -63,6 +64,13 @@ bool SceneD3::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
+
 	//Check last scene was
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::D2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -90,7 +98,14 @@ bool SceneD3::OnCreate() {
 	return true;
 }
 
-void SceneD3::OnDestroy() {}
+void SceneD3::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
+}
 
 void SceneD3::Update(const float deltaTime) {
 
@@ -156,6 +171,7 @@ void SceneD3::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);

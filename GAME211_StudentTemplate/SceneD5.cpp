@@ -3,13 +3,15 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD5::SceneD5(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 2.0f, 8.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform2(4.5f, 13.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	platform3(10.0f, 5.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	venusFlyTrap(19.5f, 6.5f, 4.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	wall(0.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255)),
-	blueWall(18.0f, 12.0f, 1.0f, 6.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
-	redPlatform(19.5f, 13.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "greenhouse/gh_bg.png"),
+	platform1(0.0f, 2.0f, 8.0f, 2.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform2(4.5f, 13.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform3(10.0f, 5.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	venusFlyTrap(19.5f, 6.5f, 4.5f, 3.5f, Vec4(255, 255, 255, 255), "greenhouse/open.png"),
+	stem(21.25f, 4.5f, 1.5f, 6.5f, Vec4(255, 255, 255, 255), "greenhouse/stem.png"),
+	wall(0.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255), "greenhouse/v1.png"),
+	blueWall(18.0f, 12.0f, 1.0f, 6.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "greenhouse/v1_b.png"),
+	redPlatform(19.5f, 13.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "greenhouse/h1_r.png"),
 	triggerEvent(2, 17, 23, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25, 15, 1, 18, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
@@ -65,6 +67,17 @@ bool SceneD5::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	wall.LoadTexture(renderer);
+	venusFlyTrap.LoadTexture(renderer);
+	stem.LoadTexture(renderer);
+	redPlatform.LoadTexture(renderer);
+	blueWall.LoadTexture(renderer);
+
 	//Check last scene was
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::D2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -85,7 +98,18 @@ bool SceneD5::OnCreate() {
 	return true;
 }
 
-void SceneD5::OnDestroy() {}
+void SceneD5::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	blueWall.DestroyTexture();
+	stem.DestroyTexture();
+	redPlatform.DestroyTexture();
+	wall.DestroyTexture();
+	venusFlyTrap.DestroyTexture();
+}
 
 void SceneD5::Update(const float deltaTime) {
 
@@ -160,9 +184,11 @@ void SceneD5::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	stem.Render(renderer, game);
 	venusFlyTrap.Render(renderer, game);
 	wall.Render(renderer, game);
 	blueWall.Render(renderer, game);

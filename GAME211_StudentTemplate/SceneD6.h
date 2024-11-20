@@ -21,9 +21,11 @@ private:
 
 	Build wall;
 	Build venusFlytrap1, venusFlytrap2;
+	Build stem1, stem2;
 	Build redWall, redPlatform, bluePlatform;
 	Build triggerEvent;
 	Build triggerEvent2;
+	Build Background;
 
 	Vec3 newPos;
 

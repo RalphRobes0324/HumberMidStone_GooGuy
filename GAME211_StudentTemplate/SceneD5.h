@@ -21,10 +21,12 @@ private:
 
 	Build platform1, platform2, platform3;
 	Build venusFlyTrap;
+	Build stem;
 	Build wall;
 	Build blueWall, redPlatform;
 	Build triggerEvent;
 	Build triggerEvent2;
+	Build Background;
 
 	Vec3 newPos;
 

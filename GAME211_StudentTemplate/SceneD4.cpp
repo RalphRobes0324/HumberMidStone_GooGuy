@@ -3,10 +3,12 @@
 
 // See notes about this constructor in Scene1.h.
 SceneD4::SceneD4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0.0f, 2.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform2(18.0f, 6.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255)),
-	platform3(0.0f, 6.0f, 2.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	blueWall(13.5f, 12.0f, 1.0f, 9.0f, true, true, 2.0f, Vec4(0, 0, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "greenhouse/gh_bg.png"),
+	platform1(0.0f, 2.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255),"greenhouse/h1.png"),
+	platform2(18.0f, 6.0f, 10.0f, 2.0f, Vec4(255, 255, 255, 255), "greenhouse/h1.png"),
+	platform3(-6.0f, 6.0f, 8.0f, 1.0f, Vec4(255, 255, 255, 255),"greenhouse/h1.png"),
+	blueWall(13.5f, 12.0f, 1.0f, 9.0f, true, true, 2.0f, Vec4(0, 0, 255, 255), "greenhouse/v1_r.png"),
+	Outside(15.0f, 15.0f, 10.0f, 10.0f, Vec4(255, 255, 255, 255), "greenhouse/outside light.png"),
 	triggerEvent(-1.0f, 15, 1, 14, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -61,6 +63,14 @@ bool SceneD4::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	blueWall.LoadTexture(renderer);
+	Outside.LoadTexture(renderer);
+
 	//Check last scene was
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::D3) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -76,7 +86,15 @@ bool SceneD4::OnCreate() {
 	return true;
 }
 
-void SceneD4::OnDestroy() {}
+void SceneD4::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	blueWall.DestroyTexture();
+	Outside.DestroyTexture();
+}
 
 void SceneD4::Update(const float deltaTime) {
 
@@ -144,10 +162,12 @@ void SceneD4::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	blueWall.Render(renderer, game);
+	Outside.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 
 	// render the player
