@@ -7,6 +7,7 @@ SceneB6::SceneB6(SDL_Window* sdlWindow_, GameManager* game_) :
 	vent(18.5f, 1.5f, 7.0f, 2.0f, Vec4(255, 255, 255, 255), "vent15.png"),
 	platform1(0, 1, 20, 2, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	triggerEvent(0, 15, 1, 15, Vec4(255, 0, 255, 0)),
+	triggerEvent2(19, 0.5, 7, 1, Vec4(255, 0, 255, 0)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -94,6 +95,7 @@ void SceneB6::Update(const float deltaTime) {
 	game->getPlayer()->wallTouchLeft = false;
 
 	triggerEvent.OnTriggerEnter(game, DefineScenes::B5, DefineScenes::B6);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::C1, DefineScenes::B6);
 
 	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform()
@@ -147,6 +149,7 @@ void SceneB6::Render() {
 	platform1.Render(renderer, game);
 	vent.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
+	triggerEvent2.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
