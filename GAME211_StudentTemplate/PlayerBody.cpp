@@ -204,7 +204,6 @@ bool PlayerBody::HasCollidedSide(SDL_FRect rect)
     if (wallTouchLeft || wallTouchRight) {
         wallTouchLeft = false;
         wallTouchRight = false;
-        std::cout << "Player is no longer touching any walls." << std::endl;  // Print message when no wall touch is detected
     }
 
     return false;

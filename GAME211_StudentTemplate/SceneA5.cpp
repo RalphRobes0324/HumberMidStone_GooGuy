@@ -11,13 +11,31 @@ SceneA5::SceneA5(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall2(21.5f, 11.0f, 3.0f, 9.5f, Vec4(255, 255, 255, 255), "bookcase/book_b2.png"),
 	wall3(24.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255),"bookcase/book_v7.png"),
 	triggerEvent(0.0f, 15.0f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
-	triggerEvent2(19.f, 17.0f, 5.5f, 1.0f, Vec4(255, 0, 255, 255))
+	triggerEvent2(19.f, 17.0f, 5.5f, 1.0f, Vec4(255, 0, 255, 255)),
+	quest(SDL_GetRenderer(sdlWindow_)),
+	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
+	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
 {
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+	if (!quest.LoadFont("Atop-R99O3.ttf", 24)) {
+		std::cerr << "Failed to load quest font" << std::endl;
+	}
+
+	if (!jumpText.LoadImages("jump.png", "wall_jump.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	if (!movementText.LoadImages("movement.png", "left_movement.png", "right_movement.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	// Set Quests
+	quest.AddQuest("Quest 1");
 
 	std::cout << "this is scene A5\n";
 }
@@ -156,6 +174,29 @@ void SceneA5::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render Quest
+	quest.RenderCurrentQuest();
+
+	// Determine which text to render based on player state
+	// Jump Text
+	if (game->getPlayer()->isGrounded && !game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		jumpText.RenderJump();
+	}
+	else if (game->getPlayer()->wallTouchLeft || game->getPlayer()->wallTouchRight) {
+		jumpText.RenderWallJump();
+	}
+
+	// Movement Text
+	if (!game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		movementText.RenderMovement();
+	}
+	else if (game->getPlayer()->wallTouchLeft) {
+		movementText.RenderRightMovement();
+	}
+	else if (game->getPlayer()->wallTouchRight) {
+		movementText.RenderLeftMovement();
+	}
 
 	SDL_RenderPresent(renderer);
 }
