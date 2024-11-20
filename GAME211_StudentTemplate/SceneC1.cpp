@@ -3,11 +3,13 @@
 
 // See notes about this constructor in Scene1.h.
 SceneC1::SceneC1(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 1, 5, 1, Vec4(255, 255, 255, 255)),
-	platform2(5, 2, 5, 2, Vec4(255, 255, 255, 255)),
-	platform3(15, 5, 6, 1, Vec4(255, 255, 255, 255)),
-	redPlatform(17, 8, 2, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_2.png"),
+	platform1(-0.5f, 1.0f, 10.5f, 8.0f, Vec4(255, 255, 255, 255), "freezer/freezer_acunit_heat.png"),
+	platform2(5.0f, 2.0f, 5.0f, 1.0f, Vec4(255, 255, 255, 255), "freezer/freezer_h2.png"),
+	platform3(15.0f, 5.0f, 6.0f, 1.0f, Vec4(255, 255, 255, 255), "freezer/freezer_h2.png"),
+	redPlatform(17.0f, 8.0f, 2.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h4.png"),
 	triggerEvent(25, 15.f, 1.0f, 18.0f, Vec4(255, 0, 255, 255)),
+	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -61,6 +63,14 @@ bool SceneC1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	redPlatform.LoadTexture(renderer);
+	Overlay.LoadTexture(renderer);
+
 	//Check last scene was * DONT DELETE THIS*
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::C2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -78,7 +88,15 @@ bool SceneC1::OnCreate() {
 	return true;
 }
 
-void SceneC1::OnDestroy() {}
+void SceneC1::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	redPlatform.DestroyTexture();
+	Overlay.DestroyTexture();
+}
 
 void SceneC1::Update(const float deltaTime) {
 
@@ -155,11 +173,13 @@ void SceneC1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
+	Overlay.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
