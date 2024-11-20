@@ -23,6 +23,7 @@ private:
 	Build platform1;
 	Build platform2;
 	Build platform3;
+	Build platform4;
 	Build wall1;
 	Build triggerEvent;
 	Build triggerEvent2;

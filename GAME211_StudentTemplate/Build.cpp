@@ -146,6 +146,29 @@ void Build::Update(float DeltaTime)
 			timer = 0.0f; // Reset the timer
 		}
 	}
+
+	
+}
+
+void Build::Update(float DeltaTime, GameManager* game) {
+
+	PlayerBody* player = game->getPlayer();
+
+	if (isPlayerInTriggerBox(game) && player) {
+
+		// determine fan push
+		float fanPush = fanPower * DeltaTime;
+		Vec3 force(0, 0, 0);
+
+		float fanRad = fanDirection * (M_PI / 180.0f); // convert degrees to rads
+
+		Vec3 currentVel = game->getPlayer()->getVel(); // get current vel
+
+		force.x = fanPush * cos(fanRad);
+		force.y = fanPush * sin(fanRad);
+
+		player->setVel(Vec3(currentVel.x += force.x, currentVel.y += force.y, currentVel.z)); // change player vel
+	}
 }
 
 
