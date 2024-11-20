@@ -3,11 +3,12 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB3::SceneB3(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(20, 1, 5, 1, Vec4(255, 255, 255, 255)),
-	platform2(3, 1, 5, 1, Vec4(255, 255, 255, 255)),
-	platform3(14, 10, 5, 1, Vec4(255, 255, 255, 255)),
-	wall1(0, 10, 3, 10, Vec4(255, 255, 255, 255)),
-	wall2(23, 15, 1, 5, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
+	platform1(20, 1, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform2(3, 1, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(14, 10, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	wall1(0, 10, 3, 10, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
+	wall2(23, 15, 1, 5, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(8, 0, 12, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0, 17, 23, 1, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
@@ -65,6 +66,14 @@ bool SceneB3::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	wall1.LoadTexture(renderer);
+	wall2.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, .3f);
@@ -82,7 +91,15 @@ bool SceneB3::OnCreate() {
 	return true;
 }
 
-void SceneB3::OnDestroy() {}
+void SceneB3::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	wall1.DestroyTexture();
+	wall2.DestroyTexture();
+}
 
 void SceneB3::Update(const float deltaTime) {
 
@@ -146,6 +163,7 @@ void SceneB3::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
