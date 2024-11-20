@@ -7,7 +7,7 @@ SceneC2::SceneC2(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(3, 8, 4, 1, Vec4(255, 255, 255, 255), "freezer/freezer_h2.png"),
 	bluePlatform(10.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "freezer/freezer_h3.png"),
 	blueWall(18.5f, 14.0f, 1.0f, 10.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "freezer/freezer_v2.png"),
-	redPlatform(21.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h4.png"),
+	redPlatform(21.5f, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h5.png"),
 	triggerEvent(0.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 0)),
 	triggerEvent2(25.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 255)),
 	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),

@@ -7,7 +7,7 @@ SceneC1::SceneC1(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(-0.5f, 1.0f, 10.5f, 8.0f, Vec4(255, 255, 255, 255), "freezer/freezer_acunit_heat.png"),
 	platform2(5.0f, 2.0f, 5.0f, 1.0f, Vec4(255, 255, 255, 255), "freezer/freezer_h2.png"),
 	platform3(15.0f, 5.0f, 6.0f, 1.0f, Vec4(255, 255, 255, 255), "freezer/freezer_h2.png"),
-	redPlatform(17.0f, 8.0f, 2.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h4.png"),
+	redPlatform(17.0f, 8.0f, 2.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h5.png"),
 	triggerEvent(25, 15.f, 1.0f, 18.0f, Vec4(255, 0, 255, 255)),
 	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
