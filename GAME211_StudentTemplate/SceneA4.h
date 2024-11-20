@@ -6,6 +6,8 @@
 #include "Build.h"
 #include "Quest.h"
 #include "DefineScenes.h"
+#include "JumpText.h"
+#include "MovementText.h"
 
 using namespace MATH;
 class SceneA4 : public Scene {
@@ -26,6 +28,10 @@ private:
 	Build triggerEvent4;
 
 	Vec3 newPos;
+
+	Quest quest;
+	JumpText jumpText;
+	MovementText movementText;
 
 
 public:

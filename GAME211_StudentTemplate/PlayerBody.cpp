@@ -66,8 +66,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             //A subtract 2 from velocity x until -6.0f velocity is achieved
         case(SDL_SCANCODE_A):
             if (!wallTouchLeft) {
-                // reset wall touch
-                wallTouchRight = false;
                 if (vel.x == 0.0f)
                     vel.x = -7.0f;
                 else if (vel.x > -10.0f)
@@ -78,8 +76,6 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_D):
             if (!wallTouchRight)
             {
-                // reset wall touch
-                wallTouchLeft = false;
                 if (vel.x == 0.0f)
                     vel.x = 7.0f;
                 else if (vel.x < 10.0f)
@@ -91,19 +87,17 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                vel.y = 8.0f;
+                vel.y = 12.0f;
             }
             if ( wallTouchLeft)
             {
-                wallTouchLeft = false;
-                vel.y = 8.0f;
-                vel.x = 4.0f;
+                vel.y = 12.0f;
+                vel.x = 2.0f;
             }
             if (wallTouchRight)
             {
-                wallTouchRight = false;
-                vel.y = 8.0f;
-                vel.x = -4.0f;
+                vel.y = 12.0f;
+                vel.x = -2.0f;
             }
             break;
         }
@@ -137,9 +131,10 @@ void PlayerBody::Update(float deltaTime)
 
     frictionForce = Vec3();
 
-    // slowly slide down walls
-    if (wallTouchLeft || wallTouchRight)
-        vel.y = std::max(vel.y - 1.0f * deltaTime, -2.0f);
+    if (wallTouchLeft || wallTouchRight) 
+        vel.y = std::max(vel.y + (GravForce.y * 0.5f) * deltaTime, -4.0f); // apply slowed gravity
+    else
+        vel.y = std::max(vel.y + GravForce.y * deltaTime, -9.8f); // apply normal gravity
 
     totalForce = GravForce + frictionForce; //apply total force, right now total force is just gravity
     ApplyForce(totalForce);
@@ -194,20 +189,23 @@ bool PlayerBody::HasCollidedSide(SDL_FRect rect)
         if (overlapLeft < overlapRight) {
             //std::cout << "Right side\n";
             wallTouchRight = true;
+            wallTouchLeft = false;
         }
         else {
 
             //std::cout << "Left Side\n";
             wallTouchLeft = true;
+            wallTouchRight = false;
 
         }
         return true;  // Side collision occurred
     }
-    else {
-        wallTouchRight = false;
-        wallTouchLeft = false;
 
+    if (wallTouchLeft || wallTouchRight) {
+        wallTouchLeft = false;
+        wallTouchRight = false;
     }
+
     return false;
 }
 
@@ -233,4 +231,3 @@ bool PlayerBody::HasCollidedTop(SDL_FRect rect)
     }
     return false;
 }
-

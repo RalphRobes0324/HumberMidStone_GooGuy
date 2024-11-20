@@ -84,6 +84,8 @@ void SceneB1::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+	game->getPlayer()->wallTouchRight = false;
+	game->getPlayer()->wallTouchLeft = false;
 
 	redPlatform.Update(deltaTime);
 
@@ -113,6 +115,10 @@ void SceneB1::Update(const float deltaTime) {
 			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(0.0f, currentVel.y, currentVel.z));
 
+			if (game->getPlayer()->getAccel().x > 0)
+				game->getPlayer()->wallTouchLeft = true;
+			else if (game->getPlayer()->getAccel().x < 0)
+				game->getPlayer()->wallTouchRight = true;
 		}
 
 		//Check Collision

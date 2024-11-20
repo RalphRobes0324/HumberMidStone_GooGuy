@@ -12,13 +12,31 @@ SceneA8::SceneA8(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall2(24.5f, 15.0f, 1.5f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
 	triggerEvent(20.0f, 0.0f, 4.5f, 1.0f, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
-	triggerEvent3(20.0f, 17.f, 4.5f, 1.0f, Vec4(255, 0, 255, 255))
+	triggerEvent3(20.0f, 17.f, 4.5f, 1.0f, Vec4(255, 0, 255, 255)),
+	quest(SDL_GetRenderer(sdlWindow_)),
+	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
+	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
 {
 	window = sdlWindow_;
     game = game_;
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
+
+	if (!quest.LoadFont("Atop-R99O3.ttf", 24)) {
+		std::cerr << "Failed to load quest font" << std::endl;
+	}
+
+	if (!jumpText.LoadImages("jump.png", "wall_jump.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	if (!movementText.LoadImages("movement.png", "left_movement.png", "right_movement.png")) {
+		std::cerr << "Failed to load jump images" << std::endl;
+	}
+
+	// Set Quests
+	quest.AddQuest("Quest 1");
 
 	std::cout << "this is scene A8\n";
 
@@ -92,6 +110,8 @@ void SceneA8::Update(const float deltaTime) {
 
 	// Update player
 	game->getPlayer()->Update(deltaTime);
+	game->getPlayer()->wallTouchRight = false;
+	game->getPlayer()->wallTouchLeft = false;
 
 	triggerEvent.OnTriggerEnter(game, DefineScenes::A5, DefineScenes::A8);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::A7, DefineScenes::A8);
@@ -120,6 +140,11 @@ void SceneA8::Update(const float deltaTime) {
 			Vec3 currentVel = game->getPlayer()->getVel();
 			game->getPlayer()->setAccel(Vec3(0.0f, currentAccel.y, currentAccel.z));
 			game->getPlayer()->setVel(Vec3(0.0f, currentVel.y, currentVel.z));
+
+			if (game->getPlayer()->getAccel().x > 0)
+				game->getPlayer()->wallTouchLeft = true;
+			else if (game->getPlayer()->getAccel().x < 0)
+				game->getPlayer()->wallTouchRight = true;
 
 		}
 
@@ -153,6 +178,29 @@ void SceneA8::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	// Render Quest
+	quest.RenderCurrentQuest();
+
+	// Determine which text to render based on player state
+	// Jump Text
+	if (game->getPlayer()->isGrounded && !game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		jumpText.RenderJump();
+	}
+	else if (game->getPlayer()->wallTouchLeft || game->getPlayer()->wallTouchRight) {
+		jumpText.RenderWallJump();
+	}
+
+	// Movement Text
+	if (!game->getPlayer()->wallTouchLeft && !game->getPlayer()->wallTouchRight) {
+		movementText.RenderMovement();
+	}
+	else if (game->getPlayer()->wallTouchLeft) {
+		movementText.RenderRightMovement();
+	}
+	else if (game->getPlayer()->wallTouchRight) {
+		movementText.RenderLeftMovement();
+	}
 
 	SDL_RenderPresent(renderer);
 }
