@@ -20,6 +20,9 @@ private:
 	Matrix4 projectionMatrix;	// set in OnCreate()
     Matrix4 inverseProjection;	// set in OnCreate()
 
+	Build Overlay;
+	Build Background;
+	Build vent;
 	Build platform1;
 	Build platform2;
 	Build bluePlatform1;
