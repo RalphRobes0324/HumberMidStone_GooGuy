@@ -73,8 +73,9 @@ void OptionMenu::HandleEvents(const SDL_Event& event)
 	game->getPlayer()->HandleEvents(event);
 	game->SceneSwitching(event, DefineScenes::MENU);
 
-	backButton->HandleEvent(event, []() {
+	backButton->HandleEvent(event, [this]() {
 		std::cout << "Back Button Clicked\n";
 		// swap to MainMenu
+		game->SwitchScene(DefineScenes::MAIN_MENU);
 	});
 }

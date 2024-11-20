@@ -90,28 +90,33 @@ void LevelSelectMenu::HandleEvents(const SDL_Event& event)
 	game->getPlayer()->HandleEvents(event);
 	game->SceneSwitching(event, DefineScenes::MENU);
 
-	level1Button->HandleEvent(event, []() {
+	level1Button->HandleEvent(event, [this]() {
 		std::cout << "Level 1 Button Clicked\n";
-		// swap to Level1
+		// swap to Leve1
+		game->SwitchScene(DefineScenes::A1);
 	});
 
-	level2Button->HandleEvent(event, []() {
+	level2Button->HandleEvent(event, [this]() {
 		std::cout << "Level 2 Button Clicked\n";
 		// swap to Level2
+		game->SwitchScene(DefineScenes::B1);
 	});
 
-	level3Button->HandleEvent(event, []() {
+	level3Button->HandleEvent(event, [this]() {
 		std::cout << "Level 3 Button Clicked\n";
 		// swap to Level3
+		game->SwitchScene(DefineScenes::C1);
 	});
 
-	level4Button->HandleEvent(event, []() {
+	level4Button->HandleEvent(event, [this]() {
 		std::cout << "Level 4 Button Clicked\n";
 		// swap to Level4
+		game->SwitchScene(DefineScenes::D1);
 	});
 
-	backButton->HandleEvent(event, []() {
+	backButton->HandleEvent(event, [this]() {
 		std::cout << "Back Button Clicked\n";
 		// swap to MainMenu
+		game->SwitchScene(DefineScenes::MAIN_MENU);
 	});
 }

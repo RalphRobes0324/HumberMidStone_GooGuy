@@ -64,7 +64,7 @@ bool GameManager::OnCreate() {
 
     // select scene for specific assignment
 
-    currentScene = new Scene1(windowPtr->GetSDL_Window(), this);
+    currentScene = new MainMenu(windowPtr->GetSDL_Window(), this);
     
     // create player
     float mass = 1.0f;
@@ -475,6 +475,19 @@ void GameManager::SwitchScene(DefineScenes::TypeOfScenes sceneType, int num)
         }
     }
 
+}
+
+void GameManager::SwitchScene(DefineScenes::GameScenes scenes)
+{
+    GetSceneManager().SetCurrentScene(scenes);
+    SDL_Event event;
+    SDL_memset(&event, 0, sizeof(event));
+    SDL_memset(&event, 0, sizeof(event));
+    event.type = GetChangeScene();
+    event.user.code = 1;
+    event.user.data1 = nullptr;
+    event.user.data2 = nullptr;
+    SDL_PushEvent(&event);
 }
 
 void GameManager::handleEvents() 

@@ -36,7 +36,7 @@ bool UI::IsHovered(int mouseX, int mouseY) {
         mouseY >= buttonRect.y && mouseY <= buttonRect.y + buttonRect.h;
 }
 
-void UI::HandleEvent(const SDL_Event& event, void (*onClick)()) {
+void UI::HandleEvent(const SDL_Event& event, std::function<void()> onClick) {
     if (event.type == SDL_MOUSEBUTTONDOWN) {
         int mouseX, mouseY;
         SDL_GetMouseState(&mouseX, &mouseY);

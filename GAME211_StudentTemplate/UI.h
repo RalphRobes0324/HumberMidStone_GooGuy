@@ -4,6 +4,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <string>
+#include "GameManager.h"
+#include <functional>
 
 class UI {
 private:
@@ -18,7 +20,7 @@ public:
 
 	void Render();
 	bool IsHovered(int mouseX, int mouseY);
-	void HandleEvent(const SDL_Event& event, void (*onClick)());
+	void HandleEvent(const SDL_Event& event, std::function<void()> onClick);
 	void SetPosition(int x, int y);
 };
 

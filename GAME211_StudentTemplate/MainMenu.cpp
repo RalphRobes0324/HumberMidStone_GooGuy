@@ -85,23 +85,29 @@ void MainMenu::HandleEvents(const SDL_Event& event)
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
 	game->SceneSwitching(event, DefineScenes::MENU);
-
-	playButton->HandleEvent(event, [](){ 
+	
+	
+	playButton->HandleEvent(event, [this](){ 
 		std::cout << "Play Button Clicked\n";
 		// swap to Scene1
+		game->SwitchScene(DefineScenes::A1);
 	});
 
-	levelSelectButton->HandleEvent(event, [](){ 
+	levelSelectButton->HandleEvent(event, [this](){ 
 		std::cout << "Level Select Button Clicked\n";
 		// swap to LevelSelectMenu
+		game->SwitchScene(DefineScenes::LEVEL_SELECT_MENU);
 	});
 
-	optionsButton->HandleEvent(event, [](){ 
+	optionsButton->HandleEvent(event, [this](){ 
 		std::cout << "Options Button Clicked\n";
 		// swap to OptionMenu
+		game->SwitchScene(DefineScenes::OPTION_MENU);
+		
+		
 	});
 
-	exitButton->HandleEvent(event, [](){ 
+	exitButton->HandleEvent(event, [this](){ 
 		std::cout << "Exit Button Clicked\n";
 		SDL_Quit();
 		std::exit(0);
