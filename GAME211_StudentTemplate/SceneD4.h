@@ -22,6 +22,8 @@ private:
 	Build platform1, platform2, platform3;
 	Build blueWall;
 	Build triggerEvent;
+	Build Background;
+	Build Outside;
 
 	Vec3 newPos;
 

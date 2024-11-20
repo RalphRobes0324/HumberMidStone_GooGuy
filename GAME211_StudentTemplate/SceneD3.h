@@ -23,6 +23,7 @@ private:
 	Build triggerEvent;
 	Build triggerEvent2;
 	Build triggerEvent3;
+	Build Background;
 
 	Vec3 newPos;
 
