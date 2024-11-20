@@ -3,11 +3,12 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 2, 25, 2, Vec4(255, 255, 255, 255)),
-	platform2(5, 5, 5, 1, Vec4(255, 255, 255, 255)),
-	platform3(15, 8, 5, 1, Vec4(255, 255, 255, 255)),
-	platform4(7, 11, 5, 1, Vec4(255, 255, 255, 255)),
-	redPlatform(16, 14, 5, 1, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
+	platform1(0.0f, 2.0f, 25.0f, 2.5f, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform2(5.0f, 5.0f, 5.0f, 1.0f, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(15.0f, 8.0f, 5.0f, 1.0f, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform4(7.0f, 11.0f, 5.0f, 1.0f, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	redPlatform(16.0f, 14.0f, 5.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "vent/vent_h5.png"),
 	triggerEvent(0,17,25,1, Vec4(255,0,255,255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -64,6 +65,14 @@ bool SceneB1::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
+	redPlatform.LoadTexture(renderer);
+
 	
 	if(game->GetSceneManager().GetLastScene() == DefineScenes::B2){
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -78,7 +87,15 @@ bool SceneB1::OnCreate() {
 	return true;
 }
 
-void SceneB1::OnDestroy() {}
+void SceneB1::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	platform4.DestroyTexture();
+	redPlatform.DestroyTexture();
+}
 
 void SceneB1::Update(const float deltaTime) {
 
@@ -137,6 +154,7 @@ void SceneB1::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
