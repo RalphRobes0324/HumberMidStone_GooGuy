@@ -3,7 +3,8 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB6::SceneB6(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(0, 1, 25, 2, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
+	platform1(0, 1, 25, 2, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	triggerEvent(0, 15, 1, 15, Vec4(255, 0, 255, 0)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -60,6 +61,10 @@ bool SceneB6::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B5) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, .3f);
@@ -72,7 +77,11 @@ bool SceneB6::OnCreate() {
 	return true;
 }
 
-void SceneB6::OnDestroy() {}
+void SceneB6::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+}
 
 void SceneB6::Update(const float deltaTime) {
 
@@ -123,6 +132,7 @@ void SceneB6::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 

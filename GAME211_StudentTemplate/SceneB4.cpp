@@ -3,10 +3,11 @@
 
 // See notes about this constructor in Scene1.h.
 SceneB4::SceneB4(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(12, 2, 5, 1, Vec4(255, 255, 255, 255)),
-	platform2(2, 4, 5, 1, Vec4(255, 255, 255, 255)),
-	platform3(14, 6, 5, 1, Vec4(255, 255, 255, 255)),
-	wall1(19, 20, 1, 12, Vec4(255, 255, 255, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
+	platform1(12, 2, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform2(2, 4, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(14, 6, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	wall1(19, 20, 1, 12, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(0, 0, 25, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0, 17, 19, 1, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
@@ -64,6 +65,13 @@ bool SceneB4::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	platform2.LoadTexture(renderer);
+	platform3.LoadTexture(renderer);
+	wall1.LoadTexture(renderer);
+
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B3) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
 		game->HandleSpawnPoint(.2f, .3f);
@@ -81,7 +89,14 @@ bool SceneB4::OnCreate() {
 	return true;
 }
 
-void SceneB4::OnDestroy() {}
+void SceneB4::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	platform2.DestroyTexture();
+	platform3.DestroyTexture();
+	wall1.DestroyTexture();
+}
 
 void SceneB4::Update(const float deltaTime) {
 
@@ -138,6 +153,7 @@ void SceneB4::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
