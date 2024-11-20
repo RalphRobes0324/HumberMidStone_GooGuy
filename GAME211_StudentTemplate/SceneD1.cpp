@@ -4,8 +4,8 @@
 // See notes about this constructor in Scene1.h.
 SceneD1::SceneD1(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(18.0f, 10.f, 10.0f, 1.0f, Vec4(255, 255, 255, 255)),
-	platform2(9.5f, 6.0f, 6.0f, 10.0f, Vec4(255, 255, 255, 255)),
-	platform3(0.0f, 2.0f, 30.0f, 2.0f, Vec4(255, 255, 255, 255)),
+	platform2(9.5f, 6.0f, 6.0f, 1.0f, Vec4(255, 255, 255, 255)),
+	platform3(0.0f, 2.0f, 30.0f, 2.5f, Vec4(255, 255, 255, 255)),
 	triggerEvent(25, 15, 1, 18, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
