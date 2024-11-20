@@ -3,11 +3,13 @@
 
 // See notes about this constructor in Scene1.h.
 SceneC3::SceneC3(SDL_Window* sdlWindow_, GameManager* game_) :
-	platform1(8, 8, 8, 1, Vec4(255, 255, 255, 255)),
-	bluePlatform(20.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255)),
-	redPlatform(-2, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255)),
+	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_2.png"),
+	platform1(8, 8, 8, 1, Vec4(255, 255, 255, 255), "freezer/freezer_h5.png"),
+	bluePlatform(20.5f, 5.0f, 6.0f, 1.0f, true, false, 2.0f, Vec4(0, 0, 255, 255), "freezer/freezer_h3.png"),
+	redPlatform(-2, 5.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "freezer/freezer_h5.png"),
 	triggerEvent(0.f, 15, 1, 18, Vec4(255, 0, 255, 0)),
 	triggerEvent2(25.f, 15, 1, 18, Vec4(255, 0, 255, 255)),
+	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -61,6 +63,13 @@ bool SceneC3::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	//Load Textures
+	Background.LoadTexture(renderer);
+	platform1.LoadTexture(renderer);
+	bluePlatform.LoadTexture(renderer);
+	redPlatform.LoadTexture(renderer);
+	Overlay.LoadTexture(renderer);
+
 	//Check last scene was
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::C2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -83,7 +92,14 @@ bool SceneC3::OnCreate() {
 	return true;
 }
 
-void SceneC3::OnDestroy() {}
+void SceneC3::OnDestroy() {
+	//Destroy Texture
+	Background.DestroyTexture();
+	platform1.DestroyTexture();
+	redPlatform.DestroyTexture();
+	bluePlatform.DestroyTexture();
+	Overlay.DestroyTexture();
+}
 
 void SceneC3::Update(const float deltaTime) {
 
@@ -164,12 +180,14 @@ void SceneC3::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	Background.Render(renderer, game);
 	platform1.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);
 
 	bluePlatform.Render(renderer, game);
 	redPlatform.Render(renderer, game);
+	Overlay.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
