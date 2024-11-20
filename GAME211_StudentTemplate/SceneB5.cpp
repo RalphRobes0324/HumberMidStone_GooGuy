@@ -7,7 +7,7 @@ SceneB5::SceneB5(SDL_Window* sdlWindow_, GameManager* game_) :
 	platform1(19, 1, 8, 2, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	triggerEvent(0, 0, 20, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25, 15, 1, 15, Vec4(255, 0, 255, 255)),
-	fan1(4, 15, 12, 1, Vec4(0, 255, 0, 255)),
+	fan1(4, 15, 12, 1, Vec4(0, 255, 0, 255), "vent_fan/vent_fan5.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -71,6 +71,7 @@ bool SceneB5::OnCreate() {
 	//Load Textures
 	Background.LoadTexture(renderer);
 	platform1.LoadTexture(renderer);
+	fan1.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B4) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());

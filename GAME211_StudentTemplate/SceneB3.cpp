@@ -11,7 +11,7 @@ SceneB3::SceneB3(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall2(23, 15, 1, 5, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(8, 0, 12, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0, 17, 23, 1, Vec4(255, 0, 255, 255)),
-	fan1(24, 7, 1, 5, Vec4(0, 255, 0, 255)),
+	fan1(24, 7, 1, 6.0, Vec4(0, 255, 0, 255), "vent_fan/vent_fan1.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
