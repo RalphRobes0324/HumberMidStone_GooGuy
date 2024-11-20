@@ -82,6 +82,7 @@ public:
 
 	void SceneSwitching(SDL_Event event, DefineScenes::TypeOfScenes sceneType);
 	void SwitchScene(DefineScenes::TypeOfScenes sceneType, int num);
+	void SwitchScene(DefineScenes::GameScenes scenes);
 };
 #endif
 
