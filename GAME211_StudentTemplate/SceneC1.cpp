@@ -100,9 +100,6 @@ void SceneC1::OnDestroy() {
 
 void SceneC1::Update(const float deltaTime) {
 
-	// Update Temperature
-	float currentTemperature = TemperatureManager::Instance().GetTemperature();
-
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 	game->getPlayer()->wallTouchRight = false;
@@ -126,6 +123,8 @@ void SceneC1::Update(const float deltaTime) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
 	}
+
+	TemperatureManager::Instance().SetHotPlatform(false);
 
 	//loop through platforms
 	for (const SDL_FRect& build : builds) {
@@ -159,14 +158,14 @@ void SceneC1::Update(const float deltaTime) {
 			}
 
 			// Check if on hot platform or not
-			if (!RectsAreEqual(build, platform1.getPlatform()) && !RectsAreEqual(build, redPlatform.getPlatform())) {
-				TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
+			if (RectsAreEqual(build, platform1.getPlatform()) || RectsAreEqual(build, redPlatform.getPlatform())) {
+				TemperatureManager::Instance().SetHotPlatform(true);
 			}
 		}
-
-		if(!game->getPlayer()->isGrounded)
-			TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
 	}
+
+	if (!game->getPlayer()->isGrounded || !TemperatureManager::Instance().GetHotPlatform())
+		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime);
 }
 
 void SceneC1::Render() {

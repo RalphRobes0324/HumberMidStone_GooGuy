@@ -103,9 +103,6 @@ void SceneC3::OnDestroy() {
 
 void SceneC3::Update(const float deltaTime) {
 
-	// Update Temperature
-	float currentTemperature = TemperatureManager::Instance().GetTemperature();
-
 	// Update player
 	game->getPlayer()->Update(deltaTime);
 	game->getPlayer()->wallTouchRight = false;
@@ -122,17 +119,19 @@ void SceneC3::Update(const float deltaTime) {
 	platform1.getPlatform()
 	};
 
-	if (redPlatform.getVisibility() == true) {
-		builds.push_back(redPlatform.getPlatform());
-	}
 	if (bluePlatform.getVisibility() == true) {
 		builds.push_back(bluePlatform.getPlatform());
+	}
+	if (redPlatform.getVisibility() == true) {
+		builds.push_back(redPlatform.getPlatform());
 	}
 
 	if (game->getPlayer()->getAccel().y != 0.0f) {
 
 		game->getPlayer()->isGrounded = false; //set isGrounded to true
 	}
+
+	TemperatureManager::Instance().SetHotPlatform(false);
 
 	//loop through platforms
 	for (const SDL_FRect& build : builds) {
@@ -166,14 +165,14 @@ void SceneC3::Update(const float deltaTime) {
 			}
 
 			// Check if on hot platform or not
-			if (!RectsAreEqual(build, platform1.getPlatform()) && !RectsAreEqual(build, redPlatform.getPlatform())) {
-				TemperatureManager::Instance().DecreaseTemperature(5.0f * deltaTime);
+			if (RectsAreEqual(build, platform1.getPlatform()) || !RectsAreEqual(build, bluePlatform.getPlatform())) {
+				TemperatureManager::Instance().SetHotPlatform(true);
 			}
 		}
-
-		if (!game->getPlayer()->isGrounded)
-			TemperatureManager::Instance().DecreaseTemperature(1.0f * deltaTime);
 	}
+
+	if (!game->getPlayer()->isGrounded || !TemperatureManager::Instance().GetHotPlatform())
+		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime);
 }
 
 void SceneC3::Render() {
