@@ -36,6 +36,15 @@ public:
 
 	bool isPlayerInTriggerBox(GameManager* game);
 
+	// Fan Functions
+	void SetFanDirection(float _direction) { fanDirection = _direction; }
+	float GetFanDirection() const { return fanDirection; }
+	void SetFanPower(float _power) { fanPower = _power; }
+	float GetFanPower() const { return fanPower; }
+	void SetEffectiveRange(float range) { effectiveRange = range; }
+	float GetEffectiveRange() const { return effectiveRange; }
+	void Update(float DeltaTime, GameManager* game);
+
 private:
 	float x, y, width, height;
 	SDL_FRect rect;
@@ -60,6 +69,11 @@ private:
 
 	
 	float timer;
+
+	// Fan Info
+	bool fanDirection;
+	float fanPower;
+	float effectiveRange;
 };
 
 #endif

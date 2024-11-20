@@ -6,7 +6,8 @@ SceneB4::SceneB4(SDL_Window* sdlWindow_, GameManager* game_) :
 	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
 	platform1(12, 2, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	platform2(2, 4, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
-	platform3(14, 6, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(12, 6, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform4(23, 1, 2, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	wall1(19, 20, 1, 12, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(0, 0, 25, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0, 17, 19, 1, Vec4(255, 0, 255, 255)),
@@ -70,6 +71,7 @@ bool SceneB4::OnCreate() {
 	platform1.LoadTexture(renderer);
 	platform2.LoadTexture(renderer);
 	platform3.LoadTexture(renderer);
+	platform4.LoadTexture(renderer);
 	wall1.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B3) {
@@ -95,6 +97,7 @@ void SceneB4::OnDestroy() {
 	platform1.DestroyTexture();
 	platform2.DestroyTexture();
 	platform3.DestroyTexture();
+	platform4.DestroyTexture();
 	wall1.DestroyTexture();
 }
 
@@ -113,6 +116,7 @@ void SceneB4::Update(const float deltaTime) {
 		platform1.getPlatform(),
 		platform2.getPlatform(),
 		platform3.getPlatform(),
+		platform4.getPlatform(),
 		wall1.getPlatform()
 	};
 
@@ -164,6 +168,7 @@ void SceneB4::Render() {
 	platform1.Render(renderer, game);
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
+	platform4.Render(renderer, game);
 	wall1.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);

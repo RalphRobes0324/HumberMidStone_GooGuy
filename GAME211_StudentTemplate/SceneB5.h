@@ -23,6 +23,7 @@ private:
 	Build platform1;
 	Build triggerEvent;
 	Build triggerEvent2;
+	Build fan1;
 
 	Vec3 newPos;
 

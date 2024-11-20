@@ -6,11 +6,12 @@ SceneB3::SceneB3(SDL_Window* sdlWindow_, GameManager* game_) :
 	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "vent/vent_bg.png"),
 	platform1(20, 1, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	platform2(3, 1, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
-	platform3(14, 10, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
+	platform3(11, 10, 5, 1, Vec4(255, 255, 255, 255), "vent/vent_h1.png"),
 	wall1(0, 10, 3, 10, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	wall2(23, 15, 1, 5, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(8, 0, 12, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(0, 17, 23, 1, Vec4(255, 0, 255, 255)),
+	fan1(24, 7, 1, 5, Vec4(0, 255, 0, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -66,6 +67,11 @@ bool SceneB3::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	// set fan direction, power and range
+	fan1.SetFanDirection(90.0f);
+	fan1.SetFanPower(50.0f);
+	fan1.SetEffectiveRange(5.0f);
+
 	//Load Textures
 	Background.LoadTexture(renderer);
 	platform1.LoadTexture(renderer);
@@ -73,6 +79,7 @@ bool SceneB3::OnCreate() {
 	platform3.LoadTexture(renderer);
 	wall1.LoadTexture(renderer);
 	wall2.LoadTexture(renderer);
+	fan1.LoadTexture(renderer);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::B2) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
@@ -99,6 +106,7 @@ void SceneB3::OnDestroy() {
 	platform3.DestroyTexture();
 	wall1.DestroyTexture();
 	wall2.DestroyTexture();
+	fan1.DestroyTexture();
 }
 
 void SceneB3::Update(const float deltaTime) {
@@ -157,6 +165,20 @@ void SceneB3::Update(const float deltaTime) {
 		}
 
 	}
+
+	// Check for Fan
+	Vec3 playerPos = game->getPlayer()->getPos();
+	Vec3 fanPos(24, 7, 0);
+
+	float distance = std::sqrt(std::pow(playerPos.x - fanPos.x, 2) + std::pow(playerPos.y - fanPos.y, 2));
+
+	if (distance < fan1.GetEffectiveRange()) {
+		Vec3 fanDirection = Vec3(-1.0f, 0.0f, 0.0f); // push player left
+		float fanPower = fan1.GetFanPower();
+
+		// Apply force to the player
+		game->getPlayer()->ApplyForce(fanDirection * fanPower);
+	}
 }
 
 void SceneB3::Render() {
@@ -171,6 +193,7 @@ void SceneB3::Render() {
 	wall2.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);
+	fan1.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
