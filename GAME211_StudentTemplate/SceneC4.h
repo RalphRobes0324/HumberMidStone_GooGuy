@@ -9,6 +9,7 @@
 #include "JumpText.h"
 #include "MovementText.h"
 #include "TemperatureManager.h"
+#include "DeathManager.h"
 
 using namespace MATH;
 class SceneC4 : public Scene {
@@ -29,6 +30,8 @@ private:
 	Build bluePlatform2;
 	Build triggerEvent;
 	Build triggerEvent2;
+
+	DeathManager deathTriggerEvent;
 
 	Vec3 newPos;
 

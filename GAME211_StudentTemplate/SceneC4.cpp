@@ -11,6 +11,7 @@ SceneC4::SceneC4(SDL_Window* sdlWindow_, GameManager* game_) :
 	bluePlatform2(11.0f, 7, 3.0f, 1.0f, true, true, 2.0f, Vec4(0, 0, 255, 255), "freezer/freezer_h3.png"),
 	triggerEvent(0.0, 15, 1, 18, Vec4(255, 0, 255, 0)),
 	triggerEvent2(25.f, 15, 1, 18, Vec4(255, 0, 255, 255)),
+	deathTriggerEvent(-20.f, -2.f, 100.f, 1.f, Vec4(0, 0, 255, 255)),
 	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -112,6 +113,8 @@ void SceneC4::Update(const float deltaTime) {
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::C3, DefineScenes::C4);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::D1, DefineScenes::C4);
+
+	deathTriggerEvent.OnTriggerEnter(game);
 
 	bluePlatform1.Update(deltaTime);
 	bluePlatform2.Update(deltaTime);
