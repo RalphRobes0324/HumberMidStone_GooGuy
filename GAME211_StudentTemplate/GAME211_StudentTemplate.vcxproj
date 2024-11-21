@@ -22,6 +22,7 @@
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Build.cpp" />
     <ClCompile Include="CopyBaseScene.cpp" />
+    <ClCompile Include="DeathManager.cpp" />
     <ClCompile Include="DeathMenu.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="JumpText.cpp" />
@@ -65,6 +66,7 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="Build.h" />
     <ClInclude Include="CopyBaseScene.h" />
+    <ClInclude Include="DeathManager.h" />
     <ClInclude Include="DeathMenu.h" />
     <ClInclude Include="DefineScenes.h" />
     <ClInclude Include="GameManager.h" />
