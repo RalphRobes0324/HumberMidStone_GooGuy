@@ -14,6 +14,7 @@ SceneD5::SceneD5(SDL_Window* sdlWindow_, GameManager* game_) :
 	redPlatform(19.5f, 13.0f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "greenhouse/h1_r.png"),
 	triggerEvent(2, 17, 23, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25, 15, 1, 18, Vec4(255, 0, 255, 255)),
+	deathTriggerEvent(-20.f, -2.f, 100.f, 1.f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -117,6 +118,8 @@ void SceneD5::Update(const float deltaTime) {
 	game->getPlayer()->Update(deltaTime);
 	game->getPlayer()->wallTouchRight = false;
 	game->getPlayer()->wallTouchLeft = false;
+
+	deathTriggerEvent.OnTriggerEnter(game);
 
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::D2, DefineScenes::D5);
