@@ -12,6 +12,8 @@ SceneB2::SceneB2(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall1(20, 15, 1, 7, Vec4(255, 255, 255, 255), "vent/vent_v1.png"),
 	triggerEvent(0,0,25,1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(12,17,8,1, Vec4(255, 0, 255, 255)),
+	deathTriggerEvent(-2.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
+	deathTriggerEvent2(25.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -116,6 +118,8 @@ void SceneB2::Update(const float deltaTime) {
 	bluePlatform.Update(deltaTime);
 	triggerEvent.OnTriggerEnter(game, DefineScenes::B1, DefineScenes::B2);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::B3, DefineScenes::B2);
+	deathTriggerEvent.OnTriggerEnter(game);
+	deathTriggerEvent2.OnTriggerEnter(game);
 
 	std::vector<SDL_FRect> builds = {
 		platform1.getPlatform(),

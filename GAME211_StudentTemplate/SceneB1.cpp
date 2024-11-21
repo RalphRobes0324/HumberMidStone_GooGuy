@@ -11,7 +11,7 @@ SceneB1::SceneB1(SDL_Window* sdlWindow_, GameManager* game_) :
 	redPlatform(16.0f, 14.0f, 5.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "vent/vent_h5.png"),
 	triggerEvent(0,17,25,1, Vec4(255,0,255,255)),
 	deathTriggerEvent (-20.f, -2.f, 100.f, 1.f, Vec4(0, 0, 255, 255)),
-	deathTriggerEvent2 (-1.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
+	deathTriggerEvent2 (-2.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
 	deathTriggerEvent3 (25.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
