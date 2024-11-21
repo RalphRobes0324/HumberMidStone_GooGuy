@@ -271,3 +271,10 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	}
 }
 
+void Build::UpdateTexture(SDL_Renderer* renderer, const std::string& newTexturePath) {
+	DestroyTexture();
+	texture = IMG_LoadTexture(renderer, newTexturePath.c_str());
+	if (!texture) {
+		std::cerr << "Failed to load updated texture: " << newTexturePath << std::endl;
+	}
+}
