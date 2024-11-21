@@ -11,6 +11,7 @@ SceneA2::SceneA2(SDL_Window* sdlWindow_, GameManager* game_) :
 	wall(24.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255), "bookcase/book_v7.png"),
 	triggerEvent(0.0f, 14.5f, 1.0f, 15.0f, Vec4(255, 0, 255, 0)),
 	triggerEvent2(5.5f, 17.0f, 10.0f, 1.0f, Vec4(255, 0, 255, 255)),
+	deathTriggerEvent(-20.f, -2.f, 100.f, 1.f, Vec4(0,0,255,255)),
 	redPlatform1(6.5f, 9.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
 	redPlatform2(6.5f, 4.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
 	redPlatform3(6.5f, 13.5f, 6.0f, 1.0f, true, true, 2.0f, Vec4(255, 0, 0, 255), "bookcase/book_h1.png"),
@@ -126,6 +127,7 @@ void SceneA2::Update(const float deltaTime) {
 
 	triggerEvent.OnTriggerEnter(game, DefineScenes::A1, DefineScenes::A2);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::A4, DefineScenes::A2);
+	deathTriggerEvent.OnTriggerEnter(game);
 
 	//Update the build
 	redPlatform1.Update(deltaTime);
@@ -205,6 +207,9 @@ void SceneA2::Render() {
 	redPlatform3.Render(renderer, game);
 	bluePlatform1.Render(renderer, game);
 	bluePlatform2.Render(renderer, game);
+
+	deathTriggerEvent.Render(renderer, game);
+
 	// render the player
 	game->RenderPlayer(0.10f);
 
