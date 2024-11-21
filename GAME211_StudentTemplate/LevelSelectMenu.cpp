@@ -47,6 +47,19 @@ bool LevelSelectMenu::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+	backgroundTexture = IMG_LoadTexture(renderer, "Titlebg.png");
+	if (!backgroundTexture) {
+		std::cerr << "Failed to load background image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	menuTexture = IMG_LoadTexture(renderer, "levelSelect.png");
+	if (!menuTexture) {
+		std::cerr << "Failed to load menu image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	menuRect = { w / 2 - 300 / 2, 50, 300, 100 };
 
 	game->GetSceneManager().SetCurrentScene(DefineScenes::LEVEL_SELECT_MENU);
 
@@ -73,6 +86,9 @@ void LevelSelectMenu::Update(const float deltaTime) {
 void LevelSelectMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
+
+	SDL_RenderCopy(renderer, backgroundTexture, nullptr, nullptr); // render bg
+	SDL_RenderCopy(renderer, menuTexture, nullptr, &menuRect); // render menu
 
 	// render buttons
 	level1Button->Render();

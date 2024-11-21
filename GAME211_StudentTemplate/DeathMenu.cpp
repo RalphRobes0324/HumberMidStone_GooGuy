@@ -40,6 +40,19 @@ bool DeathMenu::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+	backgroundTexture = IMG_LoadTexture(renderer, "Titlebg.png");
+	if (!backgroundTexture) {
+		std::cerr << "Failed to load background image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	gameOverTexture = IMG_LoadTexture(renderer, "tryagain.png");
+	if (!gameOverTexture) {
+		std::cerr << "Failed to load game over image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	gameOverRect = { w / 2 - 500 / 2, 50, 500, 200 };
 
 	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
 
@@ -62,6 +75,9 @@ void DeathMenu::Update(const float deltaTime) {
 void DeathMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
+
+	SDL_RenderCopy(renderer, backgroundTexture, nullptr, nullptr); // render bg
+	SDL_RenderCopy(renderer, gameOverTexture, nullptr, &gameOverRect); // render game over
 
 	exitButton->Render();
 

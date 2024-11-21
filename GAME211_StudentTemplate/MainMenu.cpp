@@ -45,6 +45,19 @@ bool MainMenu::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+	backgroundTexture = IMG_LoadTexture(renderer, "Titlebg.png");
+	if (!backgroundTexture) {
+		std::cerr << "Failed to load background image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	titleTexture = IMG_LoadTexture(renderer, "GooGuy.png");
+	if (!titleTexture) {
+		std::cerr << "Failed to load title image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	titleRect = { w / 2 - 500 / 2, 50, 500, 200 };
 
 	game->GetSceneManager().SetCurrentScene(DefineScenes::MAIN_MENU);
 
@@ -70,6 +83,9 @@ void MainMenu::Update(const float deltaTime) {
 void MainMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
+
+	SDL_RenderCopy(renderer, backgroundTexture, nullptr, nullptr); // render bg
+	SDL_RenderCopy(renderer, titleTexture, nullptr, &titleRect); // render title
 
 	// render buttons
 	playButton->Render();

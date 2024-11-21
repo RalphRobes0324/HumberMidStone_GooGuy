@@ -22,6 +22,7 @@ public:
 	bool IsHovered(int mouseX, int mouseY);
 	void HandleEvent(const SDL_Event& event, std::function<void()> onClick);
 	void SetPosition(int x, int y);
+	void UpdateTextures(const std::string& normalPath, const std::string& hoverPath);
 };
 
 #endif

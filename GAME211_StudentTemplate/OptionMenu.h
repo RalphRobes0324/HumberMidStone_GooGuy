@@ -21,10 +21,18 @@ private:
     Matrix4 inverseProjection;	// set in OnCreate()
 
 	UI* backButton;
+	UI* volumeButton;
 
 	// button dimensions
 	int buttonWidth;
 	int buttonHeight;
+
+	SDL_Texture* backgroundTexture;
+	SDL_Texture* optionsTexture;
+	SDL_Rect optionsRect;
+
+	const char* initialTexture;
+	bool isMuted;
 
 public:
 	// This constructor may be different from what you've seen before
