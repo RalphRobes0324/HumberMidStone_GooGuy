@@ -44,6 +44,7 @@ public:
 	void SetEffectiveRange(float range) { effectiveRange = range; }
 	float GetEffectiveRange() const { return effectiveRange; }
 	void Update(float DeltaTime, GameManager* game);
+	void UpdateTexture(SDL_Renderer* renderer, const std::string& newTexturePath);
 
 private:
 	float x, y, width, height;
@@ -65,8 +66,6 @@ private:
 	std::string texturePath;
 
 	Vec4 colour; //Build's colour
-	
-
 	
 	float timer;
 

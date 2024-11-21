@@ -11,7 +11,7 @@ SceneC2::SceneC2(SDL_Window* sdlWindow_, GameManager* game_) :
 	triggerEvent(0.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 0)),
 	triggerEvent2(25.0f, 15.f, 1, 18.f, Vec4(255, 0, 255, 255)),
 	deathTriggerEvent( - 20.f, -2.f, 100.f, 1.f, Vec4(0, 0, 255, 255)),
-	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_oerlay1.png"),
+	Overlay(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "freezer/freezer_bg_overlay2.png"),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -68,6 +68,8 @@ bool SceneC2::OnCreate() {
 	game->getPlayer()->setImage(image);
 	game->getPlayer()->setTexture(texture);
 
+	isOverlayUpdated = false;
+
 	//Load Textures
 	Background.LoadTexture(renderer);
 	platform1.LoadTexture(renderer);
@@ -116,6 +118,13 @@ void SceneC2::Update(const float deltaTime) {
 	bluePlatform.Update(deltaTime);
 	blueWall.Update(deltaTime);
 	redPlatform.Update(deltaTime);
+
+	if (TemperatureManager::Instance().GetTemperature() <= 50) {
+		if (!isOverlayUpdated) {
+			Overlay.UpdateTexture(renderer, "freezer/freezer_bg_overlay1.png");
+			isOverlayUpdated = true;
+		}
+	}
 
 	std::vector<SDL_FRect> builds = {
 		platform1.getPlatform()
