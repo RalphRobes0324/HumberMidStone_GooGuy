@@ -8,6 +8,7 @@ SceneB5::SceneB5(SDL_Window* sdlWindow_, GameManager* game_) :
 	triggerEvent(0, 0, 20, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25, 15, 1, 15, Vec4(255, 0, 255, 255)),
 	fan1(4, 15, 12, 1, Vec4(0, 255, 0, 255), "vent_fan/vent_fan5.png"),
+	deathTriggerEvent(-2.0f, 14.5f, 1.0f, 15.0f, Vec4(0, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
 	movementText(SDL_GetRenderer(sdlWindow_), sdlWindow_)
@@ -105,6 +106,7 @@ void SceneB5::Update(const float deltaTime) {
 
 	triggerEvent.OnTriggerEnter(game, DefineScenes::B4, DefineScenes::B5);
 	triggerEvent2.OnTriggerEnter(game, DefineScenes::B6, DefineScenes::B5);
+	deathTriggerEvent.OnTriggerEnter(game);
 
 	std::vector<SDL_FRect> builds = {
 	platform1.getPlatform()
