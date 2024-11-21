@@ -9,8 +9,8 @@ OptionMenu::OptionMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	renderer = SDL_GetRenderer(window);
 	xAxis = 25.0f;
 	yAxis = 15.0f;
-	buttonWidth = 200;
-	buttonHeight = 75;
+	buttonWidth = 150;
+	buttonHeight = 150;
 
 	// get window dimensions
 	int windowWidth, windowHeight;
@@ -20,11 +20,18 @@ OptionMenu::OptionMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	int centerX = (windowWidth / 2) - (buttonWidth / 2);
 
 	// Initialize buttons with positions and textures
-	backButton = new UI(renderer, "back.png", "back_hover.png", { 10, windowHeight - buttonHeight - 10, buttonWidth, buttonHeight });
+	backButton = new UI(renderer, "back.png", "back_hover.png", { 10, windowHeight - buttonHeight - 10, 200, 75 });
+	volumeButton = 
+		new UI(renderer, isMuted ? "volOFF.png" : "volON.png", 
+			isMuted ? "volOFF_hover.png" : "volON_hover.png",
+			{ centerX, 300, buttonWidth, buttonHeight });
+
+	isMuted = false;
 }
 
 OptionMenu::~OptionMenu(){
 	delete backButton;
+	delete volumeButton;
 }
 
 bool OptionMenu::OnCreate() {
@@ -39,6 +46,19 @@ bool OptionMenu::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
+	backgroundTexture = IMG_LoadTexture(renderer, "Titlebg.png");
+	if (!backgroundTexture) {
+		std::cerr << "Failed to load background image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	optionsTexture = IMG_LoadTexture(renderer, "options.png");
+	if (!optionsTexture) {
+		std::cerr << "Failed to load options image: " << IMG_GetError() << "\n";
+		return false;
+	}
+
+	optionsRect = { w / 2 - 300 / 2, 50, 300, 100 };
 
 	game->GetSceneManager().SetCurrentScene(DefineScenes::OPTION_MENU);
 
@@ -55,14 +75,19 @@ void OptionMenu::Update(const float deltaTime) {
 
 	int centerX = (windowWidth / 2) - (buttonWidth / 2);
 
-	backButton->SetPosition(10, windowHeight - buttonHeight - 10);
+	backButton->SetPosition(10, windowHeight - 85);
+	volumeButton->SetPosition(centerX, 300);
 }
 
 void OptionMenu::Render() {
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 	SDL_RenderClear(renderer);
 
+	SDL_RenderCopy(renderer, backgroundTexture, nullptr, nullptr); // render bg
+	SDL_RenderCopy(renderer, optionsTexture, nullptr, &optionsRect); // render options
+
 	backButton->Render();
+	volumeButton->Render();
 
 	SDL_RenderPresent(renderer);
 }
@@ -77,5 +102,18 @@ void OptionMenu::HandleEvents(const SDL_Event& event)
 		std::cout << "Back Button Clicked\n";
 		// swap to MainMenu
 		game->SwitchScene(DefineScenes::MAIN_MENU);
+	});
+	volumeButton->HandleEvent(event, [this]() {
+		std::cout << "Volume Button Clicked\n";
+
+		// update button textures baed on mute state
+		if (isMuted)
+			volumeButton->UpdateTextures("volON.png", "volON_hover.png");
+		else
+			volumeButton->UpdateTextures("volOFF.png", "volOFF_hover.png");
+
+		// toggle mute/unmute
+		isMuted = !isMuted;
+		// actually mute/unmute the audio
 	});
 }

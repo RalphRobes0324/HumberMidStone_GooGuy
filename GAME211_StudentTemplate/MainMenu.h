@@ -30,6 +30,10 @@ private:
 	int buttonWidth;
 	int buttonHeight;
 
+	SDL_Texture* backgroundTexture;
+	SDL_Texture* titleTexture;
+	SDL_Rect titleRect;
+
 public:
 	// This constructor may be different from what you've seen before
 	// Notice the second parameter, and look in GameManager.cpp

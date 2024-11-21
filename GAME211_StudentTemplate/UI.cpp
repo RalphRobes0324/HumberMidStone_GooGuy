@@ -50,3 +50,23 @@ void UI::SetPosition(int x, int y) {
     buttonRect.x = x;
     buttonRect.y = y;
 }
+
+void UI::UpdateTextures(const std::string& normalPath, const std::string& hoverPath) {
+    if (buttonTexture)
+        SDL_DestroyTexture(buttonTexture);
+    if (hoverTexture)
+        SDL_DestroyTexture(hoverTexture);
+
+    // update textures
+    SDL_Surface* surface = IMG_Load(normalPath.c_str());
+    buttonTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+
+    surface = IMG_Load(hoverPath.c_str());
+    hoverTexture = SDL_CreateTextureFromSurface(renderer, surface);
+    SDL_FreeSurface(surface);
+
+    if (!buttonTexture || !hoverTexture) {
+        std::cerr << "Failed to update UI textures: " << IMG_GetError() << "\n";
+    }
+}
