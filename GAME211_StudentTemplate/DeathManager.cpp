@@ -24,6 +24,11 @@ void DeathManager::OnTriggerEnter(GameManager* game)
 	{
 		return;
 	}
+	Die(game);
+}
+
+void DeathManager::Die(GameManager* game)
+{
 	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
 	game->GetSceneManager().SetLastScene(DefineScenes::NONE);
 	SDL_Event event;

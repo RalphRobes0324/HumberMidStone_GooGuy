@@ -12,6 +12,7 @@ public:
 	~DeathManager();
 	void Render(SDL_Renderer* renderer, GameManager* game);
 	void OnTriggerEnter(GameManager* game);
+	void Die(GameManager* game);
 private:
 	float x, y, width, height;
 	Vec4 colour;
