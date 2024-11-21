@@ -22,16 +22,17 @@ void DeathManager::OnTriggerEnter(GameManager* game)
 		||
 		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
 	{
-		game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
-		game->GetSceneManager().SetLastScene(DefineScenes::NONE);
-		SDL_Event event;
-		SDL_memset(&event, 0, sizeof(event));
-		event.type = game->GetChangeScene();
-		event.user.code = 1;
-		event.user.data1 = nullptr;
-		event.user.data2 = nullptr;
-		SDL_PushEvent(&event);
+		return;
 	}
+	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+	game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+	SDL_Event event;
+	SDL_memset(&event, 0, sizeof(event));
+	event.type = game->GetChangeScene();
+	event.user.code = 1;
+	event.user.data1 = nullptr;
+	event.user.data2 = nullptr;
+	SDL_PushEvent(&event);
 }
 
 void DeathManager::Render(SDL_Renderer* renderer, GameManager* game)
