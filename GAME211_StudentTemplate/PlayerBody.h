@@ -19,12 +19,14 @@ protected:
 
 private:
     float playerW, playerH;
+    Uint32 sprite, counter, numFrames, numSprites;
 
 public:
     bool isGrounded = false; // Added isGrounded check for Jump (Maya)
     bool wallTouch = false;
     bool wallTouchLeft = false;
     bool wallTouchRight = false;
+    bool facingRight = true;
     Vec3 GravForce, totalForce, frictionForce; // added force Vec3's for force checking (Maya)
     PlayerBody() : Body{}
     {
