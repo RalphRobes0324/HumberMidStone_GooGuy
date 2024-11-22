@@ -57,8 +57,8 @@ void PlayerBody::Render(float scale)
     screenCoords = projectionMatrix * pos;
 
     // Scale the image, in case the .png file is too big or small
-    w = image->w * scale;
-    h = image->h * scale*counter; //multiple by counter to make the height match the width 
+    w = image->w * scale*2;
+    h = image->h * scale*8; //multiple by counter to make the height match the width 
 
     // The square's x and y values represent the top left corner of 
     // where SDL will draw the .png image.
