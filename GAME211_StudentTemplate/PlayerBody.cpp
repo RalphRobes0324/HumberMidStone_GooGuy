@@ -200,7 +200,7 @@ bool PlayerBody::HasCollidedWith(SDL_FRect rect)
 {
     if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
         ||
-        ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) 
+        ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius*1.5) > rect.y)) 
     {
 
         return false;
