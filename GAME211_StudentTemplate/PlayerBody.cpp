@@ -9,7 +9,11 @@
 
 bool PlayerBody::OnCreate()
 {
-    image = IMG_Load("Pacman.png");
+    image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
+    counter = 4;
+    numSprites = 4;
+    sprite = 0;
+    numFrames = 1;
     SDL_Renderer* renderer = game->getRenderer();
     texture = SDL_CreateTextureFromSurface(renderer, image);
     if (image == nullptr) {
@@ -24,9 +28,33 @@ void PlayerBody::Render(float scale)
     // This is why we need game in the constructor, to get the renderer, etc.
     SDL_Renderer* renderer = game->getRenderer();
     Matrix4 projectionMatrix = game->getProjectionMatrix();
+    
+    if (vel.x == 0 && isGrounded) {
+        image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        counter = 4;
+        numSprites = 4;
+    }
+    if (wallTouchLeft || wallTouchRight) {
+        facingRight = wallTouchRight;
+        image = IMG_Load("GooGuySpriteSheets/WallSlideSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        counter = 4;
+        numSprites = 3;
+
+    }
+
+    numFrames--;
+    if (!numFrames) {
+        numFrames = 10;
+        //tertiary operator (evaluates stuff before question mark and if true before : if false after :)
+        sprite = sprite < (numSprites-1) ? sprite + 1 : 0; //sprite + 1 or 0 depending on if sprite current value is less than 3
+
+    }
 
     // square represents the position and dimensions for where to draw the image
     SDL_Rect square;
+    SDL_Rect srcrect = { sprite * 200 ,0,200,200 }; //for getting the sprite in the sheet
     Vec3 screenCoords;
     float w, h;
 
@@ -35,7 +63,7 @@ void PlayerBody::Render(float scale)
 
     // Scale the image, in case the .png file is too big or small
     w = image->w * scale;
-    h = image->h * scale;
+    h = image->h * scale*counter; //multiple by counter to make the height match the width 
 
     // The square's x and y values represent the top left corner of 
     // where SDL will draw the .png image.
@@ -53,18 +81,24 @@ void PlayerBody::Render(float scale)
     // Convert character orientation from radians to degrees.
     float orientationDegrees = orientation * 180.0f / M_PI;
 
-    SDL_RenderCopyEx(renderer, texture, nullptr, &square,
+    if (facingRight)
+        SDL_RenderCopyEx(renderer, texture, &srcrect, &square,
         orientationDegrees, nullptr, SDL_FLIP_NONE);
+    else
+        SDL_RenderCopyEx(renderer, texture, &srcrect, &square,
+            orientationDegrees, nullptr, SDL_FLIP_HORIZONTAL);
 }
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
+    SDL_Renderer* renderer = game->getRenderer();
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
 
         switch (event.key.keysym.scancode) {
             //A subtract 2 from velocity x until -6.0f velocity is achieved
         case(SDL_SCANCODE_A):
+            facingRight = false;
             if (!wallTouchLeft) {
                 if (vel.x == 0.0f)
                     vel.x = -7.0f;
@@ -74,6 +108,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             break;
             //D add 2 from velocity x until 6.0f velocity is achieved
         case(SDL_SCANCODE_D):
+            facingRight = true;
             if (!wallTouchRight)
             {
                 if (vel.x == 0.0f)
@@ -87,15 +122,30 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
+                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+                texture = SDL_CreateTextureFromSurface(renderer, image);
+                counter = 4;
+                numSprites = 3;
+                sprite = 0;
                 vel.y = 12.0f;
             }
             if ( wallTouchLeft)
             {
+                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+                texture = SDL_CreateTextureFromSurface(renderer, image);
+                counter = 4;
+                numSprites = 3;
+                sprite = 0;
                 vel.y = 12.0f;
                 vel.x = 2.0f;
             }
             if (wallTouchRight)
             {
+                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+                texture = SDL_CreateTextureFromSurface(renderer, image);
+                counter = 4;
+                numSprites = 3;
+                sprite = 0;
                 vel.y = 12.0f;
                 vel.x = -2.0f;
             }
@@ -108,6 +158,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_A):
         case(SDL_SCANCODE_D):
             vel.x = 0.0f;
+            sprite = 0;
             break;
         }
     }
