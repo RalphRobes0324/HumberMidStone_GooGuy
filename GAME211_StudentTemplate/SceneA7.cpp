@@ -57,22 +57,11 @@ bool SceneA7::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
-	// Set player image to PacMan
-
-	SDL_Surface* image;
-	SDL_Texture* texture;
-
 	//Load Textures
 	Background.LoadTexture(renderer);
 	platform1.LoadTexture(renderer);
 	platform2.LoadTexture(renderer);
 	platform3.LoadTexture(renderer);
-
-
-	image = IMG_Load("pacman.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
 
 	if (game->GetSceneManager().GetLastScene() == DefineScenes::A4) {
 		game->SetNewTriggerBox(triggerEvent.getPlatform());
