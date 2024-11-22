@@ -34,6 +34,10 @@ void PlayerBody::Render(float scale)
         animationName = 'I';
         animationSwitch(animationName);
     }
+    else if (vel.x != 0 && isGrounded && animationName != 'R') {
+        animationName = 'R';
+        animationSwitch(animationName);
+    }
     if ((wallTouchLeft || wallTouchRight)&& animationName != 'W') {
         animationName = 'W';
         animationSwitch(animationName);
@@ -49,7 +53,7 @@ void PlayerBody::Render(float scale)
 
     // square represents the position and dimensions for where to draw the image
     SDL_Rect square;
-    SDL_Rect srcrect = { sprite * 200 ,0,200,200 }; //for getting the sprite in the sheet
+    SDL_Rect srcrect = { sprite * 100 ,0,100,100 }; //for getting the sprite in the sheet
     Vec3 screenCoords;
     float w, h;
 
@@ -57,8 +61,11 @@ void PlayerBody::Render(float scale)
     screenCoords = projectionMatrix * pos;
 
     // Scale the image, in case the .png file is too big or small
-    w = image->w * scale;
-    h = image->h * scale*counter; //multiple by counter to make the height match the width 
+    if (animationName == 'R')
+        w = image->w * scale;
+    else
+        w = image->w * scale*2;
+    h = image->h * scale*8; //multiple by counter to make the height match the width 
 
     // The square's x and y values represent the top left corner of 
     // where SDL will draw the .png image.
@@ -294,6 +301,12 @@ void PlayerBody::animationSwitch(char _anim)
         numSprites = 3;
         sprite = 0;
         image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'R':
+        numSprites = 10;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/RunSpriteSheet.png");
         texture = SDL_CreateTextureFromSurface(renderer, image);
         break;
     case 'W':
