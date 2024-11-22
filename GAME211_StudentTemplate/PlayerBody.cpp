@@ -9,6 +9,7 @@
 
 bool PlayerBody::OnCreate()
 {
+    animationName = 'I';
     image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
     counter = 4;
     numSprites = 4;
@@ -29,19 +30,13 @@ void PlayerBody::Render(float scale)
     SDL_Renderer* renderer = game->getRenderer();
     Matrix4 projectionMatrix = game->getProjectionMatrix();
     
-    if (vel.x == 0 && isGrounded) {
-        image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        counter = 4;
-        numSprites = 4;
+    if (vel.x == 0 && isGrounded && animationName != 'I') {
+        animationName = 'I';
+        animationSwitch(animationName);
     }
-    if (wallTouchLeft || wallTouchRight) {
-        facingRight = wallTouchRight;
-        image = IMG_Load("GooGuySpriteSheets/WallSlideSpriteSheet.png");
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        counter = 4;
-        numSprites = 3;
-
+    if ((wallTouchLeft || wallTouchRight)&& animationName != 'W') {
+        animationName = 'W';
+        animationSwitch(animationName);
     }
 
     numFrames--;
@@ -91,7 +86,6 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
-    SDL_Renderer* renderer = game->getRenderer();
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
 
@@ -122,30 +116,27 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
             }
             if ( wallTouchLeft)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
                 vel.x = 2.0f;
             }
             if (wallTouchRight)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
                 vel.x = -2.0f;
             }
@@ -281,4 +272,37 @@ bool PlayerBody::HasCollidedTop(SDL_FRect rect)
         return true;  // top collision occurred
     }
     return false;
+}
+
+void PlayerBody::animationSwitch(char _anim)
+{
+    SDL_Renderer* renderer = game->getRenderer();
+    SDL_FreeSurface(image);
+    SDL_DestroyTexture(texture);
+    image = nullptr;
+    texture = NULL;
+    std::cout << "animation switch" << std::endl;
+
+    switch (_anim) {
+    case 'I':
+        numSprites = 4;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'J':
+        numSprites = 3;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'W':
+        facingRight = wallTouchRight;
+        image = IMG_Load("GooGuySpriteSheets/WallSlideSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        numSprites = 3;
+        sprite = 0;
+        break;
+    }
+   
 }
