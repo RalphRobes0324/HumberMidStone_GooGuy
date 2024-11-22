@@ -9,6 +9,7 @@
 
 bool PlayerBody::OnCreate()
 {
+    animationName = 'I';
     image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
     counter = 4;
     numSprites = 4;
@@ -29,19 +30,17 @@ void PlayerBody::Render(float scale)
     SDL_Renderer* renderer = game->getRenderer();
     Matrix4 projectionMatrix = game->getProjectionMatrix();
     
-    if (vel.x == 0 && isGrounded) {
-        image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        counter = 4;
-        numSprites = 4;
+    if (vel.x == 0 && isGrounded && animationName != 'I') {
+        animationName = 'I';
+        animationSwitch(animationName);
     }
-    if (wallTouchLeft || wallTouchRight) {
-        facingRight = wallTouchRight;
-        image = IMG_Load("GooGuySpriteSheets/WallSlideSpriteSheet.png");
-        texture = SDL_CreateTextureFromSurface(renderer, image);
-        counter = 4;
-        numSprites = 3;
-
+    else if (vel.x != 0 && isGrounded && animationName != 'R') {
+        animationName = 'R';
+        animationSwitch(animationName);
+    }
+    if ((wallTouchLeft || wallTouchRight)&& animationName != 'W') {
+        animationName = 'W';
+        animationSwitch(animationName);
     }
 
     numFrames--;
@@ -54,7 +53,7 @@ void PlayerBody::Render(float scale)
 
     // square represents the position and dimensions for where to draw the image
     SDL_Rect square;
-    SDL_Rect srcrect = { sprite * 200 ,0,200,200 }; //for getting the sprite in the sheet
+    SDL_Rect srcrect = { sprite * 100 ,0,100,100 }; //for getting the sprite in the sheet
     Vec3 screenCoords;
     float w, h;
 
@@ -62,8 +61,11 @@ void PlayerBody::Render(float scale)
     screenCoords = projectionMatrix * pos;
 
     // Scale the image, in case the .png file is too big or small
-    w = image->w * scale;
-    h = image->h * scale*counter; //multiple by counter to make the height match the width 
+    if (animationName == 'R')
+        w = image->w * scale;
+    else
+        w = image->w * scale*2;
+    h = image->h * scale*8; //multiple by counter to make the height match the width 
 
     // The square's x and y values represent the top left corner of 
     // where SDL will draw the .png image.
@@ -91,7 +93,6 @@ void PlayerBody::Render(float scale)
 
 void PlayerBody::HandleEvents(const SDL_Event& event)
 {
-    SDL_Renderer* renderer = game->getRenderer();
     //Maya Added when Keydown
     if (event.type == SDL_KEYDOWN) {
 
@@ -122,30 +123,27 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
             }
             if ( wallTouchLeft)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
                 vel.x = 2.0f;
             }
             if (wallTouchRight)
             {
-                image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
-                texture = SDL_CreateTextureFromSurface(renderer, image);
-                counter = 4;
-                numSprites = 3;
-                sprite = 0;
+                if (animationName != 'J') {
+                    animationName = 'J';
+                    animationSwitch(animationName);
+                }
                 vel.y = 12.0f;
                 vel.x = -2.0f;
             }
@@ -202,7 +200,7 @@ bool PlayerBody::HasCollidedWith(SDL_FRect rect)
 {
     if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
         ||
-        ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y)) 
+        ((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius*1.5) > rect.y)) 
     {
 
         return false;
@@ -281,4 +279,43 @@ bool PlayerBody::HasCollidedTop(SDL_FRect rect)
         return true;  // top collision occurred
     }
     return false;
+}
+
+void PlayerBody::animationSwitch(char _anim)
+{
+    SDL_Renderer* renderer = game->getRenderer();
+    SDL_FreeSurface(image);
+    SDL_DestroyTexture(texture);
+    image = nullptr;
+    texture = NULL;
+    std::cout << "animation switch" << std::endl;
+
+    switch (_anim) {
+    case 'I':
+        numSprites = 4;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/IdleSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'J':
+        numSprites = 3;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/JumpSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'R':
+        numSprites = 10;
+        sprite = 0;
+        image = IMG_Load("GooGuySpriteSheets/RunSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        break;
+    case 'W':
+        facingRight = wallTouchRight;
+        image = IMG_Load("GooGuySpriteSheets/WallSlideSpriteSheet.png");
+        texture = SDL_CreateTextureFromSurface(renderer, image);
+        numSprites = 3;
+        sprite = 0;
+        break;
+    }
+   
 }

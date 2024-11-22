@@ -505,6 +505,8 @@ void GameManager::handleEvents()
     {
         if (event.type == SDL_QUIT)
         {
+
+            std::cout << "SDL_QUIT" << std::endl;
             isRunning = false; 
         }
         else if (event.type == changeScene) {
@@ -603,6 +605,8 @@ void GameManager::handleEvents()
             }
 
             if (!currentScene->OnCreate()) {
+
+                std::cout << "Current scene ondestroy" << std::endl;
                 OnDestroy();
                 isRunning = false;
             }
@@ -612,12 +616,16 @@ void GameManager::handleEvents()
             switch (event.key.keysym.scancode)
             {
             case SDL_SCANCODE_ESCAPE:
+
+                std::cout << "SDL_SCANCODE_ESCAPE pressed" << std::endl;
                 isRunning = false;
                 break;
             case SDL_SCANCODE_Q:
+                std::cout << "SDL_SCANCODE_Q pressed" << std::endl;
                 isRunning = false;
                 break;
             case SDL_SCANCODE_DELETE:
+                std::cout << "SDL_SCANCODE_DELETE pressed" << std::endl;
                 isRunning = false;
                 break;
             case SDL_SCANCODE_1:
@@ -683,6 +691,7 @@ void GameManager::LoadScene( int i )
     // using ValidateCurrentScene() to safely run OnCreate
     if (!ValidateCurrentScene())
     {
+        std::cout << "Could not validate scene" << std::endl;
         isRunning = false;
     }
 }

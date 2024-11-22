@@ -33,6 +33,7 @@ Body::Body(
     angular = angular_;
 
     image = nullptr;
+    texture = NULL;
 }
 
 

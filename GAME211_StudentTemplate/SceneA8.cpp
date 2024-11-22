@@ -60,17 +60,6 @@ bool SceneA8::OnCreate() {
 	/// Turn on the SDL imaging subsystem
 	IMG_Init(IMG_INIT_PNG);
 
-	// Set player image to PacMan
-
-	SDL_Surface* image;
-	SDL_Texture* texture;
-
-
-	image = IMG_Load("pacman.png");
-	texture = SDL_CreateTextureFromSurface(renderer, image);
-	game->getPlayer()->setImage(image);
-	game->getPlayer()->setTexture(texture);
-
 	//Load Textures
 	Background.LoadTexture(renderer);
 	vent.LoadTexture(renderer);
