@@ -49,7 +49,7 @@ void PlayerBody::Render(float scale)
 
     // square represents the position and dimensions for where to draw the image
     SDL_Rect square;
-    SDL_Rect srcrect = { sprite * 100 ,0,100,100 }; //for getting the sprite in the sheet
+    SDL_Rect srcrect = { sprite * 200 ,0,200,200 }; //for getting the sprite in the sheet
     Vec3 screenCoords;
     float w, h;
 
