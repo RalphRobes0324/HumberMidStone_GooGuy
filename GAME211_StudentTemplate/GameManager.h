@@ -44,6 +44,8 @@ private:
 
 	DefineScenes sceneManager;
 
+	bool isMuted;
+
 public:
 
 
@@ -83,7 +85,8 @@ public:
 	void SceneSwitching(SDL_Event event, DefineScenes::TypeOfScenes sceneType);
 	void SwitchScene(DefineScenes::TypeOfScenes sceneType, int num);
 	void SwitchScene(DefineScenes::GameScenes scenes);
+
+	bool GetMute() const;
+	void SetMute(bool _isMuted);
 };
 #endif
-
-

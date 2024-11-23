@@ -19,14 +19,15 @@ OptionMenu::OptionMenu(SDL_Window* sdlWindow_, GameManager* game_)
 	// calculate horizontal center
 	int centerX = (windowWidth / 2) - (buttonWidth / 2);
 
+	// get muted state from game manager
+	isMuted = game->GetMute();
+
 	// Initialize buttons with positions and textures
 	backButton = new UI(renderer, "back.png", "back_hover.png", { 10, windowHeight - buttonHeight - 10, 200, 75 });
 	volumeButton = 
 		new UI(renderer, isMuted ? "volOFF.png" : "volON.png", 
 			isMuted ? "volOFF_hover.png" : "volON_hover.png",
 			{ centerX, 300, buttonWidth, buttonHeight });
-
-	isMuted = false;
 }
 
 OptionMenu::~OptionMenu(){
@@ -114,6 +115,6 @@ void OptionMenu::HandleEvents(const SDL_Event& event)
 
 		// toggle mute/unmute
 		isMuted = !isMuted;
-		// actually mute/unmute the audio
+		game->SetMute(isMuted);
 	});
 }

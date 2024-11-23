@@ -706,3 +706,11 @@ bool GameManager::ValidateCurrentScene()
     }
     return true;
 }
+
+bool GameManager::GetMute() const {
+    return isMuted;
+}
+
+void GameManager::SetMute(bool _isMuted) {
+    isMuted = _isMuted;
+}
