@@ -198,6 +198,13 @@ void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene,
 
 }
 
+/// <summary>
+/// Checks Player in Box
+/// </summary>
+/// <param name="DeltaTime"></param>
+/// <param name="game"></param>
+/// <param name="renderer"></param>
+/// <param name="build"></param>
 void Build::OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* renderer, Build& build)
 {
 	Vec3 pos = game->getPlayer()->getPos();
@@ -211,26 +218,40 @@ void Build::OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* rend
 		return;
 	}
 	else {
+		//Begin Count Dowm Whem Player On Top of Trap
 		stateTimer -= DeltaTime;
-		std::cout << stateTimer << "\n";
+
+		//If Player fails to get out, trap player
 		if (stateTimer <= 0) {
-			build.UpdateTexture(renderer, "greenhouse/closed.png");
+			build.UpdateTexture(renderer, "greenhouse/closed.png"); //Change Sprite
 			trapTriggered = true;
-			//stateTimer = 1.5f;
-			//game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
-			//game->GetSceneManager().SetLastScene(DefineScenes::NONE);
-			//SDL_Event event;
-			//SDL_memset(&event, 0, sizeof(event));
-			//event.type = game->GetChangeScene();
-			//event.user.code = 1;
-			//event.user.data1 = nullptr;
-			//event.user.data2 = nullptr;
-			//SDL_PushEvent(&event);
+
+			//Wait for Sprite change to be finish
+			endStateTimer -= DeltaTime;
+			if (endStateTimer <= 0) {
+				//Reset State Timers and Move Player to Lose Screen
+				stateTimer = 1.5f;
+				endStateTimer = 1.f;
+				game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+				game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+				SDL_Event event;
+				SDL_memset(&event, 0, sizeof(event));
+				event.type = game->GetChangeScene();
+				event.user.code = 1;
+				event.user.data1 = nullptr;
+				event.user.data2 = nullptr;
+				SDL_PushEvent(&event);
+			}
 		}
 	}
 
 }
 
+/// <summary>
+/// Checks Player in Box
+/// </summary>
+/// <param name="game"></param>
+/// <returns></returns>
 bool Build::isPlayerInTriggerBox(GameManager* game)
 {
 	Vec3 pos = game->getPlayer()->getPos();

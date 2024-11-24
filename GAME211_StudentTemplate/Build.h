@@ -79,6 +79,7 @@ private:
 
 	//Venus Trap Info
 	float stateTimer = 1.5f;
+	float endStateTimer = 1.f;
 
 
 	// Fan Info
