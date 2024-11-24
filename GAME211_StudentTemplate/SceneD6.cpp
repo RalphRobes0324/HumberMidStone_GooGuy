@@ -6,6 +6,8 @@ SceneD6::SceneD6(SDL_Window* sdlWindow_, GameManager* game_) :
 	Background(0.0f, 15.0f, 30.0f, 15.0f, Vec4(255, 255, 255, 255), "greenhouse/gh_bg.png"),
 	wall(23.0f, 15.0f, 2.0f, 20.0f, Vec4(255, 255, 255, 255), "greenhouse/v1.png"),
 	venusFlytrap1(6.0f, 5.0f, 4.5f, 3.5f, Vec4(255, 255, 255, 255), "greenhouse/open.png"),
+	venusTrapTrigger1(6.0f, 4.0f, 4.5f, 1.5f, Vec4(255, 0, 255, 255)),
+	venusPlatform1(6.0f, 3.0f, 4.5f, 1.5f, Vec4(255, 255, 0, 255)),
 	venusFlytrap2(12.0f, 8.0f, 4.5f, 3.5f, Vec4(255, 255, 255, 255), "greenhouse/open.png"),
 	stem1(13.75f, 5.75f, 1.5f, 6.5f, Vec4(255, 255, 255, 255), "greenhouse/stem.png"),
 	stem2(7.75f, 2.75f, 1.5f, 6.5f, Vec4(255, 255, 255, 255), "greenhouse/stem.png"),
@@ -111,6 +113,7 @@ void SceneD6::Update(const float deltaTime) {
 	game->getPlayer()->wallTouchLeft = false;
 
 	deathTriggerEvent.OnTriggerEnter(game);
+	venusTrapTrigger1.OnTriggerStay(deltaTime, game, renderer, venusFlytrap1);
 
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::D5, DefineScenes::D6);
@@ -123,8 +126,7 @@ void SceneD6::Update(const float deltaTime) {
 
 	std::vector<SDL_FRect> builds = {
 	wall.getPlatform(),
-	venusFlytrap1.getPlatform(),
-	venusFlytrap2.getPlatform()
+	venusPlatform1.getPlatform()
 	};
 
 	if (redPlatform.getVisibility() == true) {
@@ -183,8 +185,14 @@ void SceneD6::Render() {
 	wall.Render(renderer, game);
 	stem1.Render(renderer, game);
 	stem2.Render(renderer, game);
-	venusFlytrap1.Render(renderer, game);
+
+	if (!venusTrapTrigger1.trapTriggered) 
+	{
+		venusFlytrap1.Render(renderer, game);
+	}
+
 	venusFlytrap2.Render(renderer, game);
+
 	redWall.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 	bluePlatform.Render(renderer, game);
@@ -193,6 +201,11 @@ void SceneD6::Render() {
 
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	if (venusTrapTrigger1.trapTriggered)
+	{
+		venusFlytrap1.Render(renderer, game);
+	}
 
 	// Render Quest
 	quest.RenderCurrentQuest();
@@ -223,7 +236,10 @@ void SceneD6::Render() {
 void SceneD6::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	if (!venusTrapTrigger1.trapTriggered) 
+	{
+		game->getPlayer()->HandleEvents(event);
+	}
 	game->SceneSwitching(event, DefineScenes::D);
 }
 
