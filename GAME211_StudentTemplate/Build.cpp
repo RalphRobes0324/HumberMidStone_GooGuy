@@ -199,7 +199,7 @@ void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene,
 }
 
 /// <summary>
-/// Checks Player in Box
+/// Checks Player is currently in Box still
 /// </summary>
 /// <param name="DeltaTime"></param>
 /// <param name="game"></param>
@@ -326,6 +326,11 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	}
 }
 
+/// <summary>
+/// Update Texture
+/// </summary>
+/// <param name="renderer"></param>
+/// <param name="newTexturePath"></param>
 void Build::UpdateTexture(SDL_Renderer* renderer, const std::string& newTexturePath) {
 	DestroyTexture();
 	texture = IMG_LoadTexture(renderer, newTexturePath.c_str());
