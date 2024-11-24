@@ -15,7 +15,7 @@ SceneD5::SceneD5(SDL_Window* sdlWindow_, GameManager* game_) :
 	triggerEvent(2, 17, 23, 1, Vec4(255, 0, 255, 255)),
 	triggerEvent2(25, 15, 1, 18, Vec4(255, 0, 255, 255)),
 	venusTrapTrigger(19.5f, 6.f, 4.f, 1.f, Vec4(255, 0, 255, 255)),
-	venusPlatform(19.5f, 5.f, 4.f, 1.f, Vec4(255, 255, 0, 255)),
+	venusPlatform(19.5f, 5.f, 4.5f, 3.5f, Vec4(255, 255, 0, 255)),
 	deathTriggerEvent(-20.f, -2.f, 100.f, 1.f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -111,7 +111,7 @@ void SceneD5::Update(const float deltaTime) {
 	game->getPlayer()->wallTouchLeft = false;
 
 	deathTriggerEvent.OnTriggerEnter(game);
-	venusTrapTrigger.OnTriggerStay(deltaTime, game);
+	venusTrapTrigger.OnTriggerStay(deltaTime, game, renderer, venusFlyTrap);
 
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::D2, DefineScenes::D5);
@@ -184,15 +184,23 @@ void SceneD5::Render() {
 	platform2.Render(renderer, game);
 	platform3.Render(renderer, game);
 	stem.Render(renderer, game);
-	venusFlyTrap.Render(renderer, game);
+	
 	wall.Render(renderer, game);
 	blueWall.Render(renderer, game);
 	redPlatform.Render(renderer, game);
 	triggerEvent.Render(renderer, game);
 	triggerEvent2.Render(renderer, game);
 
+	if(!venusTrapTrigger.trapTriggered)
+		venusFlyTrap.Render(renderer, game);
+
 	// render the player
 	game->RenderPlayer(0.10f);
+
+	if (venusTrapTrigger.trapTriggered)
+		venusFlyTrap.Render(renderer, game);
+
+	
 
 	// Render Quest
 	quest.RenderCurrentQuest();
@@ -223,7 +231,9 @@ void SceneD5::Render() {
 void SceneD5::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
-	game->getPlayer()->HandleEvents(event);
+	if (!venusTrapTrigger.trapTriggered) 
+		game->getPlayer()->HandleEvents(event);
+
 	game->SceneSwitching(event, DefineScenes::D);
 }
 

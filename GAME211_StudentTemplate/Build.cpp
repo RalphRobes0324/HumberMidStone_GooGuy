@@ -31,7 +31,6 @@ Build::Build(float _x, float _y, float _w, float _h, Vec4 _colour, const std::st
 	texturePath = _texturePath;
 }
 
-
 /// <summary>
 /// Init disappearing platform
 /// </summary>
@@ -76,7 +75,9 @@ Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _i
 	surface = IMG_Load(_texturePath.c_str());
 	texturePath = _texturePath;
 
+
 }
+
 
 Build::~Build()
 {
@@ -197,7 +198,7 @@ void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene,
 
 }
 
-void Build::OnTriggerStay(float DeltaTime, GameManager* game)
+void Build::OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* renderer, Build& build)
 {
 	Vec3 pos = game->getPlayer()->getPos();
 	float radius = game->getPlayer()->getRadius();
@@ -211,18 +212,20 @@ void Build::OnTriggerStay(float DeltaTime, GameManager* game)
 	}
 	else {
 		stateTimer -= DeltaTime;
-		std::cout << stateTimer;
+		std::cout << stateTimer << "\n";
 		if (stateTimer <= 0) {
-			stateTimer = 1.5f;
-			game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
-			game->GetSceneManager().SetLastScene(DefineScenes::NONE);
-			SDL_Event event;
-			SDL_memset(&event, 0, sizeof(event));
-			event.type = game->GetChangeScene();
-			event.user.code = 1;
-			event.user.data1 = nullptr;
-			event.user.data2 = nullptr;
-			SDL_PushEvent(&event);
+			build.UpdateTexture(renderer, "greenhouse/closed.png");
+			trapTriggered = true;
+			//stateTimer = 1.5f;
+			//game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+			//game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+			//SDL_Event event;
+			//SDL_memset(&event, 0, sizeof(event));
+			//event.type = game->GetChangeScene();
+			//event.user.code = 1;
+			//event.user.data1 = nullptr;
+			//event.user.data2 = nullptr;
+			//SDL_PushEvent(&event);
 		}
 	}
 
