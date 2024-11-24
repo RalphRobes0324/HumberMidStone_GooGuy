@@ -206,13 +206,14 @@ void Build::OnTriggerStay(float DeltaTime, GameManager* game)
 		||
 		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
 	{
-		stateTimer = 3.f;
+		stateTimer = 1.5f;
 		return;
 	}
 	else {
 		stateTimer -= DeltaTime;
+		std::cout << stateTimer;
 		if (stateTimer <= 0) {
-			stateTimer = 3.f;
+			stateTimer = 1.5f;
 			game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
 			game->GetSceneManager().SetLastScene(DefineScenes::NONE);
 			SDL_Event event;
@@ -224,7 +225,6 @@ void Build::OnTriggerStay(float DeltaTime, GameManager* game)
 			SDL_PushEvent(&event);
 		}
 	}
-
 
 }
 

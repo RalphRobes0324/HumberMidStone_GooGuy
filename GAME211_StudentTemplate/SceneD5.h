@@ -28,7 +28,7 @@ private:
 	Build triggerEvent;
 	Build triggerEvent2;
 	Build Background;
-	Build venusTrap;
+	Build venusTrapTrigger, venusPlatform;
 
 	DeathManager deathTriggerEvent;
 

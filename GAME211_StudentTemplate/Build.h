@@ -72,7 +72,7 @@ private:
 	float timer;
 
 
-	float stateTimer = 3.f;
+	float stateTimer = 1.5f;
 
 	// Fan Info
 	bool fanDirection;
