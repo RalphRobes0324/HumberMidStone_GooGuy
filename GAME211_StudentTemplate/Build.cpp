@@ -31,7 +31,6 @@ Build::Build(float _x, float _y, float _w, float _h, Vec4 _colour, const std::st
 	texturePath = _texturePath;
 }
 
-
 /// <summary>
 /// Init disappearing platform
 /// </summary>
@@ -76,7 +75,9 @@ Build::Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _i
 	surface = IMG_Load(_texturePath.c_str());
 	texturePath = _texturePath;
 
+
 }
+
 
 Build::~Build()
 {
@@ -197,6 +198,60 @@ void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene,
 
 }
 
+/// <summary>
+/// Checks Player is currently in Box still
+/// </summary>
+/// <param name="DeltaTime"></param>
+/// <param name="game"></param>
+/// <param name="renderer"></param>
+/// <param name="build"></param>
+void Build::OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* renderer, Build& build)
+{
+	Vec3 pos = game->getPlayer()->getPos();
+	float radius = game->getPlayer()->getRadius();
+
+	if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
+		||
+		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
+	{
+		stateTimer = 1.5f;
+		return;
+	}
+	else {
+		//Begin Count Dowm Whem Player On Top of Trap
+		stateTimer -= DeltaTime;
+
+		//If Player fails to get out, trap player
+		if (stateTimer <= 0) {
+			build.UpdateTexture(renderer, "greenhouse/closed.png"); //Change Sprite
+			trapTriggered = true;
+
+			//Wait for Sprite change to be finish
+			endStateTimer -= DeltaTime;
+			if (endStateTimer <= 0) {
+				//Reset State Timers and Move Player to Lose Screen
+				stateTimer = 1.5f;
+				endStateTimer = 1.f;
+				game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+				game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+				SDL_Event event;
+				SDL_memset(&event, 0, sizeof(event));
+				event.type = game->GetChangeScene();
+				event.user.code = 1;
+				event.user.data1 = nullptr;
+				event.user.data2 = nullptr;
+				SDL_PushEvent(&event);
+			}
+		}
+	}
+
+}
+
+/// <summary>
+/// Checks Player in Box
+/// </summary>
+/// <param name="game"></param>
+/// <returns></returns>
 bool Build::isPlayerInTriggerBox(GameManager* game)
 {
 	Vec3 pos = game->getPlayer()->getPos();
@@ -271,6 +326,11 @@ void Build::Render(SDL_Renderer* renderer, GameManager* game) {
 	}
 }
 
+/// <summary>
+/// Update Texture
+/// </summary>
+/// <param name="renderer"></param>
+/// <param name="newTexturePath"></param>
 void Build::UpdateTexture(SDL_Renderer* renderer, const std::string& newTexturePath) {
 	DestroyTexture();
 	texture = IMG_LoadTexture(renderer, newTexturePath.c_str());

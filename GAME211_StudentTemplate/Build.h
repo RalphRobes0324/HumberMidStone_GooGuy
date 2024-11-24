@@ -17,6 +17,7 @@ public:
 	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour);
 	Build(float _x, float _y, float _w, float _h, bool _canDisappear, bool _isVisible, float _disappearTime, Vec4 _colour, const std::string& _texturePath);
 
+
 	~Build();
 
 	void LoadTexture(SDL_Renderer* renderer);
@@ -34,6 +35,8 @@ public:
 	
 	void OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene);
 
+	void OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* renderer, Build& build);
+
 	bool isPlayerInTriggerBox(GameManager* game);
 
 	// Fan Functions
@@ -45,6 +48,9 @@ public:
 	float GetEffectiveRange() const { return effectiveRange; }
 	void Update(float DeltaTime, GameManager* game);
 	void UpdateTexture(SDL_Renderer* renderer, const std::string& newTexturePath);
+	
+	//Venus Trap info
+	bool trapTriggered = false;
 
 private:
 	float x, y, width, height;
@@ -63,11 +69,18 @@ private:
 
 	SDL_Texture* texture = nullptr;
 	SDL_Surface* surface = nullptr;
+	SDL_Surface* surface2 = nullptr;
 	std::string texturePath;
+	std::string texturePath2;
 
 	Vec4 colour; //Build's colour
 	
 	float timer;
+
+	//Venus Trap Info
+	float stateTimer = 1.5f;
+	float endStateTimer = 1.f;
+
 
 	// Fan Info
 	bool fanDirection;
