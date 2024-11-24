@@ -23,6 +23,7 @@ private:
 	Build wall;
 	Build venusFlytrap1, venusFlytrap2;
 	Build venusTrapTrigger1, venusPlatform1;
+	Build venusTrapTrigger2, venusPlatform2;
 	Build stem1, stem2;
 	Build redWall, redPlatform, bluePlatform;
 	Build triggerEvent;
