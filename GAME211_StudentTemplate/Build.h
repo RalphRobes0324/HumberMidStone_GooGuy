@@ -34,6 +34,8 @@ public:
 	
 	void OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene, DefineScenes::GameScenes lastScene);
 
+	void OnTriggerStay(float DeltaTime, GameManager* game);
+
 	bool isPlayerInTriggerBox(GameManager* game);
 
 	// Fan Functions
@@ -68,6 +70,9 @@ private:
 	Vec4 colour; //Build's colour
 	
 	float timer;
+
+
+	float stateTimer = 3.f;
 
 	// Fan Info
 	bool fanDirection;

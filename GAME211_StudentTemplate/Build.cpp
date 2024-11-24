@@ -197,6 +197,37 @@ void Build::OnTriggerEnter(GameManager* game, DefineScenes::GameScenes newScene,
 
 }
 
+void Build::OnTriggerStay(float DeltaTime, GameManager* game)
+{
+	Vec3 pos = game->getPlayer()->getPos();
+	float radius = game->getPlayer()->getRadius();
+
+	if ((pos.x - radius) > (rect.x + rect.w) || ((pos.x + radius) < rect.x) // x positions
+		||
+		((pos.y + radius) < (rect.y - rect.h)) || ((pos.y - radius) > rect.y))
+	{
+		stateTimer = 3.f;
+		return;
+	}
+	else {
+		stateTimer -= DeltaTime;
+		if (stateTimer <= 0) {
+			stateTimer = 3.f;
+			game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+			game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+			SDL_Event event;
+			SDL_memset(&event, 0, sizeof(event));
+			event.type = game->GetChangeScene();
+			event.user.code = 1;
+			event.user.data1 = nullptr;
+			event.user.data2 = nullptr;
+			SDL_PushEvent(&event);
+		}
+	}
+
+
+}
+
 bool Build::isPlayerInTriggerBox(GameManager* game)
 {
 	Vec3 pos = game->getPlayer()->getPos();
