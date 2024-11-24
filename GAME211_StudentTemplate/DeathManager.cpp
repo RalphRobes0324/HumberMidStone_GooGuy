@@ -10,6 +10,10 @@ DeathManager::DeathManager(float _x, float _y, float _w, float _h, Vec4 _colour)
 	rect = { x , y, width, height };
 }
 
+DeathManager::DeathManager()
+{
+}
+
 DeathManager::~DeathManager()
 {
 }

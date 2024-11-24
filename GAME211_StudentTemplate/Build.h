@@ -5,6 +5,7 @@
 #include "GameManager.h"
 #include "Body.h"
 #include "DefineScenes.h"
+#include "DeathManager.h"
 
 
 class Build {
