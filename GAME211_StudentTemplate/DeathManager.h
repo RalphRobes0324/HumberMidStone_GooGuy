@@ -4,6 +4,7 @@
 #include "GameManager.h"
 #include "Body.h"
 #include "DefineScenes.h"
+#include "TemperatureManager.h"
 
 class DeathManager
 {

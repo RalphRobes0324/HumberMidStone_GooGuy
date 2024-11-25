@@ -17,8 +17,11 @@ TemperatureManager::TemperatureManager() :
 {}
 
 // decrease temperature
-void TemperatureManager::DecreaseTemperature(float amount) {
+void TemperatureManager::DecreaseTemperature(float amount, GameManager* game) {
     temperature = std::max(0.0f, temperature - amount);
+    if (temperature == 0.0f) {
+        DeathManager().Die(game);
+    }
 }
 
 // get temperature

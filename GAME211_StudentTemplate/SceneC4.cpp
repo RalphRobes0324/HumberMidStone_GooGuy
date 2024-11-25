@@ -168,7 +168,7 @@ void SceneC4::Update(const float deltaTime) {
 	}
 
 	if (!game->getPlayer()->isGrounded || !TemperatureManager::Instance().GetHotPlatform())
-		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime);
+		TemperatureManager::Instance().DecreaseTemperature(2.0f * deltaTime, game);
 }
 
 void SceneC4::Render() {

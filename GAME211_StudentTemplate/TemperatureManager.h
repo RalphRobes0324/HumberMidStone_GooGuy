@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include <SDL_image.h>
+#include "DeathManager.h"
 
 class TemperatureManager {
 private:
@@ -19,7 +20,7 @@ public:
     static TemperatureManager& Instance();
 
     // decrease temperature
-    void DecreaseTemperature(float amount);
+    void DecreaseTemperature(float amount, GameManager* game);
 
     // get temperature
     float GetTemperature() const;
