@@ -35,6 +35,7 @@ void DeathManager::Die(GameManager* game)
 {
 	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
 	game->GetSceneManager().SetLastScene(DefineScenes::NONE);
+	TemperatureManager::Instance().SetTemperature(100); // reset temp
 	SDL_Event event;
 	SDL_memset(&event, 0, sizeof(event));
 	event.type = game->GetChangeScene();
