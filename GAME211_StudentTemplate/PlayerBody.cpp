@@ -302,7 +302,7 @@ bool PlayerBody::HasCollidedBottom(SDL_FRect rect)
 
     std::cout << minVerticalOverlap << std::endl;
     // If horizontal overlap is smaller than 0.75, it's a bottom collision
-    if (minVerticalOverlap < 0.75) {
+    if (minVerticalOverlap < 0.5) {
         std::cout << minVerticalOverlap << std::endl;
         return true;  // top collision occurred
     }
