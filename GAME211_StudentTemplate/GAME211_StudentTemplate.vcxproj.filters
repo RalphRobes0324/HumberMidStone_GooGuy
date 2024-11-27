@@ -49,12 +49,15 @@
     <Filter Include="Source Files\Scenes\Menus">
       <UniqueIdentifier>{94d976c7-541e-47c2-bdac-f2fecc0b42ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Managers">
+      <UniqueIdentifier>{29037243-aff5-4451-8588-06d65cee8c5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Managers">
+      <UniqueIdentifier>{dc4e7331-3b1e-4c35-9179-29939f489f9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
@@ -153,9 +156,6 @@
     <ClCompile Include="SceneD6.cpp">
       <Filter>Source Files\Scenes\Level 4</Filter>
     </ClCompile>
-    <ClCompile Include="TemperatureManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="CopyBaseScene.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
@@ -175,14 +175,20 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DeathManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="TemperatureManager.cpp">
+      <Filter>Source Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Source Files\Managers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayerBody.h">
@@ -207,9 +213,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MovementText.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DefineScenes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene1.h">
@@ -284,9 +287,6 @@
     <ClInclude Include="SceneD6.h">
       <Filter>Header Files\Scenes\Level 4</Filter>
     </ClInclude>
-    <ClInclude Include="TemperatureManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="CopyBaseScene.h">
       <Filter>Header Files\Scenes</Filter>
     </ClInclude>
@@ -305,8 +305,20 @@
     <ClInclude Include="UI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
     <ClInclude Include="DeathManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="DefineScenes.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="TemperatureManager.h">
+      <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Header Files\Managers</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

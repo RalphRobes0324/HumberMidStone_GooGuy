@@ -9,6 +9,8 @@
 #include "DefineScenes.h"
 #include "Build.h"
 
+class AudioManager;
+
 
 
 class GameManager {
@@ -44,10 +46,13 @@ private:
 
 	DefineScenes sceneManager;
 
-	bool isMuted;
+
+	
+
+	bool isMuted = false;
 
 public:
-
+	AudioManager* audioManager;
 
 	GameManager();
 	~GameManager();

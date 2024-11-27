@@ -28,6 +28,7 @@
 #include "LevelSelectMenu.h"
 #include "DeathMenu.h"
 #include "CopyBaseScene.h"
+#include "AudioManager.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
@@ -35,6 +36,7 @@ GameManager::GameManager() {
 	isRunning = true;
 	currentScene = nullptr;
     player = nullptr;
+    audioManager = nullptr;
 }
 
 bool GameManager::OnCreate() {
@@ -109,6 +111,14 @@ bool GameManager::OnCreate() {
     sceneManager.SetCurrentScene(DefineScenes::MAIN_MENU);
     sceneManager.SetLastScene(DefineScenes::NONE); //DONT FORGET CHANGE WHEN MAIN MENU IS BUILT
 
+
+    audioManager = AudioManager::Instance();
+
+    //Load Sounds
+
+    //Load Music
+    audioManager->LoadMusic("BackgroundMusic", "Audio/Music/GooGuy.wav");
+
 	return true;
 }
 
@@ -117,6 +127,9 @@ bool GameManager::OnCreate() {
 void GameManager::Run() {
     
 	timer->Start();
+
+    if(GetMute() == false)
+        audioManager->PlayMusic("BackgroundMusic", -1);
     
 	while (isRunning) {
         
@@ -645,6 +658,7 @@ void GameManager::OnDestroy(){
 	if (windowPtr) delete windowPtr;
 	if (timer) delete timer;
 	if (currentScene) delete currentScene;
+    AudioManager::Release;
 }
 
 // This might be unfamiliar
@@ -713,4 +727,12 @@ bool GameManager::GetMute() const {
 
 void GameManager::SetMute(bool _isMuted) {
     isMuted = _isMuted;
+
+    if (isMuted) {
+        audioManager->PauseMusic();
+    }
+    else {
+        audioManager->ResumeMusic();
+    }
+
 }
