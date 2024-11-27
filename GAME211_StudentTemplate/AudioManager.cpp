@@ -1,4 +1,5 @@
 #include "AudioManager.h"
+#include "GameManager.h"
 #include <iostream>
 AudioManager* AudioManager::instance = nullptr;
 
@@ -7,6 +8,12 @@ AudioManager* AudioManager::Instance() {
 		instance = new AudioManager();
 	}
 	return instance;
+}
+
+void AudioManager::Release()
+{
+	delete instance;
+	instance = nullptr;
 }
 
 
@@ -89,14 +96,6 @@ void AudioManager::PlayMusic(const std::string& id, int loops) {
 	}
 }
 
-void AudioManager::FreeCurrrentMusic()
-{
-	if (currentMusic) {
-		Mix_FreeMusic(currentMusic);
-		currentMusic = nullptr;
-	}
-}
-
 
 void AudioManager::PauseMusic()
 {
@@ -113,7 +112,6 @@ void AudioManager::StopMusic()
 	if (Mix_PlayingMusic()) {
 		Mix_HaltMusic();
 	}
-	FreeCurrentMusic();
 }
 
 /// <summary>

@@ -106,13 +106,14 @@ void OptionMenu::HandleEvents(const SDL_Event& event)
 	});
 	volumeButton->HandleEvent(event, [this]() {
 		std::cout << "Volume Button Clicked\n";
-
 		// update button textures baed on mute state
 		if (isMuted)
+		{
 			volumeButton->UpdateTextures("volON.png", "volON_hover.png");
-		else
+		}
+		else {
 			volumeButton->UpdateTextures("volOFF.png", "volOFF_hover.png");
-
+		}
 		// toggle mute/unmute
 		isMuted = !isMuted;
 		game->SetMute(isMuted);

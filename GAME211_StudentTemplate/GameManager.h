@@ -46,10 +46,13 @@ private:
 
 	DefineScenes sceneManager;
 
-	bool isMuted;
+
+	
+
+	bool isMuted = false;
 
 public:
-
+	AudioManager* audioManager;
 
 	GameManager();
 	~GameManager();
