@@ -72,7 +72,7 @@ void AudioManager::PlaySound(const std::string& id, int loop)
 }
 
 /// <summary>
-/// Player Music
+/// Play Music
 /// </summary>
 /// <param name="id"> id of Music </param>
 /// <param name="loops"> is Looping? -1 = Yes looping </param>
@@ -84,4 +84,34 @@ void AudioManager::PlayMusic(const std::string& id, int loops) {
 	else {
 		std::cerr << "Music ID not found: " << id << std::endl;
 	}
+}
+
+void AudioManager::PauseMusic()
+{
+	Mix_PauseMusic();
+}
+
+void AudioManager::ResumeMusic()
+{
+	Mix_ResumeMusic();
+}
+
+void AudioManager::StopMusic()
+{
+	Mix_HaltMusic();
+}
+
+/// <summary>
+/// Clear Music list
+/// </summary>
+void AudioManager::Clean() {
+	for (auto& audio : m_sounds) {
+		Mix_FreeChunk(audio.second);
+	}
+	m_sounds.clear();
+
+	for (auto& music : m_music) {
+		Mix_FreeMusic(music.second);
+	}
+	m_music.clear();
 }
