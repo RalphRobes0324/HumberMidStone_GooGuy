@@ -281,6 +281,13 @@ bool PlayerBody::HasCollidedTop(SDL_FRect rect)
     return false;
 }
 
+bool PlayerBody::HasCollidedBottom(SDL_FRect rect)
+{
+    return false;
+}
+
+
+
 void PlayerBody::animationSwitch(char _anim)
 {
     SDL_Renderer* renderer = game->getRenderer();
