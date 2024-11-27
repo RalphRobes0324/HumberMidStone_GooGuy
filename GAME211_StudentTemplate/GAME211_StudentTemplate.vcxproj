@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AudioManager.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Build.cpp" />
     <ClCompile Include="CopyBaseScene.cpp" />
@@ -63,6 +64,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AudioManager.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Build.h" />
     <ClInclude Include="CopyBaseScene.h" />
