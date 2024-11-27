@@ -9,6 +9,8 @@
 #include "DefineScenes.h"
 #include "Build.h"
 
+class AudioManager;
+
 
 
 class GameManager {

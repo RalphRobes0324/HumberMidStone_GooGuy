@@ -1,11 +1,14 @@
 #include "AudioManager.h"
 #include <iostream>
+AudioManager* AudioManager::instance = nullptr;
 
-AudioManager AudioManager::Instance()
-{
-	static AudioManager instance;
+AudioManager* AudioManager::Instance() {
+	if (instance == nullptr) {
+		instance = new AudioManager();
+	}
 	return instance;
 }
+
 
 AudioManager::AudioManager()
 {
@@ -77,14 +80,23 @@ void AudioManager::PlaySound(const std::string& id, int loop)
 /// <param name="id"> id of Music </param>
 /// <param name="loops"> is Looping? -1 = Yes looping </param>
 void AudioManager::PlayMusic(const std::string& id, int loops) {
-	auto it = m_music.find(id);
-	if (it != m_music.end()) {
-		Mix_PlayMusic(it->second, loops);
+	auto music = m_music.find(id);
+	if (music != m_music.end()) {
+		Mix_PlayMusic(music->second, loops);
 	}
 	else {
 		std::cerr << "Music ID not found: " << id << std::endl;
 	}
 }
+
+void AudioManager::FreeCurrrentMusic()
+{
+	if (currentMusic) {
+		Mix_FreeMusic(currentMusic);
+		currentMusic = nullptr;
+	}
+}
+
 
 void AudioManager::PauseMusic()
 {
@@ -98,7 +110,10 @@ void AudioManager::ResumeMusic()
 
 void AudioManager::StopMusic()
 {
-	Mix_HaltMusic();
+	if (Mix_PlayingMusic()) {
+		Mix_HaltMusic();
+	}
+	FreeCurrentMusic();
 }
 
 /// <summary>

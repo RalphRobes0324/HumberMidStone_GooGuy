@@ -28,6 +28,7 @@
 #include "LevelSelectMenu.h"
 #include "DeathMenu.h"
 #include "CopyBaseScene.h"
+#include "AudioManager.h"
 
 GameManager::GameManager() {
 	windowPtr = nullptr;
