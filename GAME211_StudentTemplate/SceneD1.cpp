@@ -132,6 +132,14 @@ void SceneD1::Update(const float deltaTime) {
 				quest.UpdateQuest(1); // Touching platform 1
 			}
 		}
+		if (game->getPlayer()->HasCollidedBottom(build) && !(game->getPlayer()->HasCollidedTop(build) || game->getPlayer()->HasCollidedSide(build))) {
+			//get the accel and vel of player and set the accel and vel to the current accel and vel other than y make it 0 to stop y motion when colliding
+			Vec3 currentAccel = game->getPlayer()->getAccel();
+			Vec3 currentVel = game->getPlayer()->getVel();
+			game->getPlayer()->setAccel(Vec3(currentAccel.x, -currentAccel.y, currentAccel.z));
+			game->getPlayer()->setVel(Vec3(currentVel.x, -currentVel.y, currentVel.z));
+			game->getPlayer()->isGrounded = true; //set isGrounded to true
+		}
 
 	}
 }
