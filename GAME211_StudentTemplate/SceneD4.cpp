@@ -10,6 +10,7 @@ SceneD4::SceneD4(SDL_Window* sdlWindow_, GameManager* game_) :
 	blueWall(13.5f, 12.0f, 1.0f, 9.0f, true, true, 2.0f, Vec4(0, 0, 255, 255), "greenhouse/v1_r.png"),
 	Outside(15.0f, 15.0f, 10.0f, 10.0f, Vec4(255, 255, 255, 255), "greenhouse/outside light.png"),
 	triggerEvent(-1.0f, 15, 1, 14, Vec4(255, 0, 255, 255)),
+	triggerEvent2(25.0f, 16, 1, 10, Vec4(255, 0, 255, 255)),
 	deathTriggerEvent(-20.f, -2.f, 100.f, 1.f, Vec4(255, 0, 255, 255)),
 	quest(SDL_GetRenderer(sdlWindow_)),
 	jumpText(SDL_GetRenderer(sdlWindow_), sdlWindow_),
@@ -95,6 +96,7 @@ void SceneD4::Update(const float deltaTime) {
 
 	//set distination
 	triggerEvent.OnTriggerEnter(game, DefineScenes::D3, DefineScenes::D4);
+	triggerEvent2.OnTriggerEnter(game, DefineScenes::WIN_MENU, DefineScenes::D4);
 	deathTriggerEvent.OnTriggerEnter(game);
 
 	//update the build
@@ -167,7 +169,6 @@ void SceneD4::Render() {
 	platform3.Render(renderer, game);
 	blueWall.Render(renderer, game);
 	Outside.Render(renderer, game);
-	triggerEvent.Render(renderer, game);
 
 	// render the player
 	game->RenderPlayer(0.10f);
