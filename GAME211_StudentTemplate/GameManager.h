@@ -8,6 +8,7 @@
 #include "PlayerBody.h"
 #include "DefineScenes.h"
 #include "Build.h"
+#include <string.h>
 
 class AudioManager;
 
@@ -93,5 +94,7 @@ public:
 
 	bool GetMute() const;
 	void SetMute(bool _isMuted);
+
+	void PlayerSFX(const std::string& audioName);
 };
 #endif

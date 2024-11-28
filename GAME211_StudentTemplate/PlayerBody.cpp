@@ -123,6 +123,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
         case(SDL_SCANCODE_SPACE):
             if (isGrounded)
             {
+                game->PlayerSFX("Jump");
                 if (animationName != 'J') {
                     animationName = 'J';
                     animationSwitch(animationName);
@@ -131,6 +132,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             }
             if ( wallTouchLeft)
             {
+                game->PlayerSFX("Jump");
                 if (animationName != 'J') {
                     animationName = 'J';
                     animationSwitch(animationName);
@@ -140,6 +142,7 @@ void PlayerBody::HandleEvents(const SDL_Event& event)
             }
             if (wallTouchRight)
             {
+                game->PlayerSFX("Jump");
                 if (animationName != 'J') {
                     animationName = 'J';
                     animationSwitch(animationName);

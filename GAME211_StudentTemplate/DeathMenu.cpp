@@ -58,6 +58,8 @@ bool DeathMenu::OnCreate() {
 
 	std::cout << "This is Death Menu\n";
 
+	game->PlayerSFX("Death");
+
 	return true;
 }
 

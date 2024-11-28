@@ -117,6 +117,8 @@ bool GameManager::OnCreate() {
     audioManager = AudioManager::Instance();
 
     //Load Sounds
+    audioManager->LoadSound("Jump", "Audio/SFX/GooGuySFX/goo_jump.wav");
+    audioManager->LoadSound("Death", "Audio/SFX/GooGuySFX/goo_death.wav");
 
     //Load Music
     audioManager->LoadMusic("BackgroundMusic", "Audio/Music/GooGuy.wav");
@@ -762,4 +764,9 @@ void GameManager::SetMute(bool _isMuted) {
         audioManager->ResumeMusic();
     }
 
+}
+
+void GameManager::PlayerSFX(const std::string& audioName)
+{
+    audioManager->PlaySound(audioName);
 }
