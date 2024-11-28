@@ -186,6 +186,12 @@
     <ClCompile Include="AudioManager.cpp">
       <Filter>Source Files\Managers</Filter>
     </ClCompile>
+    <ClCompile Include="WinMenu.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="BeginningScreen.cpp">
+      <Filter>Source Files\Scenes\Menus</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h">
@@ -319,6 +325,12 @@
     </ClInclude>
     <ClInclude Include="AudioManager.h">
       <Filter>Header Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="WinMenu.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="BeginningScreen.h">
+      <Filter>Header Files\Scenes\Menus</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

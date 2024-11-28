@@ -105,8 +105,9 @@ void MainMenu::HandleEvents(const SDL_Event& event)
 	
 	playButton->HandleEvent(event, [this](){ 
 		std::cout << "Play Button Clicked\n";
-		// swap to Scene1
-		game->SwitchScene(DefineScenes::A1);
+
+		// swap to BeginningScreen
+		game->SwitchScene(DefineScenes::BEGINNING_SCREEN);
 	});
 
 	levelSelectButton->HandleEvent(event, [this](){ 
