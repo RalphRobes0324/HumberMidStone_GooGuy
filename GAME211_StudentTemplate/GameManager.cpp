@@ -640,7 +640,7 @@ void GameManager::handleEvents()
                 currentScene = new WinMenu(windowPtr->GetSDL_Window(), this);
             }
             else if (sceneManager.GetCurrentScene() == DefineScenes::BEGINNING_SCREEN) {
-                currentScene = new WinMenu(windowPtr->GetSDL_Window(), this);
+                currentScene = new BeginningScreen(windowPtr->GetSDL_Window(), this);
             }
 
 

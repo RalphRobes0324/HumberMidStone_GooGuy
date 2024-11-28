@@ -54,7 +54,7 @@ bool WinMenu::OnCreate() {
 
 	youWinRect = { w / 2 - 500 / 2, 50, 500, 200 };
 
-	game->GetSceneManager().SetCurrentScene(DefineScenes::DEATH_MENU);
+	game->GetSceneManager().SetCurrentScene(DefineScenes::WIN_MENU);
 
 	std::cout << "This is Death Menu\n";
 
