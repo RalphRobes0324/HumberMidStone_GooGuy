@@ -763,3 +763,8 @@ void GameManager::SetMute(bool _isMuted) {
     }
 
 }
+
+void GameManager::PlayerSFX(const std::string& audioName)
+{
+    audioManager->PlaySound(audioName);
+}
