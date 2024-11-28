@@ -68,6 +68,7 @@ public:
     bool HasCollidedWith(SDL_FRect rect); // added for calculating collision (Maya)
     bool HasCollidedSide(SDL_FRect rect);
     bool HasCollidedTop(SDL_FRect rect);
+    bool HasCollidedBottom(SDL_FRect rect);
     void animationSwitch(char _anim);
     
 };

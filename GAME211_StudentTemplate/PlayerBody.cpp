@@ -274,12 +274,42 @@ bool PlayerBody::HasCollidedTop(SDL_FRect rect)
     // Determine the smallest overlap (side or top/bottom)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
-    // If horizontal overlap is smaller, it's a top collision
+
+    
+    // If horizontal overlap is larger, it's a top collision
     if (minVerticalOverlap > 0.75) {
         return true;  // top collision occurred
     }
     return false;
 }
+
+bool PlayerBody::HasCollidedBottom(SDL_FRect rect)
+{
+    // First, check if there is a general collision
+    if (!HasCollidedWith(rect)) {
+        return false;
+    }
+
+    // Calculate overlaps on all sides
+    float overlapRight = (rect.x + rect.w) - (pos.x - radius);  // Overlap on left side
+    float overlapLeft = (pos.x + radius) - rect.x;  // Overlap on right side
+    float overlapTop = (rect.y + rect.h) - (pos.y - radius);  // Overlap on top side
+    float overlapBottom = (pos.y + radius) - rect.y;  // Overlap on bottom side
+
+    // Determine the smallest overlap (side or top/bottom)
+    float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
+    float minVerticalOverlap = std::min(overlapTop, overlapBottom);
+
+    std::cout << minVerticalOverlap << std::endl;
+    // If horizontal overlap is smaller than 0.75, it's a bottom collision
+    if (minVerticalOverlap < 0.5) {
+        std::cout << minVerticalOverlap << std::endl;
+        return true;  // top collision occurred
+    }
+    return false;
+}
+
+
 
 void PlayerBody::animationSwitch(char _anim)
 {
