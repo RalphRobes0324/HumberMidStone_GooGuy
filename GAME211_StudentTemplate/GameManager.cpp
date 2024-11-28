@@ -118,6 +118,7 @@ bool GameManager::OnCreate() {
 
     //Load Sounds
     audioManager->LoadSound("Jump", "Audio/SFX/GooGuySFX/goo_jump.wav");
+    audioManager->LoadSound("Death", "Audio/SFX/GooGuySFX/goo_death.wav");
 
     //Load Music
     audioManager->LoadMusic("BackgroundMusic", "Audio/Music/GooGuy.wav");
