@@ -119,6 +119,8 @@ bool GameManager::OnCreate() {
     //Load Sounds
     audioManager->LoadSound("Jump", "Audio/SFX/GooGuySFX/goo_jump.wav");
     audioManager->LoadSound("Death", "Audio/SFX/GooGuySFX/goo_death.wav");
+    audioManager->LoadSound("Trap", "Audio/SFX/VenusTrapSFX/venusflytrap_close.wav");
+    audioManager->LoadSound("Fan", "Audio/SFX/VentSFX/fan.wav");
 
     //Load Music
     audioManager->LoadMusic("BackgroundMusic", "Audio/Music/GooGuy.wav");

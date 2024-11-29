@@ -224,12 +224,15 @@ void Build::OnTriggerStay(float DeltaTime, GameManager* game, SDL_Renderer* rend
 
 		//If Player fails to get out, trap player
 		if (stateTimer <= 0) {
+			if(!trapTriggered)
+				game->PlayerSFX("Trap");
+
 			build.UpdateTexture(renderer, "greenhouse/closed.png"); //Change Sprite
 			trapTriggered = true;
-
 			//Wait for Sprite change to be finish
 			endStateTimer -= DeltaTime;
 			if (endStateTimer <= 0) {
+				
 				//Reset State Timers and Move Player to Lose Screen
 				stateTimer = 1.5f;
 				endStateTimer = 1.f;
