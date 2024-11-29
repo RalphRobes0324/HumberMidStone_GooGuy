@@ -303,10 +303,8 @@ bool PlayerBody::HasCollidedBottom(SDL_FRect rect)
     float minHorizontalOverlap = std::min(overlapLeft, overlapRight);
     float minVerticalOverlap = std::min(overlapTop, overlapBottom);
 
-    std::cout << minVerticalOverlap << std::endl;
     // If horizontal overlap is smaller than 0.75, it's a bottom collision
     if (minVerticalOverlap < 0.5) {
-        std::cout << minVerticalOverlap << std::endl;
         return true;  // top collision occurred
     }
     return false;
@@ -321,7 +319,6 @@ void PlayerBody::animationSwitch(char _anim)
     SDL_DestroyTexture(texture);
     image = nullptr;
     texture = NULL;
-    std::cout << "animation switch" << std::endl;
 
     switch (_anim) {
     case 'I':
