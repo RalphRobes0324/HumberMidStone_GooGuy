@@ -48,7 +48,7 @@ bool BeginningScreen::OnCreate() {
 
 	game->GetSceneManager().SetCurrentScene(DefineScenes::BEGINNING_SCREEN);
 
-	std::cout << "This is Death Menu\n";
+	std::cout << "This is Beginning Screen\n";
 
 	return true;
 }
