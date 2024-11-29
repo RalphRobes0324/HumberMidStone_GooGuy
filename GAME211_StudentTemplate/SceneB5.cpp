@@ -155,6 +155,7 @@ void SceneB5::Update(const float deltaTime) {
 	float distance = std::sqrt(std::pow(playerPos.x - fanPos.x, 2) + std::pow(playerPos.y - fanPos.y, 2));
 
 	if (distance < fan1.GetEffectiveRange()) {
+		game->PlayerSFX("Fan");
 		Vec3 fanDirection = Vec3(0.0f, -1.0f, 0.0f); // push player down
 		float fanPower = fan1.GetFanPower();
 
