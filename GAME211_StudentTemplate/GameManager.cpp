@@ -743,12 +743,12 @@ void GameManager::LoadScene( int i )
 
 bool GameManager::ValidateCurrentScene()
 {
-    if (currentScene == nullptr) {
+    if (currentScene == nullptr) 
         return false;
-    }
-    if (currentScene->OnCreate() == false) {
+    
+    if (currentScene->OnCreate() == false) 
         return false;
-    }
+    
     return true;
 }
 
@@ -759,16 +759,19 @@ bool GameManager::GetMute() const {
 void GameManager::SetMute(bool _isMuted) {
     isMuted = _isMuted;
 
-    if (isMuted) {
+    if (isMuted) 
         audioManager->PauseMusic();
-    }
-    else {
+    
+    else 
         audioManager->ResumeMusic();
-    }
+    
 
 }
 
 void GameManager::PlayerSFX(const std::string& audioName)
 {
-    audioManager->PlaySound(audioName);
+    if (!isMuted)
+        audioManager->PlaySound(audioName);
+
+
 }
