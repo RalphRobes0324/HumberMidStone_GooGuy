@@ -242,7 +242,7 @@ void SceneD5::HandleEvents(const SDL_Event& event)
 	if (!venusTrapTrigger.trapTriggered) 
 		game->getPlayer()->HandleEvents(event);
 
-	game->SceneSwitching(event, DefineScenes::D);
+	//game->SceneSwitching(event, DefineScenes::D);
 }
 
 bool SceneD5::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)

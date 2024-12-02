@@ -195,7 +195,7 @@ void SceneA6::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
-	game->SceneSwitching(event, DefineScenes::A);
+	//game->SceneSwitching(event, DefineScenes::A);
 }
 
 bool SceneA6::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)

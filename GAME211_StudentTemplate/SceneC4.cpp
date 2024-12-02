@@ -230,7 +230,7 @@ void SceneC4::HandleEvents(const SDL_Event& event)
 {
 	// send events to player as needed
 	game->getPlayer()->HandleEvents(event);
-	game->SceneSwitching(event, DefineScenes::C);
+	//game->SceneSwitching(event, DefineScenes::C);
 }
 
 bool SceneC4::RectsAreEqual(const SDL_FRect& rect1, const SDL_FRect& rect2)
